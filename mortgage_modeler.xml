@@ -1,0 +1,1125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://modeler.netgrif.com/petriflow_schema.xsd">
+	<id>mortgage_simple</id>
+	<version>1.0.0</version>
+	<initials>MOR</initials>
+	<title>Mortgage</title>
+	<icon>home_work</icon>
+	<!-- TRANSACTIONS -->
+	<!-- ROLES -->
+	<role>
+		<id>client</id>
+		<title>Client</title>
+	</role>
+	<role>
+		<id>loan_officer</id>
+		<title>Loan Officer</title>
+	</role>
+	<role>
+		<id>property_appraiser</id>
+		<title>Property Appraiser</title>
+	</role>
+	<role>
+		<id>account_clerk</id>
+		<title>Account Clerk</title>
+	</role>
+	<!-- PROCESS ROLE REFS -->
+	<!-- PROCESS USER REFS -->
+	<!-- DATA -->
+	<data type="text">
+		<id>first_name</id>
+		<title>Name</title>
+		<placeholder>Your name</placeholder>
+		<desc>Your first name</desc>
+	</data>
+	<data type="text">
+		<id>surname</id>
+		<title>Surname</title>
+		<placeholder>Your surname</placeholder>
+		<desc>Your second name</desc>
+	</data>
+	<data type="date">
+		<id>date_of_birth</id>
+		<title>Date of Birth</title>
+	</data>
+	<data type="number">
+		<id>income</id>
+		<title>Monthly Income in EUR</title>
+		<desc>Your average monthly income</desc>
+		<valid>inrange 300,100000</valid>
+	</data>
+	<data type="number">
+		<id>loan_amount</id>
+		<title>Loan amount in EUR</title>
+		<valid>inrange 10000,1000000</valid>
+		<init>100000</init>
+		<action trigger="set">
+			calc: f.calc;
+			change calc value {
+				return !calc.value;
+			}
+		</action>
+	</data>
+	<data type="number">
+		<id>period</id>
+		<title>Repayment period in years </title>
+		<valid>inrange 1,30</valid>
+		<init>30</init>
+		<action trigger="set">
+			calc: f.calc;
+			change calc about {
+				return !calc.value;
+			}
+		</action>
+	</data>
+	<data type="number">
+		<id>monthly_payment</id>
+		<title>Monthly payment in EUR</title>
+		<init>444.44</init>
+	</data>
+	<data type="boolean">
+		<id>calc</id>
+		<title></title>
+		<desc>Recalculate the monthly payment</desc>
+		<action trigger="set">
+			loan: f.loan_amount,
+			period: f.period,
+			monthly: f.monthly_payment;
+			change monthly value {
+				return (loan.value+loan.value*0.02*period.value)/(period.value*12);
+			}
+		</action>
+	</data>
+	<data type="text">
+		<id>account_number</id>
+		<title>Account number</title>
+		<desc>Please enter your account number</desc>
+	</data>
+	<data type="text">
+		<id>street</id>
+		<title>Street</title>
+	</data>
+	<data type="text">
+		<id>streetnumber</id>
+		<title>Street Number</title>
+	</data>
+	<data type="text">
+		<id>postal</id>
+		<title>Postal code</title>
+	</data>
+	<data type="enumeration">
+		<id>city</id>
+		<title>City</title>
+	</data>
+	<data type="enumeration">
+		<id>type</id>
+		<title>Property</title>
+		<values>House</values>
+		<values>Flat</values>
+		<values>Apartment</values>
+		<values>Cottage</values>
+		<init>House</init>
+	</data>
+	<data type="text">
+		<id>status</id>
+		<title>Status</title>
+	</data>
+	<data type="file">
+		<id>appraisal</id>
+		<title>Appraisal report</title>
+	</data>
+	<data type="number">
+		<id>appraised_value</id>
+		<title>Appraised value</title>
+		<valid>positive</valid>
+	</data>
+	<data type="text">
+		<id>sign</id>
+		<title>Signing instruction</title>
+		<values>area</values>
+		<init>Please sign the mortgage by pressing finish button</init>
+	</data>
+	<data type="text">
+		<id>confirm</id>
+		<title>Lien inscription confirmation</title>
+		<values>area</values>
+		<init>Please confirm the lien inscription</init>
+	</data>
+	<data type="text">
+		<id>delete_instruction</id>
+		<title>Delete instruction</title>
+		<values>area</values>
+		<init>In order to delete press finish button</init>
+	</data>
+	<data type="enumeration">
+		<id>insurance</id>
+		<title>Insurance</title>
+		<values>Union</values>
+		<values>Allianz</values>
+		<values>Uniqua</values>
+		<values>Premium IC</values>
+		<values>Kooperativa</values>
+		<init>Union</init>
+	</data>
+	<!-- I18NS -->
+	<!-- TRANSITIONS -->
+	<transition>
+		<id>1</id>
+		<x>140</x>
+		<y>140</y>
+		<layout>
+			<offset>0</offset>
+		</layout>
+		<label>Apply for mortgage / Client</label>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>client</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>1</id>
+			<title>Personal information</title>
+			<dataRef>
+				<id>first_name</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>surname</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>date_of_birth</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<dataGroup>
+			<id>2</id>
+			<title>Address and type of mortgage</title>
+			<dataRef>
+				<id>street</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>streetnumber</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>postal</id>
+				<logic>
+					<behavior>editable</behavior>
+					<action trigger="set">
+						field: f.this,
+						city: f.city;
+						change city choices {
+							def postals = psc byCode,field.value;
+							return postals.collect({it.city}).unique();
+						}
+					</action>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>city</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>type</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<dataGroup>
+			<id>Finance data</id>
+			<title>Financial data</title>
+			<dataRef>
+				<id>income</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>loan_amount</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>period</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>monthly_payment</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<event type="finish">
+			<id></id>
+			<actions phase="pre">
+				<action>
+				decision: f.status;
+				change decision value {
+					return "Mortgage Applied";
+				}
+			</action>
+			</actions>
+		</event>
+	</transition>
+	<transition>
+		<id>9</id>
+		<x>380</x>
+		<y>140</y>
+		<layout>
+			<offset>0</offset>
+		</layout>
+		<label>Approve / Loan Officer</label>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>loan_officer</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<event type="finish">
+			<id></id>
+			<actions phase="pre">
+				<action>
+				decision: f.status;
+				change decision value {
+					return "Mortgage Pre-approved";
+				}
+			</action>
+			</actions>
+		</event>
+	</transition>
+	<transition>
+		<id>14</id>
+		<x>420</x>
+		<y>300</y>
+		<layout>
+			<offset>0</offset>
+		</layout>
+		<label>Reject / Loan officer</label>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>loan_officer</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<event type="finish">
+			<id></id>
+			<actions phase="pre">
+				<action>
+				decision: f.status;
+				change decision value {
+					return "Mortgage Rejected";
+				}
+			</action>
+			</actions>
+		</event>
+	</transition>
+	<transition>
+		<id>39</id>
+		<x>620</x>
+		<y>140</y>
+		<layout>
+			<offset>0</offset>
+		</layout>
+		<label>Appraisal report / Property appraiser</label>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>property_appraiser</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>DataGroup_0</id>
+			<layout>grid</layout>
+			<dataRef>
+				<id>appraised_value</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>appraisal</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<event type="finish">
+			<id></id>
+			<actions phase="post">
+				<action>
+				asked: f.loan_amount,
+				valued: f.appraised_value,
+				decision: f.status;
+				if (valued.value &gt;= asked.value) {
+					change decision value {
+						return "Mortgage Accepted";
+					}
+					async.run {
+						assignTask("ok");
+						finishTask("ok");
+					}
+				}
+				else {
+					change decision value {
+						return "Mortgage Rejected";
+					}
+					async.run {
+						assignTask("ko");
+						finishTask("ko");
+					}
+				}
+			</action>
+			</actions>
+		</event>
+	</transition>
+	<transition>
+		<id>53</id>
+		<x>380</x>
+		<y>60</y>
+		<layout>
+			<offset>0</offset>
+		</layout>
+		<label>Case info / Loan officer</label>
+		<roleRef>
+			<id>loan_officer</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>DataGroup_0</id>
+			<layout>grid</layout>
+			<dataRef>
+				<id>status</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<dataGroup>
+			<id>1</id>
+			<title>Personal information</title>
+			<dataRef>
+				<id>first_name</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>surname</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>date_of_birth</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<dataGroup>
+			<id>2</id>
+			<title>Address and type of mortgage</title>
+			<dataRef>
+				<id>street</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>streetnumber</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>postal</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>city</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>type</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<dataGroup>
+			<id>Finance data</id>
+			<title>Financial data</title>
+			<dataRef>
+				<id>income</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>loan_amount</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>period</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>monthly_payment</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+	</transition>
+	<transition>
+		<id>59</id>
+		<x>1220</x>
+		<y>60</y>
+		<layout>
+			<offset>0</offset>
+		</layout>
+		<label>Confirm lien inscription / Loan officer</label>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>loan_officer</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>DataGroup_0</id>
+			<layout>grid</layout>
+			<dataRef>
+				<id>confirm</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<event type="finish">
+			<id></id>
+			<actions phase="pre">
+				<action>
+				decision: f.status;
+				change decision value {
+					return decision.value + " and Inscription Confirmed";
+				}
+			</action>
+			</actions>
+		</event>
+	</transition>
+	<transition>
+		<id>61</id>
+		<x>980</x>
+		<y>140</y>
+		<layout>
+			<offset>0</offset>
+		</layout>
+		<label>Sign loan contract / Client</label>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>client</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>DataGroup_0</id>
+			<layout>grid</layout>
+			<dataRef>
+				<id>account_number</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>sign</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<event type="finish">
+			<id></id>
+			<actions phase="pre">
+				<action>
+				decision: f.status;
+				change decision value {
+					return "Mortgage signed";
+				}
+			</action>
+			</actions>
+		</event>
+	</transition>
+	<transition>
+		<id>72</id>
+		<x>1220</x>
+		<y>220</y>
+		<layout>
+			<offset>0</offset>
+		</layout>
+		<label>Sign insurance contract / Client</label>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>client</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>DataGroup_0</id>
+			<layout>grid</layout>
+			<dataRef>
+				<id>insurance</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<event type="finish">
+			<id></id>
+			<actions phase="pre">
+				<action>
+				decision: f.status,
+				insurance: f.insurance;
+				change decision value {
+					return decision.value + " and Insurance Signed in " + insurance.value;
+				}
+			</action>
+			</actions>
+		</event>
+	</transition>
+	<transition>
+		<id>78</id>
+		<x>1460</x>
+		<y>140</y>
+		<layout>
+			<offset>0</offset>
+		</layout>
+		<label>Send money / Account clerk</label>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>account_clerk</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>DataGroup_0</id>
+			<layout>grid</layout>
+			<dataRef>
+				<id>account_number</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>loan_amount</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<event type="finish">
+			<id></id>
+			<actions phase="pre">
+				<action>
+				decision: f.status;
+				change decision value {
+					return decision.value + " and Money sent";
+				}
+			</action>
+			</actions>
+		</event>
+	</transition>
+	<transition>
+		<id>155</id>
+		<x>460</x>
+		<y>460</y>
+		<layout>
+			<offset>0</offset>
+		</layout>
+		<label>Status / Client</label>
+		<roleRef>
+			<id>client</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>DataGroup_0</id>
+			<layout>grid</layout>
+			<dataRef>
+				<id>status</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<dataGroup>
+			<id>1</id>
+			<title>Personal information</title>
+			<dataRef>
+				<id>first_name</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>surname</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>date_of_birth</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<dataGroup>
+			<id>2</id>
+			<title>Address and type of mortgage</title>
+			<dataRef>
+				<id>street</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>streetnumber</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>postal</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>city</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>type</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<dataGroup>
+			<id>Finance data</id>
+			<title>Financial data</title>
+			<dataRef>
+				<id>income</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>loan_amount</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>period</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+			<dataRef>
+				<id>monthly_payment</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+	</transition>
+	<transition>
+		<id>263</id>
+		<x>940</x>
+		<y>380</y>
+		<layout>
+			<offset>0</offset>
+		</layout>
+		<label>Delete / Client</label>
+		<dataGroup>
+			<id>DataGroup_0</id>
+			<layout>grid</layout>
+			<dataRef>
+				<id>delete_instruction</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+			</dataRef>
+		</dataGroup>
+		<event type="finish">
+			<id></id>
+			<actions phase="pre">
+				<action>
+				decision: f.status;
+				change decision value {
+					return "Application deleted by client";
+				}
+			</action>
+			</actions>
+		</event>
+	</transition>
+	<transition>
+		<id>ok</id>
+		<x>780</x>
+		<y>140</y>
+		<layout>
+			<offset>0</offset>
+		</layout>
+		<label>Approve</label>
+	</transition>
+	<transition>
+		<id>ko</id>
+		<x>780</x>
+		<y>220</y>
+		<layout>
+			<offset>0</offset>
+		</layout>
+		<label>Reject</label>
+	</transition>
+	<!-- PLACES -->
+	<place>
+		<id>2</id>
+		<x>20</x>
+		<y>140</y>
+		<label>p1</label>
+		<tokens>1</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>11</id>
+		<x>260</x>
+		<y>140</y>
+		<label>p2</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>16</id>
+		<x>860</x>
+		<y>300</y>
+		<label>p3</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>20</id>
+		<x>460</x>
+		<y>140</y>
+		<label>p4</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>41</id>
+		<x>860</x>
+		<y>140</y>
+		<label>p5</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>67</id>
+		<x>1060</x>
+		<y>60</y>
+		<label>p6</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>70</id>
+		<x>1060</x>
+		<y>220</y>
+		<label>p7</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>74</id>
+		<x>1380</x>
+		<y>60</y>
+		<label>p8</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>75</id>
+		<x>1380</x>
+		<y>220</y>
+		<label>p9</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>156</id>
+		<x>380</x>
+		<y>380</y>
+		<label>p10</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>204</id>
+		<x>260</x>
+		<y>60</y>
+		<label>p11</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>290</id>
+		<x>700</x>
+		<y>140</y>
+		<label></label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<!-- ARCS -->
+	<arc>
+		<id>3</id>
+		<type>regular</type>
+		<sourceId>2</sourceId>
+		<destinationId>1</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>12</id>
+		<type>regular</type>
+		<sourceId>1</sourceId>
+		<destinationId>11</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>13</id>
+		<type>regular</type>
+		<sourceId>11</sourceId>
+		<destinationId>9</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>15</id>
+		<type>regular</type>
+		<sourceId>11</sourceId>
+		<destinationId>14</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>17</id>
+		<type>regular</type>
+		<sourceId>14</sourceId>
+		<destinationId>16</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>21</id>
+		<type>regular</type>
+		<sourceId>9</sourceId>
+		<destinationId>20</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>65</id>
+		<type>regular</type>
+		<sourceId>41</sourceId>
+		<destinationId>61</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>68</id>
+		<type>regular</type>
+		<sourceId>61</sourceId>
+		<destinationId>67</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>69</id>
+		<type>regular</type>
+		<sourceId>67</sourceId>
+		<destinationId>59</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>71</id>
+		<type>regular</type>
+		<sourceId>61</sourceId>
+		<destinationId>70</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>73</id>
+		<type>regular</type>
+		<sourceId>70</sourceId>
+		<destinationId>72</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>76</id>
+		<type>regular</type>
+		<sourceId>59</sourceId>
+		<destinationId>74</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>77</id>
+		<type>regular</type>
+		<sourceId>72</sourceId>
+		<destinationId>75</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>79</id>
+		<type>regular</type>
+		<sourceId>74</sourceId>
+		<destinationId>78</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>80</id>
+		<type>regular</type>
+		<sourceId>75</sourceId>
+		<destinationId>78</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>157</id>
+		<type>regular</type>
+		<sourceId>1</sourceId>
+		<destinationId>156</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>158</id>
+		<type>read</type>
+		<sourceId>156</sourceId>
+		<destinationId>155</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>203</id>
+		<type>regular</type>
+		<sourceId>20</sourceId>
+		<destinationId>39</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>205</id>
+		<type>regular</type>
+		<sourceId>1</sourceId>
+		<destinationId>204</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>206</id>
+		<type>read</type>
+		<sourceId>204</sourceId>
+		<destinationId>53</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>265</id>
+		<type>regular</type>
+		<sourceId>156</sourceId>
+		<destinationId>263</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>266</id>
+		<type>regular</type>
+		<sourceId>16</sourceId>
+		<destinationId>263</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>292</id>
+		<type>regular</type>
+		<sourceId>39</sourceId>
+		<destinationId>290</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>293</id>
+		<type>regular</type>
+		<sourceId>290</sourceId>
+		<destinationId>ok</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>294</id>
+		<type>regular</type>
+		<sourceId>ok</sourceId>
+		<destinationId>41</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>297</id>
+		<type>regular</type>
+		<sourceId>ko</sourceId>
+		<destinationId>16</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>298</id>
+		<type>regular</type>
+		<sourceId>290</sourceId>
+		<destinationId>ko</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+</document>
