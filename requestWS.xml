@@ -109,6 +109,12 @@
 		</dataGroup>
 		<event type="assign">
 			<id>t1_assign</id>
+			<actions phase="pre">
+				<action id="1002">text_2: f.text_2,
+text_1: f.text_1,
+text_0: f.text_0;
+randomPerson(text_0,text_1,text_2)</action>
+			</actions>
 		</event>
 		<event type="finish">
 			<id>t1_finish</id>
