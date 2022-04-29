@@ -2,7 +2,7 @@
 	<id>mobile</id>
 	<initials>MBL</initials>
 	<title>New Mobile</title>
-	<icon>telephone</icon>
+	<icon>call</icon>
 	<defaultRole>true</defaultRole>
 	<anonymousRole>true</anonymousRole>
 	<transitionRole>false</transitionRole>
