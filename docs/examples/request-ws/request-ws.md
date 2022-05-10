@@ -1,6 +1,6 @@
 # Generic Request Application with custom Web Services
 
-<iframe width="640" height="480" src="https://www.youtube.com/embed/o7kzoEu6VPM" title="YouTube video player"
+<iframe width="700" height="800" src="https://www.youtube.com/embed/o7kzoEu6VPM" title="YouTube video player"
 frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 allowfullscreen></iframe>
 
