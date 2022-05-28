@@ -9,3 +9,4 @@
     * [Generate PDF](examples/generate-pdf/generate-pdf.md)
     * [Import CSV](examples/csv-import/csv-import.md)
     * [Export CSV](examples/csv-export/csv-export.md)
+    * [Wordpress](examples/wordpress/wordpress.md)
