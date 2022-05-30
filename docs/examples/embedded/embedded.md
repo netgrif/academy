@@ -16,8 +16,11 @@ In this use case anonymous role was used for embedded application functionality 
 <iframe style="height: 1150px;" title="Request demo" src="https://demo.netgrif.com/process/6292090212a4c2585540300a_survey"></iframe>
 
 <h3>Video of working with the application:</h3>
-<iframe style="height:450px" src="https://www.youtube.com/embed/WBY5ZhPvyGI" title="YouTube video player" frameborder="0" allow="accelerometer;
+<iframe style="height:450px" src="https://www.youtube.com/embed/K4koGOg7Dpo" title="YouTube video player" frameborder="0" allow="accelerometer;
 autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+The application was created in under 30 minutes, without deeper knowledge of any pro-code language. It contains the generation of the pdf file, the creation of complex data forms, and multiple short scripts that were
+just drag'n'droped (containing postal code web service). The whole application can be easily embedded in the external web.
 
 [comment]: <> (<h3>Detail of platfrom architecture:</h3>)
 
@@ -27,7 +30,7 @@ autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allow
 
 [comment]: <> (<img style="width:600px; " src="examples/wordpress/2.png"/>)
 
-Wordpress generic request application is runnable in [Demo](https://demo.netgrif.com/) or in your own instance of Netgrif Application Engine.
+Embedded survey application is runnable in [Demo](https://demo.netgrif.com/) or in your own instance of Netgrif Application Engine.
 To find out how to install NAE CE both locally or on the server follow [this tutorial](tutorials/nae-ce-starter.md).
 
 <a href="https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/embedded/survey.xml" target="_blank">Click here to launch the process in Builder</a>

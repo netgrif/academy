@@ -1,4 +1,3 @@
-* [Introduction](/)
 * [Tutorials](tutorials/tutorials.md)
     * [NAE CE Starter](tutorials/nae-ce-starter.md)
 * [Examples](examples/examples.md)
