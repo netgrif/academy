@@ -1,0 +1,956 @@
+<document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://petriflow.com/petriflow.schema.xsd">
+	<id>survey</id>
+	<initials>SRV</initials>
+	<title>Survey</title>
+	<icon>list</icon>
+	<defaultRole>true</defaultRole>
+	<anonymousRole>true</anonymousRole>
+	<transitionRole>false</transitionRole>
+	<caseName>New survey</caseName>
+	<role>
+		<id>system</id>
+		<title>System</title>
+	</role>
+	<role>
+		<id>admin</id>
+		<title>Admin</title>
+	</role>
+	<data type="text">
+		<id>text_0</id>
+		<title>Name</title>
+	</data>
+	<data type="text" immediate="true">
+		<id>text_1</id>
+		<title>Surname</title>
+	</data>
+	<data type="text" immediate="true">
+		<id>text_2</id>
+		<title>Email</title>
+		<validations>
+			<validation>
+				<expression>regex (?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])</expression>
+			</validation>
+		</validations>
+	</data>
+	<data type="date">
+		<id>date_0</id>
+		<title>Birth date</title>
+		<init>2022-05-30T14:01:26.914Z</init>
+	</data>
+	<data type="text">
+		<id>text_3</id>
+		<title>Phone number</title>
+		<validations>
+			<validation>
+				<expression>regex \+(9[976]\d|8[987530]\d|6[987]\d|5[90]\d|42\d|3[875]\d| 2[98654321]\d|9[8543210]|8[6421]|6[6543210]|5[87654321]| 4[987654310]|3[9643210]|2[70]|7|1)\d{1,14}$</expression>
+				<message>Use international phone number format.</message>
+			</validation>
+		</validations>
+	</data>
+	<data type="text">
+		<id>text_4</id>
+		<title>Street number</title>
+	</data>
+	<data type="text">
+		<id>text_5</id>
+		<title>Street</title>
+	</data>
+	<data type="text" immediate="true">
+		<id>text_6</id>
+		<title>Postal code</title>
+		<event type="set">
+			<id>text_6_set</id>
+			<actions phase="post">
+				<action id="6">enumeration_0: f.enumeration_0,
+text_6: f.text_6;
+
+change enumeration_0 choices {
+    def postals = psc byCode,text_6.value;
+    return postals.collect({it.city}).unique();
+}</action>
+			</actions>
+		</event>
+	</data>
+	<data type="enumeration">
+		<id>enumeration_0</id>
+		<title>City</title>
+	</data>
+	<data type="taskRef">
+		<id>taskRef_0</id>
+		<title/>
+		<init>t1</init>
+	</data>
+	<data type="taskRef">
+		<id>taskRef_1</id>
+		<title/>
+		<init>t2</init>
+	</data>
+	<data type="text">
+		<id>separator</id>
+		<title/>
+	</data>
+	<data type="text">
+		<id>text_8</id>
+		<title/>
+	</data>
+	<data type="text">
+		<id>text_9</id>
+		<title>Queston 1</title>
+		<init>Have you ever heard about low-code or no-code?</init>
+	</data>
+	<data type="text">
+		<id>text_10</id>
+		<title>Question 2</title>
+		<placeholder>Are you familiar with BPM or workflow management systems?</placeholder>
+		<init>Are you familiar with BPM or workflow management systems?</init>
+	</data>
+	<data type="text">
+		<id>text_11</id>
+		<title>Question 3</title>
+	</data>
+	<data type="text">
+		<id>text_12</id>
+		<title>Question 3</title>
+		<placeholder>Have you ever worked with micro frontends or iframes?</placeholder>
+		<init>Have you ever worked with micro frontends or iframes?</init>
+	</data>
+	<data type="text">
+		<id>text_13</id>
+		<title>Question 4</title>
+		<init>Would you be interested in creating rich functionality applications without using typical pro-code languages and architectures?</init>
+	</data>
+	<data type="enumeration" immediate="true">
+		<id>enumeration_1</id>
+		<title>Answer 1</title>
+		<options>
+			<option key="Yes">Yes</option>
+			<option key="No">No</option>
+		</options>
+	</data>
+	<data type="enumeration" immediate="true">
+		<id>enumeration_2</id>
+		<title>Answer 2</title>
+		<options>
+			<option key="Yes">Yes</option>
+			<option key="No">No</option>
+		</options>
+	</data>
+	<data type="enumeration" immediate="true">
+		<id>enumeration_3</id>
+		<title>Answer 3</title>
+		<options>
+			<option key="Yes">Yes</option>
+			<option key="No">No</option>
+		</options>
+	</data>
+	<data type="enumeration" immediate="true">
+		<id>enumeration_4</id>
+		<title>Answer 4</title>
+		<options>
+			<option key="Yes">Yes</option>
+			<option key="No">No</option>
+			<option key="Other">Other</option>
+		</options>
+		<event type="set">
+			<id>enumeration_4_set</id>
+			<actions phase="post">
+				<action id="7">t8: t.t8,
+t4: t.t4,
+enumeration_4: f.enumeration_4,
+text_14: f.text_14;
+
+make text_14, editable on t4 when { enumeration_4.value == "Other" }
+make text_14, required on t4 when { enumeration_4.value == "Other" }
+
+make text_14, editable on t8 when { enumeration_4.value == "Other" }
+make text_14, required on t8 when { enumeration_4.value == "Other" }</action>
+			</actions>
+		</event>
+	</data>
+	<data type="text">
+		<id>text_14</id>
+		<title>Answer 4 - Other</title>
+		<component>
+			<name>textarea</name>
+		</component>
+	</data>
+	<data type="taskRef">
+		<id>taskRef_2</id>
+		<title/>
+		<init>t4</init>
+	</data>
+	<data type="text">
+		<id>text_15</id>
+		<title/>
+	</data>
+	<data type="file">
+		<id>file_0</id>
+		<title>Generated PDF</title>
+	</data>
+	<data type="taskRef">
+		<id>taskRef_3</id>
+		<title/>
+		<init>t5</init>
+	</data>
+	<data type="text">
+		<id>text_16</id>
+		<title/>
+		<init>Personal data</init>
+	</data>
+	<data type="text">
+		<id>text_17</id>
+		<title/>
+		<init>Address</init>
+	</data>
+	<transition>
+		<id>t1</id>
+		<x>460</x>
+		<y>100</y>
+		<label>Personal form</label>
+		<icon>person</icon>
+		<roleRef>
+			<id>system</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t1_0</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>text_0</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>text_1</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>2</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>text_2</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>date_0</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>text_3</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>2</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t1_assign</id>
+		</event>
+		<event type="finish">
+			<id>t1_finish</id>
+		</event>
+		<event type="cancel">
+			<id>t1_cancel</id>
+		</event>
+		<event type="delegate">
+			<id>t1_delegate</id>
+		</event>
+	</transition>
+	<transition>
+		<id>t2</id>
+		<x>580</x>
+		<y>100</y>
+		<label>Address form</label>
+		<icon>home</icon>
+		<roleRef>
+			<id>system</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t2_0</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>text_4</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>text_5</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>2</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>text_6</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<event type="set">
+					<id>text_6_set</id>
+				</event>
+			</dataRef>
+			<dataRef>
+				<id>enumeration_0</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>2</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t2_assign</id>
+		</event>
+		<event type="finish">
+			<id>t2_finish</id>
+		</event>
+		<event type="cancel">
+			<id>t2_cancel</id>
+		</event>
+		<event type="delegate">
+			<id>t2_delegate</id>
+		</event>
+	</transition>
+	<transition>
+		<id>t3</id>
+		<x>500</x>
+		<y>180</y>
+		<label>Personal data</label>
+		<icon>account_circle</icon>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>anonymous</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t3_0</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>taskRef_0</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>taskRef_1</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>3</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>text_16</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>standard</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>text_17</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>standard</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t3_assign</id>
+			<title>
+			</title>
+		</event>
+		<event type="finish">
+			<id>t3_finish</id>
+			<title>Continue</title>
+			<actions phase="post">
+				<action id="8">text_1: f.text_1,
+text_0: f.text_0;
+changeCaseProperty "title" about { "Survey of " + text_0.value + " " text_1.value }</action>
+			</actions>
+		</event>
+		<event type="cancel">
+			<id>t3_cancel</id>
+			<title>
+			</title>
+		</event>
+		<event type="delegate">
+			<id>t3_delegate</id>
+			<title>
+			</title>
+		</event>
+	</transition>
+	<transition>
+		<id>t4</id>
+		<x>740</x>
+		<y>100</y>
+		<label>Survey form</label>
+		<icon>list</icon>
+		<roleRef>
+			<id>system</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t4_0</id>
+			<cols>6</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>text_9</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>textarea</name>
+				</component>
+			</dataRef>
+			<dataRef>
+				<id>text_10</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>textarea</name>
+				</component>
+			</dataRef>
+			<dataRef>
+				<id>text_12</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>textarea</name>
+				</component>
+			</dataRef>
+			<dataRef>
+				<id>text_13</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>3</y>
+					<rows>2</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>textarea</name>
+				</component>
+			</dataRef>
+			<dataRef>
+				<id>enumeration_1</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>4</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>enumeration_2</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>4</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>enumeration_3</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>4</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>enumeration_4</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>4</x>
+					<y>3</y>
+					<rows>2</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<event type="set">
+					<id>enumeration_4_set</id>
+				</event>
+			</dataRef>
+			<dataRef>
+				<id>text_14</id>
+				<logic>
+					<behavior>hidden</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>5</y>
+					<rows>2</rows>
+					<cols>6</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>textarea</name>
+				</component>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t4_assign</id>
+			<title>
+			</title>
+		</event>
+		<event type="finish">
+			<id>t4_finish</id>
+			<title>
+			</title>
+		</event>
+		<event type="cancel">
+			<id>t4_cancel</id>
+			<title>
+			</title>
+		</event>
+		<event type="delegate">
+			<id>t4_delegate</id>
+			<title>
+			</title>
+		</event>
+	</transition>
+	<transition>
+		<id>t5</id>
+		<x>980</x>
+		<y>100</y>
+		<label>Summary form</label>
+		<icon>summarize</icon>
+		<roleRef>
+			<id>system</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t5_0</id>
+			<cols>6</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>taskRef_1</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>1</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>taskRef_2</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>6</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>taskRef_0</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>1</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t5_assign</id>
+		</event>
+		<event type="finish">
+			<id>t5_finish</id>
+		</event>
+		<event type="cancel">
+			<id>t5_cancel</id>
+		</event>
+		<event type="delegate">
+			<id>t5_delegate</id>
+		</event>
+	</transition>
+	<transition>
+		<id>t8</id>
+		<x>740</x>
+		<y>180</y>
+		<label>Survey</label>
+		<icon>list</icon>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>anonymous</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t8_0</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>taskRef_2</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>text_14</id>
+				<logic>
+					<behavior>hidden</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>2</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t8_assign</id>
+			<title>
+			</title>
+		</event>
+		<event type="finish">
+			<id>t8_finish</id>
+			<title>Continue</title>
+			<actions phase="post">
+				<action id="5">file_0: f.file_0;
+generatePDF("t5", file_0.importId)</action>
+			</actions>
+		</event>
+		<event type="cancel">
+			<id>t8_cancel</id>
+			<title>
+			</title>
+		</event>
+		<event type="delegate">
+			<id>t8_delegate</id>
+			<title>
+			</title>
+		</event>
+	</transition>
+	<transition>
+		<id>t10</id>
+		<x>980</x>
+		<y>180</y>
+		<label>Summary</label>
+		<icon>summarize</icon>
+		<roleRef>
+			<id>admin</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<roleRef>
+			<id>anonymous</id>
+			<logic>
+				<view>true</view>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t10_0</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>taskRef_3</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>file_0</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t10_assign</id>
+			<title>
+			</title>
+		</event>
+		<event type="finish">
+			<id>t10_finish</id>
+			<title>
+			</title>
+		</event>
+		<event type="cancel">
+			<id>t10_cancel</id>
+			<title>
+			</title>
+		</event>
+		<event type="delegate">
+			<id>t10_delegate</id>
+			<title>
+			</title>
+		</event>
+	</transition>
+	<place>
+		<id>p1</id>
+		<x>380</x>
+		<y>180</y>
+		<tokens>1</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>p7</id>
+		<x>620</x>
+		<y>180</y>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>p8</id>
+		<x>860</x>
+		<y>180</y>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<arc>
+		<id>a6</id>
+		<type>regular</type>
+		<sourceId>p1</sourceId>
+		<destinationId>t3</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a17</id>
+		<type>regular</type>
+		<sourceId>t3</sourceId>
+		<destinationId>p7</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a20</id>
+		<type>regular</type>
+		<sourceId>p7</sourceId>
+		<destinationId>t8</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a21</id>
+		<type>regular</type>
+		<sourceId>t8</sourceId>
+		<destinationId>p8</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a28</id>
+		<type>read</type>
+		<sourceId>p8</sourceId>
+		<destinationId>t10</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+</document>
