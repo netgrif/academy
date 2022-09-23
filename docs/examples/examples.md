@@ -10,3 +10,4 @@ List of examples
 * [Import CSV](examples/csv-import/csv-import.md)
 * [Export CSV](examples/csv-export/csv-export.md)
 * [Embedded](examples/embedded/embedded.md)
+* [HTML to PDF](examples/html2pdf/html2pdf.md)

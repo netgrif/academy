@@ -1,0 +1,317 @@
+<document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://petriflow.com/petriflow.schema.xsd">
+	<id>html2pdf</id>
+	<initials>h2p</initials>
+	<title>HTML to PDF</title>
+	<icon>device_hub</icon>
+	<defaultRole>false</defaultRole>
+	<anonymousRole>false</anonymousRole>
+	<transitionRole>false</transitionRole>
+	<caseName>HTML to PDF</caseName>
+	<roleRef>
+		<id>user</id>
+		<caseLogic>
+			<create>true</create>
+			<view>true</view>
+		</caseLogic>
+	</roleRef>
+	<roleRef>
+		<id>system</id>
+		<caseLogic>
+			<view>true</view>
+		</caseLogic>
+	</roleRef>
+	<role>
+		<id>user</id>
+		<title>User</title>
+	</role>
+	<role>
+		<id>system</id>
+		<title>System</title>
+	</role>
+	<data type="text">
+		<id>text_0</id>
+		<title/>
+	</data>
+	<data type="file">
+		<id>file_0</id>
+		<title>Generated PDF file from Rich Area in HTML task</title>
+		<component>
+			<name>preview</name>
+		</component>
+	</data>
+	<data type="enumeration_map">
+		<id>enumeration_map_0</id>
+		<title/>
+		<options>
+			<option key="key1">HTML</option>
+			<option key="key2">PDF</option>
+		</options>
+		<init>key1</init>
+	</data>
+	<data type="taskRef">
+		<id>taskRef_0</id>
+		<title/>
+		<init>t2</init>
+	</data>
+	<data type="taskRef">
+		<id>taskRef_1</id>
+		<title/>
+		<init>t3</init>
+	</data>
+	<data type="button">
+		<id>button_0</id>
+		<title/>
+		<placeholder>Back</placeholder>
+		<component>
+			<name>flat</name>
+		</component>
+	</data>
+	<data type="button">
+		<id>button_1</id>
+		<title/>
+		<placeholder>Next</placeholder>
+		<component>
+			<name>flat</name>
+		</component>
+	</data>
+	<data type="button">
+		<id>button_2</id>
+		<title/>
+		<placeholder>Back</placeholder>
+	</data>
+	<transition>
+		<id>t1</id>
+		<x>260</x>
+		<y>60</y>
+		<label>HTML to PDF</label>
+		<icon>person</icon>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>user</id>
+			<logic>
+				<view>true</view>
+				<cancel>false</cancel>
+				<delegate>false</delegate>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t1_0</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>enumeration_map_0</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>stepper</name>
+				</component>
+			</dataRef>
+			<dataRef>
+				<id>taskRef_0</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>taskRef_1</id>
+				<logic>
+					<behavior>hidden</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>button_1</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>2</x>
+					<y>3</y>
+					<rows>1</rows>
+					<cols>1</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<event type="set">
+					<id>button_1_set</id>
+					<actions phase="post">
+						<action id="1">enumeration_map_0: f.enumeration_map_0,
+button_1: f.button_1,
+button_0: f.button_0,
+t1: t.t1,
+taskRef_1: f.taskRef_1,
+taskRef_0: f.taskRef_0,
+text_0: f.text_0,
+file_0: f.file_0;
+htmlToPdf(file_0, text_0, "my_output")
+make taskRef_0, hidden on t1 when { true }
+make taskRef_1, visible on t1 when { true }
+make button_0, editable on t1 when { true }
+make button_1, visible on t1 when { true }
+change enumeration_map_0 value { "key2"; }</action>
+					</actions>
+				</event>
+			</dataRef>
+			<dataRef>
+				<id>button_0</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>1</x>
+					<y>3</y>
+					<rows>1</rows>
+					<cols>1</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<event type="set">
+					<id>button_0_set</id>
+					<actions phase="post">
+						<action id="2">enumeration_map_0: f.enumeration_map_0,
+button_1: f.button_1,
+button_0: f.button_0,
+t1: t.t1,
+taskRef_1: f.taskRef_1,
+taskRef_0: f.taskRef_0;
+make taskRef_0, editable on t1 when { true }
+make taskRef_1, hidden on t1 when { true }
+make button_0, visible on t1 when { true }
+make button_1, editable on t1 when { true }
+change enumeration_map_0 value { "key1"; }</action>
+					</actions>
+				</event>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t1_assign</id>
+		</event>
+		<event type="finish">
+			<id>t1_finish</id>
+			<title>
+			</title>
+		</event>
+		<event type="cancel">
+			<id>t1_cancel</id>
+		</event>
+		<event type="delegate">
+			<id>t1_delegate</id>
+		</event>
+	</transition>
+	<transition>
+		<id>t2</id>
+		<x>180</x>
+		<y>140</y>
+		<label>HTML</label>
+		<icon>settings</icon>
+		<roleRef>
+			<id>system</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t2_0</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>text_0</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>5</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>htmltextarea</name>
+				</component>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t2_assign</id>
+		</event>
+		<event type="finish">
+			<id>t2_finish</id>
+		</event>
+		<event type="cancel">
+			<id>t2_cancel</id>
+		</event>
+		<event type="delegate">
+			<id>t2_delegate</id>
+		</event>
+	</transition>
+	<transition>
+		<id>t3</id>
+		<x>340</x>
+		<y>140</y>
+		<label>PDF</label>
+		<icon>settings</icon>
+		<roleRef>
+			<id>system</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t3_0</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>file_0</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>2</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t3_assign</id>
+		</event>
+		<event type="finish">
+			<id>t3_finish</id>
+		</event>
+		<event type="cancel">
+			<id>t3_cancel</id>
+		</event>
+		<event type="delegate">
+			<id>t3_delegate</id>
+		</event>
+	</transition>
+</document>
