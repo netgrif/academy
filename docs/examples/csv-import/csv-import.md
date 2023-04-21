@@ -46,4 +46,4 @@ try{
 
 [Click here to launch the Import process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/csv-import/import.xml)
 
-[CSV file for testing purposes can be download here.](https://github.com/netgrif/academy/docs/examples/csv-import/mobile_list.csv)
+[CSV file for testing purposes can be download here.](https://github.com/netgrif/academy/blob/main/docs/examples/csv-import/mobile_list.csv)
