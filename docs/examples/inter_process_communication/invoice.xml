@@ -1,0 +1,261 @@
+<document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://petriflow.com/petriflow.schema.xsd">
+	<id>invoice</id>
+	<initials>INV</initials>
+	<title>Invoice</title>
+	<icon>device_hub</icon>
+	<defaultRole>true</defaultRole>
+	<anonymousRole>true</anonymousRole>
+	<transitionRole>false</transitionRole>
+	<caseEvents>
+		<event type="create">
+			<id>new_model_create</id>
+			<actions phase="post">
+				<action id="1">invoice_id: f.invoice_id;
+change invoice_id value { useCase.stringId; }</action>
+			</actions>
+		</event>
+	</caseEvents>
+	<data type="text">
+		<id>invoice_id</id>
+		<title>Invoice ID</title>
+	</data>
+	<data type="enumeration_map">
+		<id>parent_order_id</id>
+		<title>Parent order ID</title>
+	</data>
+	<data type="enumeration_map">
+		<id>Decision</id>
+		<title>Decision</title>
+		<options>
+			<option key="OK">Accept</option>
+			<option key="KO">Reject</option>
+			<option key="later">Later</option>
+		</options>
+	</data>
+	<data type="number">
+		<id>amount</id>
+		<title>Amount</title>
+	</data>
+	<data type="file">
+		<id>order_file</id>
+		<title>Order file</title>
+	</data>
+	<transition>
+		<id>t1</id>
+		<x>460</x>
+		<y>100</y>
+		<label>Register invoice</label>
+		<dataGroup>
+			<id>t1_0</id>
+			<cols>8</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>invoice_id</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>parent_order_id</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>6</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>amount</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>2</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>currency</name>
+					<property key="fractionSize">2</property>
+				</component>
+			</dataRef>
+			<dataRef>
+				<id>order_file</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>4</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t1_assign</id>
+			<actions phase="pre">
+				<action id="5">parent_order_id: f.parent_order_id;
+
+    def orders = findCases { it.processIdentifier.eq(workspace + "order")}.collectEntries { 
+                        [(it.stringId): "Order: " + it.stringId] 
+                    }
+                    change parent_order_id options {
+                        orders
+                    }</action>
+			</actions>
+		</event>
+		<event type="finish">
+			<id>t1_finish</id>
+			<actions phase="post">
+				<action id="4">invoice_id: f.invoice_id,
+parent_order_id: f.parent_order_id;
+
+def parent_order_case = findCase({it._id.eq(parent_order_id.value)});
+
+setData("t1", parent_order_case, ["new_invoice_id": ["value": invoice_id.value, "type": "text"]]);</action>
+			</actions>
+		</event>
+		<event type="cancel">
+			<id>t1_cancel</id>
+		</event>
+		<event type="delegate">
+			<id>t1_delegate</id>
+		</event>
+	</transition>
+	<transition>
+		<id>t2</id>
+		<x>780</x>
+		<y>100</y>
+		<label>Invoice approval</label>
+		<dataGroup>
+			<id>t2_0</id>
+			<cols>8</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>invoice_id</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>parent_order_id</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>2</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>Decision</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>6</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>amount</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>4</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t2_assign</id>
+		</event>
+		<event type="finish">
+			<id>t2_finish</id>
+		</event>
+		<event type="cancel">
+			<id>t2_cancel</id>
+		</event>
+		<event type="delegate">
+			<id>t2_delegate</id>
+		</event>
+	</transition>
+	<place>
+		<id>p1</id>
+		<x>620</x>
+		<y>100</y>
+		<label>registered</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>p2</id>
+		<x>300</x>
+		<y>100</y>
+		<label>start</label>
+		<tokens>1</tokens>
+		<static>false</static>
+	</place>
+	<arc>
+		<id>a1</id>
+		<type>regular</type>
+		<sourceId>p2</sourceId>
+		<destinationId>t1</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a2</id>
+		<type>regular</type>
+		<sourceId>t1</sourceId>
+		<destinationId>p1</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a4</id>
+		<type>read</type>
+		<sourceId>p1</sourceId>
+		<destinationId>t2</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+</document>
