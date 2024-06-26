@@ -8,7 +8,7 @@ allowfullscreen></iframe>
 
 ## Overview
 
-The Trip Request application is designed to streamline the registration and approval of trip requests within an organization. This guide provides an overview of the development process, focusing on the creation of workflows, forms, data fields, roles, transitions, and metadata using the Netgrif Application Builder and Engine (NAB & NAE).
+The Order and invoices application is example of simple yet complex interprocess communication in Netgrif platform. This guide provides an overview of the development processes, focusing on the creation of workflows, forms, data fields, roles, transitions, and metadata using the Netgrif Application Builder and Engine (NAB & NAE).
 
 [Click here to launch Order process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/order.xml)
 
