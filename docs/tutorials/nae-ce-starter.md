@@ -16,5 +16,5 @@ Process Engine, NAE Client and all required databases. All necessary requirement
 * WSL: [https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#1-overview](https://ubuntu.com/tutorials/install-ubuntu-on-wsl2-on-windows-10#1-overview)
 * NodeJS & npm: [https://nodejs.org/en/](https://nodejs.org/en/)
 
-[Try our Demo application](https://demo.netgrif.com)
+[Try our Demo application](https://etask.netgrif.cloud/)
 or visit [Netgrif on GitHub](https://github.com/netgrif)

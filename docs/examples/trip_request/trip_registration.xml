@@ -1,0 +1,576 @@
+<document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://petriflow.com/petriflow.schema.xsd">
+	<id>trip_registration</id>
+	<initials>TPR</initials>
+	<title>Trip registration</title>
+	<icon>device_hub</icon>
+	<defaultRole>true</defaultRole>
+	<anonymousRole>true</anonymousRole>
+	<transitionRole>false</transitionRole>
+	<role>
+		<id>system</id>
+		<title>System</title>
+	</role>
+	<role>
+		<id>approver</id>
+		<title>Approver</title>
+	</role>
+	<data type="multichoice">
+		<id>people</id>
+		<title>People</title>
+	</data>
+	<data type="enumeration">
+		<id>cars</id>
+		<title>Cars</title>
+	</data>
+	<data type="dateTime">
+		<id>from</id>
+		<title>From</title>
+	</data>
+	<data type="dateTime">
+		<id>to</id>
+		<title>To</title>
+	</data>
+	<data type="enumeration">
+		<id>locations</id>
+		<title>Locations</title>
+		<component>
+			<name>list</name>
+		</component>
+	</data>
+	<data type="button">
+		<id>add</id>
+		<title/>
+		<placeholder>add</placeholder>
+		<component>
+			<name>icon</name>
+		</component>
+	</data>
+	<data type="text">
+		<id>text_0</id>
+		<title>Location</title>
+	</data>
+	<data type="taskRef">
+		<id>form</id>
+		<title/>
+		<init>t5</init>
+	</data>
+	<data type="enumeration">
+		<id>decision</id>
+		<title>Decision</title>
+		<options>
+			<option key="Approve">Approve</option>
+			<option key="Decline">Decline</option>
+			<option key="Remake">Remake</option>
+		</options>
+	</data>
+	<data type="text">
+		<id>reason</id>
+		<title>Reason</title>
+	</data>
+	<data type="number">
+		<id>remake</id>
+		<title>Remake</title>
+		<init>0</init>
+	</data>
+	<data type="number">
+		<id>approveDecline</id>
+		<title>A/D</title>
+		<init>0</init>
+	</data>
+	<data type="file">
+		<id>file_1</id>
+		<title/>
+	</data>
+	<transition>
+		<id>t1</id>
+		<x>380</x>
+		<y>140</y>
+		<label>Submit registration</label>
+		<dataGroup>
+			<id>t1_0</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>form</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>decision</id>
+				<logic>
+					<behavior>hidden</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>reason</id>
+				<logic>
+					<behavior>hidden</behavior>
+				</logic>
+				<layout>
+					<x>2</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>textarea</name>
+				</component>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t1_assign</id>
+			<actions phase="pre">
+				<action id="1">cars: f.cars,
+people: f.people;
+
+def name1 = new com.netgrif.application.engine.petrinet.domain.I18nString("Lubos Petrovic")
+def name2 = new com.netgrif.application.engine.petrinet.domain.I18nString("Martin Kranec")
+
+def car1 = new com.netgrif.application.engine.petrinet.domain.I18nString("Peugeot 508")
+def car2 = new com.netgrif.application.engine.petrinet.domain.I18nString("Hyundai Tucson")
+
+def peopleList = [name1, name2]
+def carsList = [car1, car2]
+
+change people choices { peopleList }
+change cars choices { carsList }</action>
+			</actions>
+		</event>
+		<event type="finish">
+			<id>t1_finish</id>
+			<actions phase="post">
+				<action id="5">decision: f.decision,
+t2: t.t2,
+reason: f.reason,
+approveDecline: f.approveDecline,
+remake: f.remake;
+change remake value { 0 }
+change approveDecline value { 0 }
+make reason, hidden on t2 when { true }
+change decision value { null }</action>
+			</actions>
+		</event>
+		<event type="cancel">
+			<id>t1_cancel</id>
+		</event>
+		<event type="delegate">
+			<id>t1_delegate</id>
+		</event>
+	</transition>
+	<transition>
+		<id>t2</id>
+		<x>620</x>
+		<y>140</y>
+		<label>Approval</label>
+		<roleRef>
+			<id>approver</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t2_0</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>form</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>decision</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>3</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>list</name>
+				</component>
+				<event type="set">
+					<id>decision_set</id>
+					<actions phase="post">
+						<action id="4">t2: t.t2,
+reason: f.reason,
+decision: f.decision;
+if (decision.value == "Remake" || decision.value == "Decline") {
+    make reason, editable on t2 when { true }
+    make reason, required on t2 when { true }
+}else {
+    make reason, hidden on t2 when { true }
+}</action>
+					</actions>
+				</event>
+			</dataRef>
+			<dataRef>
+				<id>reason</id>
+				<logic>
+					<behavior>hidden</behavior>
+				</logic>
+				<layout>
+					<x>2</x>
+					<y>1</y>
+					<rows>3</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>textarea</name>
+				</component>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t2_assign</id>
+		</event>
+		<event type="finish">
+			<id>t2_finish</id>
+			<actions phase="pre">
+				<action id="2">t1: t.t1,
+reason: f.reason,
+remake: f.remake,
+approveDecline: f.approveDecline,
+decision: f.decision;
+if (decision.value == "Approve" || decision.value == "Decline") {
+    change approveDecline value { 1 }
+    change remake value { 0 }
+    make decision, hidden on t1 when { true }
+    make reason, hidden on t1 when { true }
+}else {
+    change approveDecline value { 0 }
+    change remake value { 1 }
+    make decision, visible on t1 when { true }
+    make reason, visible on t1 when { true }
+}</action>
+			</actions>
+		</event>
+		<event type="cancel">
+			<id>t2_cancel</id>
+		</event>
+		<event type="delegate">
+			<id>t2_delegate</id>
+		</event>
+	</transition>
+	<transition>
+		<id>t3</id>
+		<x>860</x>
+		<y>140</y>
+		<label>Archive</label>
+		<dataGroup>
+			<id>t3_0</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>form</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>reason</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>2</x>
+					<y>1</y>
+					<rows>2</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>textarea</name>
+				</component>
+			</dataRef>
+			<dataRef>
+				<id>decision</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t3_assign</id>
+		</event>
+		<event type="finish">
+			<id>t3_finish</id>
+		</event>
+		<event type="cancel">
+			<id>t3_cancel</id>
+		</event>
+		<event type="delegate">
+			<id>t3_delegate</id>
+		</event>
+	</transition>
+	<transition>
+		<id>t5</id>
+		<x>500</x>
+		<y>60</y>
+		<label>[form]</label>
+		<roleRef>
+			<id>system</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t5_0</id>
+			<cols>6</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>people</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>6</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>cars</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>6</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>from</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>3</y>
+					<rows>1</rows>
+					<cols>3</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>to</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>3</x>
+					<y>3</y>
+					<rows>1</rows>
+					<cols>3</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>locations</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>2</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>add</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>5</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>1</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<event type="set">
+					<id>add_set</id>
+					<actions phase="pre">
+						<action id="6">text_0: f.text_0,
+locations: f.locations;
+
+def newLocations = []
+
+if(locations.choices != null)
+    newLocations = locations.choices
+
+newLocations.add(text_0.value)
+
+change locations choices { newLocations }
+change text_0 value { "" }</action>
+					</actions>
+				</event>
+			</dataRef>
+			<dataRef>
+				<id>text_0</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>2</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>3</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="assign">
+			<id>t5_assign</id>
+		</event>
+		<event type="finish">
+			<id>t5_finish</id>
+		</event>
+		<event type="cancel">
+			<id>t5_cancel</id>
+		</event>
+		<event type="delegate">
+			<id>t5_delegate</id>
+		</event>
+	</transition>
+	<place>
+		<id>p1</id>
+		<x>260</x>
+		<y>140</y>
+		<label>init</label>
+		<tokens>1</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>p2</id>
+		<x>500</x>
+		<y>140</y>
+		<label>submitted</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>p3</id>
+		<x>740</x>
+		<y>140</y>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<arc>
+		<id>a1</id>
+		<type>regular</type>
+		<sourceId>p1</sourceId>
+		<destinationId>t1</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a2</id>
+		<type>regular</type>
+		<sourceId>t1</sourceId>
+		<destinationId>p2</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a3</id>
+		<type>regular</type>
+		<sourceId>p2</sourceId>
+		<destinationId>t2</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a4</id>
+		<type>regular</type>
+		<sourceId>t2</sourceId>
+		<destinationId>p3</destinationId>
+		<multiplicity>0</multiplicity>
+		<reference>approveDecline</reference>
+	</arc>
+	<arc>
+		<id>a11</id>
+		<type>regular</type>
+		<sourceId>t2</sourceId>
+		<destinationId>p1</destinationId>
+		<multiplicity>0</multiplicity>
+		<reference>remake</reference>
+		<breakpoint>
+			<x>620</x>
+			<y>220</y>
+		</breakpoint>
+		<breakpoint>
+			<x>260</x>
+			<y>220</y>
+		</breakpoint>
+	</arc>
+	<arc>
+		<id>a12</id>
+		<type>regular</type>
+		<sourceId>p3</sourceId>
+		<destinationId>t3</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+</document>

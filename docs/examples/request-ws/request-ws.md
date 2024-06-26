@@ -4,7 +4,7 @@
 frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 allowfullscreen></iframe>
 
-Generic Request Application and Custom Web Services application is runnable in [Demo](https://demo.netgrif.com/) or in
+Generic Request Application and Custom Web Services application is runnable in [Demo](https://etask.netgrif.cloud/) or in
 your own
 instance
 of Netgrif Application Engine. To find out how to install NAE CE both locally or on the server

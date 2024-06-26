@@ -30,7 +30,7 @@ of survey application are manageable and visible for the application administrat
             margin-right: auto;
             width: 90%;" src="examples/embedded/list.png"/>
 
-Embedded survey application is runnable in [Demo](https://demo.netgrif.com/) or in your own instance of Netgrif Application Engine.
+Embedded survey application is runnable in [Demo](https://etask.netgrif.cloud/) or in your own instance of Netgrif Application Engine.
 To find out how to install NAE CE both locally or on the server follow [this tutorial](tutorials/nae-ce-starter.md).
 
 <a style="font-size:26px;" href="https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/embedded/survey.xml" target="_blank">Click here to launch the process in Builder</a>
