@@ -9,3 +9,4 @@
     * [Export CSV](examples/csv-export/csv-export.md)
     * [Embedded](examples/embedded/embedded.md)
     * [HTML to PDF](examples/html2pdf/html2pdf.md)
+    * [Trip request](examples/trip_request/trip_request.md)

@@ -6,7 +6,7 @@ allowfullscreen></iframe>
 
 !> This tutorial follows [the CSV Import tutorial](examples/csv-import/csv-import.md).
 
-Export CSV from cases application is runnable in [Demo](https://demo.netgrif.com/) or in your own instance of Netgrif
+Export CSV from cases application is runnable in [Demo](https://etask.netgrif.cloud/) or in your own instance of Netgrif
 Application Engine. To find out how to install NAE CE both locally or on the server
 follow [this tutorial](tutorials/nae-ce-starter.md).
 
