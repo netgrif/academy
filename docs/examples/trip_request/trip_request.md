@@ -1,9 +1,5 @@
 # Trip Registration Application
 
-<iframe width="700" height="800" src="https://www.youtube.com/embed/-jfz5YefpHc?si=bT9G39iZy6uJwegV" title="YouTube video player"
-frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-allowfullscreen></iframe>
-
 ## Overview
 
 The Trip Request application is designed to streamline the registration and approval of trip requests within an organization. This guide provides an overview of the development process, focusing on the creation of workflows, forms, data fields, roles, transitions, and metadata using the Netgrif Application Builder and Engine (NAB & NAE).
@@ -14,7 +10,11 @@ This application is runnable in [Demo](https://etask.netgrif.cloud/) or in your 
 Application Engine. To find out how to install NAE CE both locally or on the server
 follow [this tutorial](tutorials/nae-ce-starter.md).
 
-### Creating the Trip request application
+## Creation of the Trip request application
+
+<iframe width="700" height="800" src="https://www.youtube.com/embed/-jfz5YefpHc?si=bT9G39iZy6uJwegV" title="YouTube video player"
+frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen></iframe>
 
 ##### Process Definition
 
