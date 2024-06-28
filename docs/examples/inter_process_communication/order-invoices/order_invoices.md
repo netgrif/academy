@@ -12,9 +12,9 @@ allowfullscreen></iframe>
 
 The Order and invoices application is example of simple yet complex interprocess communication in Netgrif platform. This guide provides an overview of the development processes, focusing on the creation of workflows, forms, data fields, roles, transitions, and metadata using the Netgrif Application Builder and Engine (NAB & NAE).
 
-[Click here to launch Order process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/order.xml)
+[Click here to launch Order process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/order-invoices/order.xml)
 
-[Click here to launch Invoice process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/invoice.xml)
+[Click here to launch Invoice process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/order-invoices/invoice.xml)
 
 This application is runnable in [Demo](https://etask.netgrif.cloud/) or in your own instance of Netgrif
 Application Engine. To find out how to install NAE CE both locally or on the server
@@ -28,7 +28,7 @@ allowfullscreen></iframe>
 
 The main focus in this application example is on interprocess communication. Three simple functions are used for that.
 
-First is on assign pre event in Register invoice task, where all orders are collected into one enumeration.
+**The first** is on assign pre event in Register invoice task, where all orders are collected into one enumeration.
 
 From invoice.xml:
 ```groovy
@@ -42,7 +42,7 @@ change parent_order_id options {
 }
 ```
 
-The second is on the finish post event in the Register invoice task, where new_invoice_id is set. Not only is value changed but also set event is called.
+**The second** is on the finish post event in the Register invoice task, where new_invoice_id is set. Not only is value changed but also set event is called.
 
 From invoice.xml:
 ```groovy
@@ -54,7 +54,7 @@ def parent_order_case = findCase({it._id.eq(parent_order_id.value)});
 setData("t1", parent_order_case, ["new_invoice_id": ["value": invoice_id.value, "type": "text"]]);
 ```
 
-The third is on the set post event in new_invoice_id data. Here if the new_invoice_id value is not part of children_invoice_cases a t2 task id is set to invoice_approvals task reference.
+**The third** is on the set post event in new_invoice_id data. Here if the new_invoice_id value is not part of children_invoice_cases a t2 task id is set to invoice_approvals task reference.
 From order.xml:
 ```groovy
 invoice_approvals: f.invoice_approvals,
