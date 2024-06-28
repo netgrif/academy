@@ -8,7 +8,7 @@ allowfullscreen></iframe>
 
 HTML to PDF Application is runnable in [Demo](https://etask.netgrif.cloud/) or in your own instance 
 of Netgrif Application Engine. To find out how to install NAE CE both locally or on the server
-follow [this tutorial](tutorials/nae-ce-starter.md).
+follow [this tutorial](tutorials/nae-ce-starter/nae-ce-starter.md).
 
 Links to repositories:
 

@@ -8,7 +8,7 @@ Generic Request Application and Custom Web Services application is runnable in [
 your own
 instance
 of Netgrif Application Engine. To find out how to install NAE CE both locally or on the server
-follow [this tutorial](tutorials/nae-ce-starter.md).
+follow [this tutorial](tutorials/nae-ce-starter/nae-ce-starter.md).
 
 ## Custom Web Service code snippet
 

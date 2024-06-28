@@ -6,7 +6,7 @@ allowfullscreen></iframe>
 
 Import CSV as cases application is runnable in [Demo](https://etask.netgrif.cloud/) or in your own instance of Netgrif
 Application
-Engine. To find out how to install NAE CE both locally or on the server follow [this tutorial](tutorials/nae-ce-starter.md).
+Engine. To find out how to install NAE CE both locally or on the server follow [this tutorial](tutorials/nae-ce-starter/nae-ce-starter.md).
 
 ## CSV pom dependency
 

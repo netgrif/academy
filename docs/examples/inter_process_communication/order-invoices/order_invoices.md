@@ -18,7 +18,7 @@ The Order and invoices application is example of simple yet complex interprocess
 
 This application is runnable in [Demo](https://etask.netgrif.cloud/) or in your own instance of Netgrif
 Application Engine. To find out how to install NAE CE both locally or on the server
-follow [this tutorial](tutorials/nae-ce-starter.md).
+follow [this tutorial](tutorials/nae-ce-starter/nae-ce-starter.md).
 
 ## Creation of the Trip request application
 
