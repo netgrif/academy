@@ -1,5 +1,6 @@
 * [Tutorials](tutorials/tutorials.md) 
     * [NAE CE Starter](tutorials/nae-ce-starter/nae-ce-starter.md)
+    * [Simple application with extension](tutorials/simple_app/simple_app.md)
 * [Examples](examples/examples.md)
     * [Generic Request](examples/request/request.md)
     * [Generic Request with Web Services](examples/request-ws/request-ws.md)
