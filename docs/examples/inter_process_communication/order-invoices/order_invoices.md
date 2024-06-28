@@ -2,9 +2,9 @@
 
 ## Overview
 
-An order and invoices example, presented at mde-network.com/ event.
+An order and invoices example, presented at [MDENet](https://www.mde-network.org/) event.
 
-The description of an order and invoices example in MDENet video from 22:24 to 33:06.
+The description of an order and invoices example in [MDENet](https://www.mde-network.org/) video from 22:24 to 33:06.
 
 <iframe width="700" height="800" src="https://www.youtube.com/embed/M6KFZ07vNNI?start=1344" title="YouTube video player"
 frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
