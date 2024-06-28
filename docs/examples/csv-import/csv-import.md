@@ -1,8 +1,10 @@
 # Import CSV as Cases
 
-<iframe width="700" height="800" src="https://www.youtube.com/embed/VlflmcUwI5o" title="YouTube video player"
-frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-allowfullscreen></iframe>
+<div class="container">
+    <iframe class="responsive-iframe" src="https://www.youtube.com/embed/VlflmcUwI5o" title="YouTube video player"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+</div>
 
 Import CSV as cases application is runnable in [Demo](https://etask.netgrif.cloud/) or in your own instance of Netgrif
 Application

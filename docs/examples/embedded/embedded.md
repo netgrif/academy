@@ -1,4 +1,7 @@
 # Embedded Survey Application
+
+**Embedded Netgrif Application by iFrame.** 
+
 Embedded Survey Application is a **simple three-step** (three user-based tasks) **process-based application** that gathers all user personal information.
 In the first task (step), user fills all personal information and address. Mention that **phone number and email have
 to have a specific format** otherwise, the system won't allow the user to continue. In this step user also fills postal
@@ -13,11 +16,18 @@ Also **generated PDF file** is stored on top of the form. This PDF file can be d
 
 <h3>Embedded application</h3>
 In this use case anonymous role was used for embedded application functionality  (also admin and system roles were created extra). But any kind of external authentification can be integrated with the platform.
-<iframe style="height: 1150px;" title="Request demo" src="https://demo.netgrif.com/process/6294daff12a4c25855bd490b_survey"></iframe>
 
-<h3>Video of working with the application:</h3>
-<iframe style="height:650px" src="https://www.youtube.com/embed/K4koGOg7Dpo" title="YouTube video player" frameborder="0" allow="accelerometer;
-autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="container2">
+    <iframe class="responsive-iframe" title="Request demo" src="https://demo.netgrif.com/process/6294daff12a4c25855bd490b_survey/"></iframe>
+</div>
+
+<h3>How to use the application:</h3>
+
+<div class="container">
+    <iframe class="responsive-iframe" src="https://www.youtube.com/embed/K4koGOg7Dpo" title="YouTube video player"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+</div>
 
 The application was created in under 30 minutes, without deeper knowledge of any pro-code language. It contains the generation of the pdf file, the creation of complex data forms, and multiple short scripts that were
 just drag'n'droped (containing postal code web service). The whole application can be easily embedded in the external web.

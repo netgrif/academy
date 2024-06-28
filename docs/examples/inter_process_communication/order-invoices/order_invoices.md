@@ -6,9 +6,11 @@ An order and invoices example, presented at [MDENet](https://www.mde-network.org
 
 The description of an order and invoices example in [MDENet](https://www.mde-network.org/) video from 22:24 to 33:06.
 
-<iframe width="700" height="800" src="https://www.youtube.com/embed/M6KFZ07vNNI?start=1344" title="YouTube video player"
-frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-allowfullscreen></iframe>
+<div class="container">
+    <iframe class="responsive-iframe" src="https://www.youtube.com/embed/M6KFZ07vNNI?start=1344" title="YouTube video player"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+</div>
 
 The Order and invoices application is example of simple yet complex interprocess communication in Netgrif platform. This guide provides an overview of the development processes, focusing on the creation of workflows, forms, data fields, roles, transitions, and metadata using the Netgrif Application Builder and Engine (NAB & NAE).
 
@@ -22,9 +24,11 @@ follow [this tutorial](tutorials/nae-ce-starter/nae-ce-starter.md).
 
 ## Creation of the Trip request application
 
-<iframe width="700" height="800" src="https://www.youtube.com/embed/YEU8G7qd_KM" title="YouTube video player"
-frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-allowfullscreen></iframe>
+<div class="container">
+    <iframe class="responsive-iframe" src="https://www.youtube.com/embed/YEU8G7qd_KM" title="YouTube video player"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+</div>
 
 The main focus in this application example is on interprocess communication. Three simple functions are used for that.
 

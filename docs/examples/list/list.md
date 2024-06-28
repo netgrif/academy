@@ -1,8 +1,10 @@
 # List of Elements
 
-<iframe width="700" height="800" src="https://www.youtube.com/embed/tpxzFEb8vdE" title="YouTube video player"
-frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-allowfullscreen></iframe>
+<div class="container">
+    <iframe class="responsive-iframe" src="https://www.youtube.com/embed/tpxzFEb8vdE" title="YouTube video player"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+</div>
 
 List of user elements application is runnable in [Demo](https://etask.netgrif.cloud/) or in your own instance of Netgrif
 Application Engine. To find out how to install NAE CE both locally or on the server follow [this tutorial](tutorials/nae-ce-starter/nae-ce-starter.md).

@@ -1,8 +1,10 @@
 # NAE CE Starter Application Initialization
 
-<iframe width="700" height="800" src="https://www.youtube.com/embed/gMCw6e6bqh8" title="YouTube video player" 
-frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
+<div class="container">
+    <iframe class="responsive-iframe" src="https://www.youtube.com/embed/gMCw6e6bqh8" title="YouTube video player"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+</div>
 
 Step-by-step guide to installing your own three-tier Netgrif Community Edition application project locally. Contains NAE
 Process Engine, NAE Client and all required databases. All necessary requirements:

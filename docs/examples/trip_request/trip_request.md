@@ -12,9 +12,11 @@ follow [this tutorial](tutorials/nae-ce-starter/nae-ce-starter.md).
 
 ## Creation of the Trip request application
 
-<iframe width="700" height="800" src="https://www.youtube.com/embed/-jfz5YefpHc?si=bT9G39iZy6uJwegV" title="YouTube video player"
-frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-allowfullscreen></iframe>
+<div class="container">
+    <iframe class="responsive-iframe" src="https://www.youtube.com/embed/-jfz5YefpHc?si=bT9G39iZy6uJwegV" title="YouTube video player"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen></iframe>
+</div>
 
 ##### Process Definition
 
