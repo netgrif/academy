@@ -1,4 +1,5 @@
-* [NAE CE Starter](tutorials/nae-ce-starter.md)
+* [Tutorials](tutorials/tutorials.md) 
+    * [NAE CE Starter](tutorials/nae-ce-starter/nae-ce-starter.md)
 * [Examples](examples/examples.md)
     * [Generic Request](examples/request/request.md)
     * [Generic Request with Web Services](examples/request-ws/request-ws.md)
@@ -11,4 +12,4 @@
     * [HTML to PDF](examples/html2pdf/html2pdf.md)
     * [Trip request](examples/trip_request/trip_request.md)
     * [Inter process communication](examples/inter_process_communication/inter_process_communication.md)
-    * * [Order & invoices](examples/inter_process_communication/order-invoices/order_invoices.md)
+        * [Order & invoices](examples/inter_process_communication/order-invoices/order_invoices.md)
