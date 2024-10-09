@@ -1,0 +1,623 @@
+<document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://petriflow.com/petriflow.schema.xsd">
+	<id>loan</id>
+	<initials>LPO</initials>
+	<title>Loan Processing</title>
+	<icon>attach_money</icon>
+	<defaultRole>false</defaultRole>
+	<anonymousRole>false</anonymousRole>
+	<transitionRole>false</transitionRole>
+	<roleRef>
+		<id>applicant</id>
+		<caseLogic>
+			<create>true</create>
+		</caseLogic>
+	</roleRef>
+	<role>
+		<id>applicant</id>
+		<title>Applicant</title>
+	</role>
+	<role>
+		<id>complianceOfficer</id>
+		<title>Compliance Officer</title>
+	</role>
+	<role>
+		<id>creditAnalyst</id>
+		<title>Credit Analyst</title>
+	</role>
+	<role>
+		<id>financeOfficer</id>
+		<title>Finance Officer</title>
+	</role>
+	<role>
+		<id>loanManager</id>
+		<title>Loan Manager</title>
+	</role>
+	<role>
+		<id>loanOfficer</id>
+		<title>Loan Officer</title>
+	</role>
+	<role>
+		<id>riskManager</id>
+		<title>Risk Manager</title>
+	</role>
+	<data type="number">
+		<id>annualIncome</id>
+		<title>Annual Income</title>
+	</data>
+	<data type="text">
+		<id>applicantName</id>
+		<title>Applicant Name</title>
+	</data>
+	<data type="text">
+		<id>approvalComments</id>
+		<title>Approval Comments</title>
+		<component>
+			<name>textarea</name>
+		</component>
+	</data>
+	<data type="text">
+		<id>collateral</id>
+		<title>Collateral</title>
+	</data>
+	<data type="number">
+		<id>creditScore</id>
+		<title>Credit Score</title>
+	</data>
+	<data type="text">
+		<id>employmentStatus</id>
+		<title>Employment Status</title>
+	</data>
+	<data type="number">
+		<id>loanAmount</id>
+		<title>Loan Amount</title>
+	</data>
+	<data type="boolean">
+		<id>loanApprovalDecision</id>
+		<title>Loan Approval Decision</title>
+		<init>false</init>
+	</data>
+	<data type="text">
+		<id>loanPurpose</id>
+		<title>Loan Purpose</title>
+		<component>
+			<name>textarea</name>
+		</component>
+	</data>
+	<data type="text">
+		<id>loanStatus</id>
+		<title>Loan Status</title>
+		<component>
+			<name>textarea</name>
+		</component>
+	</data>
+	<data type="number">
+		<id>riskScore</id>
+		<title>Risk Score</title>
+		<init>0</init>
+	</data>
+	<transition>
+		<id>evaluateRisk</id>
+		<x>1104</x>
+		<y>112</y>
+		<label>Evaluate Risk</label>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>riskManager</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>riskDataGroup</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>riskScore</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>collateral</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="finish">
+			<id>riskFinish</id>
+			<actions phase="post">
+				<action id="updateRisk">
+					<![CDATA[
+					riskScore: f.riskScore,
+					loanStatus: f.loanStatus;
+					if (riskScore.value > 7) {
+					    change loanStatus value { "Low Risk - Proceed to Final Approval" };
+					} else {
+					    change loanStatus value { "High Risk - Reevaluate" };
+					}
+					]]>
+				</action>
+			</actions>
+		</event>
+	</transition>
+	<transition>
+		<id>finalApproval</id>
+		<x>1360</x>
+		<y>112</y>
+		<label>Final Approval</label>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>loanManager</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>approvalDataGroup</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>loanApprovalDecision</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>approvalComments</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>2</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="finish">
+			<id>finalApprovalFinish</id>
+			<actions phase="pre">
+				<action id="approvalLogic">
+					<![CDATA[
+					loanApprovalDecision: f.loanApprovalDecision,
+					loanStatus: f.loanStatus;
+					if (loanApprovalDecision.value && riskScore.value > 5) {
+					    change loanStatus value { "Approved" };
+					} else {
+					    change loanStatus value { "Rejected" };
+					}
+					]]>
+				</action>
+			</actions>
+		</event>
+	</transition>
+	<transition>
+		<id>fundLoan</id>
+		<x>1584</x>
+		<y>112</y>
+		<label>Fund Loan</label>
+		<roleRef>
+			<id>financeOfficer</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<event type="finish">
+			<id>fundingFinish</id>
+			<actions phase="pre">
+				<action id="updateFundStatus">
+					<![CDATA[
+					loanStatus: f.loanStatus;
+					change loanStatus value { "Funded" };
+					]]>
+				</action>
+			</actions>
+		</event>
+	</transition>
+	<transition>
+		<id>performCreditCheck</id>
+		<x>848</x>
+		<y>112</y>
+		<label>Perform Credit Check</label>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>creditAnalyst</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>creditDataGroup</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>applicantName</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>loanAmount</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>2</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>2</cols>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>loanStatus</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>4</cols>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>creditScore</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>4</cols>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="finish">
+			<id>creditFinish</id>
+			<actions phase="pre">
+				<action id="creditCheckLogic">
+					<![CDATA[
+					creditScore: f.creditScore,
+					loanStatus: f.loanStatus;
+					if (creditScore.value > 600) {
+					    change loanStatus value { "Approved for Risk Assessment" };
+					} else {
+					    change loanStatus value { "Rejected" };
+					}
+					]]>
+				</action>
+			</actions>
+		</event>
+	</transition>
+	<transition>
+		<id>reviewLoanApplication</id>
+		<x>528</x>
+		<y>112</y>
+		<label>Review Loan Application</label>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>loanOfficer</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>reviewDataGroup</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>applicantName</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>4</cols>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>loanAmount</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>4</cols>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>loanApprovalDecision</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>4</cols>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>collateral</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>3</y>
+					<rows>1</rows>
+					<cols>4</cols>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="finish">
+			<id>reviewFinish</id>
+			<actions phase="pre">
+				<action id="updateStatus2">
+					<![CDATA[
+					loanApprovalDecision: f.loanApprovalDecision,
+					loanStatus: f.loanStatus;
+					if (loanApprovalDecision.value) {
+					    change loanStatus value { "Credit Check" };
+					} else {
+					    change loanStatus value { "Rejected" };
+					}
+					]]>
+				</action>
+			</actions>
+		</event>
+	</transition>
+	<transition>
+		<id>submitLoanApplication</id>
+		<x>272</x>
+		<y>112</y>
+		<label>Submit Loan Application</label>
+		<assignPolicy>auto</assignPolicy>
+		<roleRef>
+			<id>applicant</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>submitDataGroup</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>applicantName</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>4</cols>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>loanAmount</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>4</cols>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>loanPurpose</id>
+				<logic>
+					<behavior>editable</behavior>
+					<behavior>required</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>4</cols>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>employmentStatus</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>3</y>
+					<rows>1</rows>
+					<cols>2</cols>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>annualIncome</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>2</x>
+					<y>3</y>
+					<rows>1</rows>
+					<cols>2</cols>
+				</layout>
+			</dataRef>
+		</dataGroup>
+		<event type="finish">
+			<id>submitFinish</id>
+			<actions phase="pre">
+				<action id="updateStatus1">
+					<![CDATA[
+					loanStatus: f.loanStatus;
+					change loanStatus value { "Under Review" };
+					]]>
+				</action>
+			</actions>
+		</event>
+	</transition>
+	<place>
+		<id>applicationSubmitted</id>
+		<x>112</x>
+		<y>112</y>
+		<label>Application Submitted</label>
+		<tokens>1</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>creditChecked</id>
+		<x>688</x>
+		<y>112</y>
+		<label>Credit Checked</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>funded</id>
+		<x>1456</x>
+		<y>112</y>
+		<label>Funded</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>preFinalApproval</id>
+		<x>1232</x>
+		<y>112</y>
+		<label>Pre Final Approval</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>riskEvaluated</id>
+		<x>976</x>
+		<y>112</y>
+		<label>Risk Evaluated</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>underReview</id>
+		<x>400</x>
+		<y>112</y>
+		<label>Under Review</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<arc>
+		<id>a1</id>
+		<type>regular</type>
+		<sourceId>applicationSubmitted</sourceId>
+		<destinationId>submitLoanApplication</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a10</id>
+		<type>regular</type>
+		<sourceId>finalApproval</sourceId>
+		<destinationId>funded</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a2</id>
+		<type>regular</type>
+		<sourceId>submitLoanApplication</sourceId>
+		<destinationId>underReview</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a3</id>
+		<type>regular</type>
+		<sourceId>underReview</sourceId>
+		<destinationId>reviewLoanApplication</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a4</id>
+		<type>regular</type>
+		<sourceId>reviewLoanApplication</sourceId>
+		<destinationId>creditChecked</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a5</id>
+		<type>regular</type>
+		<sourceId>creditChecked</sourceId>
+		<destinationId>performCreditCheck</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a6</id>
+		<type>regular</type>
+		<sourceId>performCreditCheck</sourceId>
+		<destinationId>riskEvaluated</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a7</id>
+		<type>regular</type>
+		<sourceId>riskEvaluated</sourceId>
+		<destinationId>evaluateRisk</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a8</id>
+		<type>regular</type>
+		<sourceId>evaluateRisk</sourceId>
+		<destinationId>preFinalApproval</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a9</id>
+		<type>regular</type>
+		<sourceId>preFinalApproval</sourceId>
+		<destinationId>finalApproval</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+</document>
