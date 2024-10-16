@@ -8,7 +8,7 @@ The **Insurance and Insured** processes demonstrate interprocess communication i
 
 [Click here to launch Insured process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/insurance-insured/insured.xml)
 
-Change **YOUR_SPACE_NAME** in insurance.xml file. 
+Change **YOUR_SPACE_NAME** in insurance.xml file to your space name.
 
 ## Insurance Process
 
