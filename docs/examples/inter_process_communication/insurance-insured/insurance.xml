@@ -68,7 +68,7 @@ insuredPersons: f.insuredPersons,
 insurancePrice: f.insurancePrice,
 period: f.period;
 
-def id_process_insured = "petrovic_space/poistenec";
+def id_process_insured = workspace + "insured";
 def new_insured = createCase(id_process_insured);
 def new_insured_data = new_insured.tasks.find{it.transition=="t1"}?.task;
 
@@ -122,7 +122,7 @@ change insurancePrice value { period.value * insuredPersons.value.size() }</acti
 		<id>objectsInsuredPersons</id>
 		<title/>
 		<allowedNets>
-			<allowedNet>petrovic_space/poistenec</allowedNet>
+			<allowedNet>YOUR_SPACE_NAME/insured</allowedNet>
 		</allowedNets>
 	</data>
 	<data type="i18n">

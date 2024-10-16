@@ -8,6 +8,8 @@ The **Insurance and Insured** processes demonstrate interprocess communication i
 
 [Click here to launch Insured process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/insurance-insured/insured.xml)
 
+Change **YOUR_SPACE_NAME** in insurance.xml file. 
+
 ## Insurance Process
 
 The **Insurance** process handles the main insurance policy details. It includes actions such as creating the insurance, adding or removing insured persons, calculating the total insurance price, and setting the contract details.
@@ -76,7 +78,7 @@ insuredPersons: f.insuredPersons,
 insurancePrice: f.insurancePrice,
 period: f.period;
 
-def id_process_insured = "petrovic_space/poistenec";
+def id_process_insured = workspace + "insured";
 def new_insured = createCase(id_process_insured);
 def new_insured_data = new_insured.tasks.find{it.transition=="t1"}?.task;
 
