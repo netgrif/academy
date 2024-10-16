@@ -12,5 +12,7 @@
     * [Embedded](examples/embedded/embedded.md)
     * [HTML to PDF](examples/html2pdf/html2pdf.md)
     * [Trip request](examples/trip_request/trip_request.md)
+    * [Loan](examples/loan/loan.md)
     * [Inter process communication](examples/inter_process_communication/inter_process_communication.md)
         * [Order & invoices](examples/inter_process_communication/order-invoices/order_invoices.md)
+        * [Insurance & insured](examples/inter_process_communication/insurance-insured/insurance-insured.md)
