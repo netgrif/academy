@@ -4,9 +4,9 @@
 
 The **Insurance and Insured** processes demonstrate interprocess communication in the Netgrif platform. These two models represent the relationship between an insurance policy and the insured individuals. This guide covers the main workflow elements like roles, tasks, transitions, and events within the processes, highlighting how data and states are shared between them.
 
-[Click here to launch Insurance process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/insurance-insured/insurance.xml)
+[Click here to launch Insurance process in Builder](https://builder.netgrif.cloud/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/insurance-insured/insurance.xml)
 
-[Click here to launch Insured process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/insurance-insured/insured.xml)
+[Click here to launch Insured process in Builder](https://builder.netgrif.cloud/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/insurance-insured/insured.xml)
 
 Change **YOUR_SPACE_NAME** in insurance.xml file to your space name.
 

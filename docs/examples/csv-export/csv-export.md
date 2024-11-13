@@ -45,4 +45,4 @@ def exportCSVFile(String net, List fields) throws IOException {
     }
 ```
 
-[Click here to launch the process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/csv-export/export.xml)
+[Click here to launch the process in Builder](https://builder.netgrif.cloud/modeler?modelUrl=https://academy.netgrif.com/examples/csv-export/export.xml)

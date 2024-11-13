@@ -18,7 +18,7 @@ The Request application is designed to facilitate the creation and management of
     allowfullscreen></iframe>
 </div>
 
-[Click here to launch the process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/request/request.xml)
+[Click here to launch the process in Builder](https://builder.netgrif.cloud/modeler?modelUrl=https://academy.netgrif.com/examples/request/request.xml)
 
 Generic request application is runnable in [Demo](https://etask.netgrif.cloud/) or in your own instance of Netgrif
 Application Engine. To find out how to install NAE CE both locally or on the server follow [this tutorial](tutorials/nae-ce-starter/nae-ce-starter.md).

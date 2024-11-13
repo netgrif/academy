@@ -11,4 +11,4 @@ Netgrif
 Application Engine. To find out how to install NAE CE both locally or on the server
 follow [this tutorial](tutorials/nae-ce-starter/nae-ce-starter.md).
 
-[Click here to launch the process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/generate-pdf/elementListPDF.xml)
+[Click here to launch the process in Builder](https://builder.netgrif.cloud/modeler?modelUrl=https://academy.netgrif.com/examples/generate-pdf/elementListPDF.xml)

@@ -19,4 +19,4 @@ Links to repositories:
 [Frontend Repositary](https://github.com/petrovicLubos/smallAppShowcaseFrontend)
 
 
-[Click here to launch the process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/html2pdf/html2pdf.xml)
+[Click here to launch the process in Builder](https://builder.netgrif.cloud/modeler?modelUrl=https://academy.netgrif.com/examples/html2pdf/html2pdf.xml)

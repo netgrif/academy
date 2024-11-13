@@ -68,7 +68,7 @@ This application demonstrates the effective use of workflows, forms, data fields
 
 The Loan Processing application is a comprehensive example of how to automate and manage loan requests using Petriflow and Netgrif Application Builder and Engine. The structured approach to data and role management ensures a smooth and efficient workflow.
 
-[Click here to launch the process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/loan/loan.xml)
+[Click here to launch the process in Builder](https://builder.netgrif.cloud/modeler?modelUrl=https://academy.netgrif.com/examples/loan/loan.xml)
 
 The loan processing application is runnable in [Demo](https://etask.netgrif.cloud/) or your own instance of Netgrif Application Engine. To install NAE CE, follow [this tutorial](tutorials/nae-ce-starter/nae-ce-starter.md).
 

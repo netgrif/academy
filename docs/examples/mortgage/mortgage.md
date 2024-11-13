@@ -24,4 +24,4 @@ What will you see in this showcase?
 
 - Creation of rich web application ready for production.
 
-[Click here to launch the process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/mortgage/mortgage_simple.xml)
+[Click here to launch the process in Builder](https://builder.netgrif.cloud/modeler?modelUrl=https://academy.netgrif.com/examples/mortgage/mortgage_simple.xml)

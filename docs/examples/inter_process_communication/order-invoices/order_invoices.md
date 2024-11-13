@@ -14,9 +14,9 @@ The description of an order and invoices example in [MDENet](https://www.mde-net
 
 The Order and invoices application is example of simple yet complex interprocess communication in Netgrif platform. This guide provides an overview of the development processes, focusing on the creation of workflows, forms, data fields, roles, transitions, and metadata using the Netgrif Application Builder and Engine (NAB & NAE).
 
-[Click here to launch Order process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/order-invoices/order.xml)
+[Click here to launch Order process in Builder](https://builder.netgrif.cloud/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/order-invoices/order.xml)
 
-[Click here to launch Invoice process in Builder](https://builder.netgrif.com/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/order-invoices/invoice.xml)
+[Click here to launch Invoice process in Builder](https://builder.netgrif.cloud/modeler?modelUrl=https://academy.netgrif.com/examples/inter_process_communication/order-invoices/invoice.xml)
 
 This application is runnable in [Demo](https://etask.netgrif.cloud/) or in your own instance of Netgrif
 Application Engine. To find out how to install NAE CE both locally or on the server
