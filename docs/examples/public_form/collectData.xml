@@ -1,0 +1,617 @@
+<document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://petriflow.com/petriflow.schema.xsd">
+	<id>collectData</id>
+	<version>1.0.0</version>
+	<initials>CLD</initials>
+	<title>Collect data</title>
+	<icon>data_object</icon>
+	<defaultRole>true</defaultRole>
+	<anonymousRole>true</anonymousRole>
+	<transitionRole>false</transitionRole>
+	<role>
+		<id>system</id>
+		<title>System</title>
+	</role>
+	<function scope="process" name="decrementStep">
+		<![CDATA[
+		{ def step -> 
+		    def matcher = (step =~ /step(\d+)/)
+		    if (matcher.matches()) {
+		        int stepNumber = matcher[0][1] as int
+		        if (stepNumber > 1) {
+		            return "step${stepNumber - 1}"
+		        }
+		    }
+		    return "step1"
+		}
+		]]>
+	</function>
+	<function scope="process" name="incrementStep">
+		<![CDATA[
+		{ def step -> 
+		    def matcher = (step =~ /step(\d+)/)
+		    if (matcher.matches()) {
+		        int stepNumber = matcher[0][1] as int
+		        if (stepNumber < 3) {
+		            return "step${stepNumber + 1}"
+		        }
+		    }
+		    return step
+		}
+		]]>
+	</function>
+	<data type="button">
+		<id>back</id>
+		<title/>
+		<placeholder>arrow_back</placeholder>
+		<component>
+			<name>icon</name>
+		</component>
+	</data>
+	<data type="enumeration_map">
+		<id>enumeration_map_3</id>
+		<title>When do you need to have an answer?</title>
+		<options>
+			<option key="1">Less than a day.</option>
+			<option key="2">1-2 day.</option>
+			<option key="3">2-5 days.</option>
+			<option key="4">10 days.</option>
+		</options>
+	</data>
+	<data type="file">
+		<id>file_0</id>
+		<title>Main attachment</title>
+		<component>
+			<name>preview</name>
+		</component>
+	</data>
+	<data type="fileList">
+		<id>fileList_0</id>
+		<title>Other attachments</title>
+	</data>
+	<data type="multichoice_map">
+		<id>multichoice_map_0</id>
+		<title>What service do you need?</title>
+		<options>
+			<option key="key5">User Permissions &amp; Roles</option>
+			<option key="key6">Actions</option>
+			<option key="key7">Workflow</option>
+			<option key="key8">Data</option>
+			<option key="key9">Forms</option>
+		</options>
+	</data>
+	<data type="button">
+		<id>next</id>
+		<title/>
+		<placeholder>arrow_forward</placeholder>
+		<component>
+			<name>icon</name>
+		</component>
+	</data>
+	<data type="taskRef">
+		<id>step</id>
+		<title/>
+		<init>step1</init>
+	</data>
+	<data type="enumeration_map">
+		<id>stepper</id>
+		<title/>
+		<options>
+			<option key="step1">Step1</option>
+			<option key="step2">Step2</option>
+			<option key="step3">Step3</option>
+		</options>
+		<init>step1</init>
+	</data>
+	<data type="taskRef">
+		<id>taskRef_1</id>
+		<title/>
+		<init>step3</init>
+	</data>
+	<data type="taskRef">
+		<id>taskRef_2</id>
+		<title/>
+		<init>step1</init>
+	</data>
+	<data type="taskRef">
+		<id>taskRef_3</id>
+		<title/>
+		<init>step2</init>
+	</data>
+	<data type="text">
+		<id>text_0</id>
+		<title>Name</title>
+	</data>
+	<data type="text">
+		<id>text_1</id>
+		<title>Surname</title>
+	</data>
+	<data type="text">
+		<id>text_2</id>
+		<title>Email</title>
+		<validations>
+			<validation>
+				<expression>regex ^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$</expression>
+			</validation>
+		</validations>
+	</data>
+	<data type="text">
+		<id>text_3</id>
+		<title>Phone number</title>
+		<validations>
+			<validation>
+				<expression>^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$</expression>
+				<message>Invalid phone number</message>
+			</validation>
+		</validations>
+	</data>
+	<data type="text">
+		<id>text_4</id>
+		<title>Detail of the request</title>
+	</data>
+	<data type="text">
+		<id>text_5</id>
+		<title/>
+		<init>&lt;h2 class="ql-align-center"&gt;Thank you for submitting your answers in the form!&lt;/h2&gt;</init>
+	</data>
+	<data type="text">
+		<id>text_7</id>
+		<title/>
+		<init>&lt;h3 class="ql-align-center"&gt;Contact info&lt;/h3&gt;</init>
+	</data>
+	<data type="text">
+		<id>text_8</id>
+		<title/>
+		<init>&lt;h3 class="ql-align-center"&gt;Detail and files&lt;/h3&gt;</init>
+	</data>
+	<data type="text">
+		<id>text_9</id>
+		<title/>
+		<init>&lt;h3 class="ql-align-center"&gt;Services &amp;amp; times&lt;/h3&gt;</init>
+	</data>
+	<transition>
+		<id>step1</id>
+		<x>432</x>
+		<y>176</y>
+		<label>Step1</label>
+		<icon>1</icon>
+		<roleRef>
+			<id>system</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t2_0</id>
+			<cols>6</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>text_7</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>6</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>htmltextarea</name>
+				</component>
+			</dataRef>
+			<dataRef>
+				<id>text_0</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>3</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>text_1</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>3</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>3</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>text_2</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>3</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>text_3</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>3</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>3</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+	</transition>
+	<transition>
+		<id>step2</id>
+		<x>560</x>
+		<y>176</y>
+		<label>Step2</label>
+		<roleRef>
+			<id>system</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t3_0</id>
+			<cols>6</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>text_8</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>6</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>htmltextarea</name>
+				</component>
+			</dataRef>
+			<dataRef>
+				<id>file_0</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>6</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>text_4</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>2</y>
+					<rows>2</rows>
+					<cols>6</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>textarea</name>
+				</component>
+			</dataRef>
+			<dataRef>
+				<id>fileList_0</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>4</y>
+					<rows>1</rows>
+					<cols>6</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+	</transition>
+	<transition>
+		<id>step3</id>
+		<x>688</x>
+		<y>176</y>
+		<label>Step3</label>
+		<roleRef>
+			<id>system</id>
+			<logic>
+				<perform>true</perform>
+			</logic>
+		</roleRef>
+		<dataGroup>
+			<id>t4_0</id>
+			<cols>6</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>text_9</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>6</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>htmltextarea</name>
+				</component>
+			</dataRef>
+			<dataRef>
+				<id>multichoice_map_0</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>2</rows>
+					<cols>6</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>list</name>
+				</component>
+			</dataRef>
+			<dataRef>
+				<id>enumeration_map_3</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>3</y>
+					<rows>1</rows>
+					<cols>6</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+	</transition>
+	<transition>
+		<id>t1</id>
+		<x>496</x>
+		<y>112</y>
+		<label>Form</label>
+		<assignPolicy>auto</assignPolicy>
+		<dataGroup>
+			<id>t1_0</id>
+			<cols>6</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>stepper</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>6</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<component>
+					<name>stepper</name>
+				</component>
+			</dataRef>
+			<dataRef>
+				<id>step</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>6</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>back</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>1</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<event type="set">
+					<id>button_0_set</id>
+					<actions phase="post">
+						<action id="1">
+							<![CDATA[
+							step: f.step,
+							stepper: f.stepper;
+							
+							def prevStep = decrementStep(stepper.value)
+							
+							change step value { [useCase.tasks.find{it.transition==prevStep}?.task] }
+							change stepper value { prevStep }
+							]]>
+						</action>
+					</actions>
+				</event>
+			</dataRef>
+			<dataRef>
+				<id>next</id>
+				<logic>
+					<behavior>editable</behavior>
+				</logic>
+				<layout>
+					<x>5</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>1</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+				<event type="set">
+					<id>next_set</id>
+					<actions phase="post">
+						<action id="2">
+							<![CDATA[
+							step: f.step,
+							stepper: f.stepper;
+							
+							def nextStep = incrementStep(stepper.value)
+							
+							change step value { [useCase.tasks.find{it.transition==nextStep}?.task] }
+							change stepper value { nextStep }
+							]]>
+						</action>
+					</actions>
+				</event>
+			</dataRef>
+		</dataGroup>
+	</transition>
+	<transition>
+		<id>t5</id>
+		<x>752</x>
+		<y>112</y>
+		<label>Summary</label>
+		<assignPolicy>auto</assignPolicy>
+		<dataGroup>
+			<id>t5_0</id>
+			<cols>4</cols>
+			<layout>grid</layout>
+			<dataRef>
+				<id>text_5</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>0</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>standard</appearance>
+				</layout>
+				<component>
+					<name>htmltextarea</name>
+				</component>
+			</dataRef>
+			<dataRef>
+				<id>taskRef_2</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>1</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>taskRef_3</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>2</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+			<dataRef>
+				<id>taskRef_1</id>
+				<logic>
+					<behavior>visible</behavior>
+				</logic>
+				<layout>
+					<x>0</x>
+					<y>3</y>
+					<rows>1</rows>
+					<cols>4</cols>
+					<template>material</template>
+					<appearance>outline</appearance>
+				</layout>
+			</dataRef>
+		</dataGroup>
+	</transition>
+	<place>
+		<id>p1</id>
+		<x>368</x>
+		<y>112</y>
+		<label>init</label>
+		<tokens>1</tokens>
+		<static>false</static>
+	</place>
+	<place>
+		<id>p2</id>
+		<x>624</x>
+		<y>112</y>
+		<label>in_progress</label>
+		<tokens>0</tokens>
+		<static>false</static>
+	</place>
+	<arc>
+		<id>a1</id>
+		<type>regular</type>
+		<sourceId>p1</sourceId>
+		<destinationId>t1</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a2</id>
+		<type>regular</type>
+		<sourceId>t1</sourceId>
+		<destinationId>p2</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+	<arc>
+		<id>a3</id>
+		<type>read</type>
+		<sourceId>p2</sourceId>
+		<destinationId>t5</destinationId>
+		<multiplicity>1</multiplicity>
+	</arc>
+</document>
