@@ -5,7 +5,7 @@ Our step-by-step **video tutorials** guide you through backend/frontend setup, d
 
 ---
 
-## 🎥 Video Tutorials
+## Video Tutorials
 
 ### Episode 1 – IntelliJ Setup & First Low-Code App
 <div class="container">
@@ -25,7 +25,7 @@ Our step-by-step **video tutorials** guide you through backend/frontend setup, d
 
 ---
 
-## 🔧 Pre-requisites
+## Pre-requisites
 
 Before starting, install the following:
 
@@ -36,7 +36,7 @@ Before starting, install the following:
 - [Git](https://git-scm.com/)
 - (Optional for Windows) [WSL 2](https://learn.microsoft.com/en-us/windows/wsl/)
 
-👉 Each video also links beginner-friendly installation tutorials for Windows 11.
+**Each video also links beginner-friendly installation tutorials for Windows 11.**
 
 If you prefer step-by-step guides, here are external resources:
 - [Install Java JDK on Windows 11](https://www.youtube.com/watch?v=Q1u6S1eVXtI)
@@ -48,7 +48,7 @@ If you prefer step-by-step guides, here are external resources:
 
 ---
 
-## 📁 GitHub Repositories
+## GitHub Repositories
 
 - **Backend**:
     - [etask-backend](https://github.com/netgrif/etask-backend) (main)
