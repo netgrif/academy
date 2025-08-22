@@ -1,4 +1,4 @@
-# Netgrif Local Installations
+# Netgrif Local Setup
 
 Learn how to set up and run your first Netgrif Platform low-code application locally.  
 Our step-by-step **video tutorials** guide you through backend/frontend setup, databases, user management, and extending apps with new functionality.
@@ -7,21 +7,27 @@ Our step-by-step **video tutorials** guide you through backend/frontend setup, d
 
 ## Video Tutorials
 
-### Episode 1 – IntelliJ Setup & First Low-Code App
+### Episode 1 – IntelliJ Setup
 <div class="container">
     <iframe class="responsive-iframe" src="https://www.youtube.com/embed/4FLiukKa5Vs" title="Netgrif Platform Basic Courses – Episode 1"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen></iframe>
 </div>
 
----
+In this first episode you’ll learn how to set up the **Netgrif Platform locally using IntelliJ IDEA**.  
+The tutorial walks you through cloning the backend and frontend repositories, configuring required databases with Docker, running the backend runtime, and preparing the frontend interface.  
+Finally, you’ll upload a basic low-code application, extend it with a REST API function, and execute it in your local environment.
 
-### Episode 2 – VS Code Setup & User Management App
+### Episode 2 – VS Code Setup
 <div class="container">
     <iframe class="responsive-iframe" src="https://www.youtube.com/embed/QYXhVO0ZBQ4" title="Netgrif Platform Basic Courses – Episode 2"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
     allowfullscreen></iframe>
 </div>
+
+In the second episode you’ll see how to initialise and run the **Netgrif Platform locally using Visual Studio Code**.  
+The guide shows you how to launch backend services and databases with Docker, configure the frontend with Angular, and log in to the Etask application.  
+You’ll also create new users manually and via a low-code app, deploy a ready-made **User Management application**, and learn about interprocess communication and CSV export features.
 
 ---
 
