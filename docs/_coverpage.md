@@ -2,7 +2,7 @@
 
 # Netgrif Academy
 
-> The quickest way to learn low-code platform Netgrif and language Petriflow
+> The fastest way to learn the Netgrif Enterprise Low-code Platform and the Petriflow language
 
 [Netgrif web](https://netgrif.com/)
 [YouTube](https://www.youtube.com/@netgrif)

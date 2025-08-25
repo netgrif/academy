@@ -32,5 +32,5 @@ Watch the showcase video below (from 20:55 to 37:10):
 <div class="container">
     <iframe class="responsive-iframe" src="https://www.youtube.com/embed/RMgLDDZAfrQ?start=1255" title="GeeCON 2023 Application Showcase"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen></iframe>
+    allowfullscreen></iframe>   
 </div>
