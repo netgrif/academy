@@ -57,9 +57,9 @@ If you prefer step-by-step guides, here are external resources:
 ## GitHub Repositories
 
 - **Backend**:
-    - [etask-backend](https://github.com/netgrif/etask-backend) (main)
+    - [etask-backend-starter](https://github.com/netgrif/etask-backend-starter) (main)
     - [nae-backend-application-starter](https://github.com/netgrif/nae-backend-application-starter)
 
 - **Frontend**:
-    - [etask-frontend](https://github.com/netgrif/etask-frontend) (main)
+    - [etask-frontend-starter](https://github.com/netgrif/etask-frontend-starter) (main)
     - [nae-frontend-application-starter](https://github.com/netgrif/nae-frontend-application-starter)

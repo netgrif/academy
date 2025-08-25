@@ -1,7 +1,7 @@
 # Netgrif Server Setup (Ubuntu 24.04)
 
 Learn how to deploy the Netgrif Platform on an Ubuntu 24.04 server.  
-This step-by-step **video tutorial** shows you how to take a packaged ZIP file (built in [Episode 2](./local-installations.md)) and deploy it on a live server environment.
+This step-by-step **video tutorial** shows you how to take a packaged ZIP file (built in [Episode 2](tutorials/nae-ce-starter/nae-ce-starter.md)) and deploy it on a live server environment.
 
 ---
 
@@ -14,7 +14,7 @@ This step-by-step **video tutorial** shows you how to take a packaged ZIP file (
     allowfullscreen></iframe>
 </div>
 
-In this episode you’ll learn how to take the packaged Netgrif Platform ZIP file (built in [Episode 2](./local-installations.md)) and deploy it to an **Ubuntu 24.04 server**.
+In this episode you’ll learn how to take the packaged Netgrif Platform ZIP file (built in [Episode 2](tutorials/nae-ce-starter/nae-ce-starter.md)) and deploy it to an **Ubuntu 24.04 server**.
 The tutorial covers installing required dependencies, running the official Netgrif installation script, manually installing Redis if necessary, and configuring backend & frontend services with Apache and systemd. By the end, you’ll have a **fully running Netgrif Platform instance** accessible from your browser — ready for testing, staging, or production use.
 
 ---
