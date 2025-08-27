@@ -10,7 +10,7 @@ Below you will find links to courses, showcase demos, and a list of practical ex
 Focused on our proprietary **Petriflow language**, these videos explain how the builder, language, and interpreter work together.  
 They are an excellent starting point to understand the foundations of modeling with Netgrif.
 
-[Watch Petriflow Courses on YouTube](https://www.youtube.com/playlist?list=PLHRoRm51BST9F4ZVdA4P-wtHlrkKN5U6c)
+[Watch Petriflow Courses on YouTube](https://www.youtube.com/watch?v=sAVgSaBOkUE&list=PLHRoRm51BST_iI-NlBu_xJgR8l8qMrwN_&pp=gAQB)
 
 ---
 
