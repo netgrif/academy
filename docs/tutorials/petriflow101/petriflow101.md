@@ -1,5 +1,4 @@
-
-content = """# Petriflow 101 — Tutorials Overview
+# Petriflow 101 — Tutorials Overview
 
 Welcome to **Petriflow 101**, a continuously growing series of short, hands-on tutorials that guide you through building, deploying, and improving applications using **Netgrif Platform** and **PetriFlow modeling**.
 
