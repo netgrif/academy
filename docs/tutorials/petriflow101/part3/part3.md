@@ -1,48 +1,47 @@
 # Petriflow 101 — Part 3
-### First Update & Second Deployment
+### Rapid Change: Adding Email Validation & Redeploying to eTask
 
-This short tutorial continues from **Part 2** and shows how to **update your application**, add **email validation**, and **redeploy** it into **eTask**.
+This tutorial demonstrates how easily you can **modify and redeploy** your PetriFlow application.  
+With just a small update — adding an **email validation rule** — you’ll learn how **rapid iteration** works between **Netgrif Application Builder** and **eTask**.
 
 ---
 
 ## 🎯 Objective
 
-In this part, you will:
-- Edit your existing *Request* application in the **Netgrif Application Builder**
-- Add an **email validation rule** (regex pattern)
-- Export a **new XML version** of the process
-- Deploy it again to **eTask** and observe versioning behavior
+You will:
+- Apply a quick change (email validation) to your existing *Request* form
+- Re-export the updated PetriFlow XML
+- Upload the new version to **eTask**
+- See how rapid updates automatically reflect in the running environment
 
 ---
 
 ## Steps
 
 1. **Open your Request process**
-   - Go to [Netgrif Application Builder](https://builder.netgrif.cloud) and open the `Request` process you created earlier.
+   - In **[Netgrif Application Builder](https://builder.netgrif.cloud)**, open the `Request` process from the previous tutorial.
 
-2. **Correct metadata and identifiers**
-   - Update the **Title** or **Initials** if necessary (e.g., change initials from `RQT` to `REQ`).
-   - Ensure `defaultRole` and `anonymousRole` are both set to **true**.
+2. **Add a quick improvement – email validation**
+   - Open the `email` field and add a **regex** rule that checks for a valid address format.
+   - Provide an error message such as: *“Please enter a valid email address.”*
 
-3. **Add email validation**
-   - Open the **email** data field.
-   - Insert a **regex expression** to validate the input (e.g., simple pattern for `@` and domain presence).
-   - Add a message: `"Please enter a valid email address"`.
+3. **Export the updated model**
+   - Export the modified process as a new XML (e.g. `request_v2.xml`).
+   - You can treat this as a **rapid iteration** — no need to recreate the form.
 
-4. **Export the updated XML**
-   - Click **Export as XML** in Builder.
-   - Save it locally as the new version, e.g. `request_v2.xml`.
+4. **Redeploy to eTask**
+   - Log in to **[eTask](https://etask.netgrif.cloud)**.
+   - Go to **Processes → Upload** and select your updated XML.
+   - Deploy it — the system now contains **two versions** of the same process.
 
-5. **Upload into eTask**
-   - Login to [eTask](https://etask.netgrif.cloud).
-   - Go to **Processes → Upload**, and choose the exported XML file.
-   - Upload it as a **minor** or **major** version.
-   - Note: previous instances of the process remain bound to the old version; new ones use the updated file.
+5. **Validate the changes**
+   - Open the public link of your Request form.
+   - Try entering invalid and valid email formats.
+   - Observe the validation feedback instantly in the running application.
 
-6. **Verify the form**
-   - Open the **public URL** again.
-   - Enter test emails to check the validation feedback.
-   - Confirm new submissions create instances under the updated process ID.
+6. **Check version behavior**
+   - Previously created requests remain under the **old version**.
+   - New submissions automatically use the **latest version** with validation enabled.
 
 ---
 
@@ -50,7 +49,7 @@ In this part, you will:
 
 #### **🎥 Video**
 
-Watch “First Update & Second Deployment” (21:33–24:16):
+Watch “Rapid Change & Second Deployment” (21:33–24:16):
 
 <div class="container">
   <iframe class="responsive-iframe" src="https://www.youtube.com/embed/sAVgSaBOkUE?start=1293&end=1456" 
@@ -69,16 +68,113 @@ Watch “First Update & Second Deployment” (21:33–24:16):
 <summary>📄 Example XML Snippet</summary>
 
 ```xml
-<data type="text">
-    <id>email</id>
-    <title>Email</title>
-    <validations>
-        <validation>
-            <expression>regex ^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$</expression>
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="https://petriflow.com/petriflow.schema.xsd">
+   <id>request</id>
+   <version>1.0.0</version>
+   <initials>RQT</initials>
+   <title>Request</title>
+   <icon>device_hub</icon>
+   <defaultRole>true</defaultRole>
+   <anonymousRole>true</anonymousRole>
+   <transitionRole>false</transitionRole>
+
+   <data type="file">
+      <id>attachment</id>
+      <title>Attachment</title>
+   </data>
+
+   <data type="text">
+      <id>email</id>
+      <title>Email</title>
+      <validations>
+         <validation>
+            <expression>regex ^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$</expression>
             <message>Please type a valid email</message>
-        </validation>
-    </validations>
-</data>
+         </validation>
+      </validations>
+   </data>
+
+   <data type="text"><id>name</id><title>Name</title></data>
+   <data type="text"><id>surname</id><title>Surname</title></data>
+   <data type="text"><id>phone</id><title>Phone number</title></data>
+
+   <data type="text">
+      <id>request_text</id>
+      <title>Request</title>
+   </data>
+
+   <transition>
+      <id>t1</id>
+      <x>336</x>
+      <y>112</y>
+      <label>Request form</label>
+      <assignPolicy>auto</assignPolicy>
+
+      <dataGroup>
+         <id>t1_0</id>
+         <cols>4</cols>
+         <layout>grid</layout>
+
+         <dataRef>
+            <id>name</id>
+            <logic><behavior>editable</behavior></logic>
+            <layout>
+               <x>0</x><y>0</y><rows>1</rows><cols>2</cols>
+               <template>material</template><appearance>outline</appearance>
+            </layout>
+         </dataRef>
+
+         <dataRef>
+            <id>surname</id>
+            <logic><behavior>editable</behavior></logic>
+            <layout>
+               <x>2</x><y>0</y><rows>1</rows><cols>2</cols>
+               <template>material</template><appearance>outline</appearance>
+            </layout>
+         </dataRef>
+
+         <dataRef>
+            <id>email</id>
+            <logic><behavior>editable</behavior><behavior>required</behavior></logic>
+            <layout>
+               <x>0</x><y>1</y><rows>1</rows><cols>2</cols>
+               <template>material</template><appearance>outline</appearance>
+            </layout>
+         </dataRef>
+
+         <dataRef>
+            <id>phone</id>
+            <logic><behavior>editable</behavior></logic>
+            <layout>
+               <x>2</x><y>1</y><rows>1</rows><cols>2</cols>
+               <template>material</template><appearance>outline</appearance>
+            </layout>
+         </dataRef>
+
+         <dataRef>
+            <id>request_text</id>
+            <logic><behavior>editable</behavior><behavior>required</behavior></logic>
+            <layout>
+               <x>0</x><y>2</y><rows>2</rows><cols>4</cols>
+               <template>material</template><appearance>outline</appearance>
+            </layout>
+            <component><name>textarea</name></component>
+         </dataRef>
+
+         <dataRef>
+            <id>attachment</id>
+            <logic><behavior>editable</behavior></logic>
+            <layout>
+               <x>0</x><y>4</y><rows>1</rows><cols>4</cols>
+               <template>material</template><appearance>outline</appearance>
+            </layout>
+            <component><name>preview</name></component>
+         </dataRef>
+      </dataGroup>
+   </transition>
+</document>
 ```
 </details>
 
@@ -96,10 +192,9 @@ Watch “First Update & Second Deployment” (21:33–24:16):
    The running application demonstrating how the regex validation works when entering an invalid email address.  
    ![Regex validation in running app](regexApp.png)
 
-
 #### **🧾 Description**
 
-Updating the process demonstrates **version control** in the Netgrif ecosystem:
+This example demonstrates how **rapid changes** can be applied and redeployed with minimal effort using Netgrif tools.
 
 | Action | Platform | Result |
 |--------|-----------|--------|
@@ -118,10 +213,11 @@ Updating the process demonstrates **version control** in the Netgrif ecosystem:
 
 ## ✅ Summary
 
-You have successfully:
-- Updated your application by adding **email regex validation**
-- Re-exported and re-uploaded the process to eTask
-- Verified how versioning works between **Builder** and **eTask**
-- Prepared the base for **Part 4**, where additional workflow logic will be added
+You’ve just made your **first rapid change** — adding validation to your Request form.  
+This shows how easily you can iterate and redeploy your PetriFlow applications using **Netgrif Builder** and **eTask**:
+
+- Small updates take just a few minutes
+- Redeployment instantly activates a new version
+- Users experience the improvement immediately
 
 ---

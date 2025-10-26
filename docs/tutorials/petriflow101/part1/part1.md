@@ -87,12 +87,6 @@ Watch the “Form Creation” segment (00:00–12:40):
     <data type="text">
         <id>email</id>
         <title>Email</title>
-        <validations>
-          <validation>
-            <expression>regex ^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$</expression>
-            <message>Please type a valid email</message>
-          </validation>
-        </validations>
     </data>
 
     <data type="text"><id>name</id><title>Name</title></data>
