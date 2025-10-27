@@ -8,24 +8,44 @@
 
 <!-- tabs:start -->
 
-#### ** 🧠 Overview **
+#### **🧠 Overview**
 
 <details open>
-<summary>📘 Rapid iteration</summary>
+<summary>📘 Goal & Context</summary>
 
-1. **Open Request** in Builder
-2. **Add regex** to the **Email** field + message
-3. **Export** updated XML (e.g., `request_v2.xml`)
-4. **Upload** to eTask → now two versions exist
-5. **Test** validation via the public link
+In this part, you’ll perform your **first rapid iteration** — a small but impactful update to your process.  
+You’ll see how a simple validation rule (regex for email) becomes a **new version** of your model in **eTask**, while older instances remain unaffected.
+
+You will:
+- Modify your existing **Request** model in Builder
+- Add a **regex validation rule** to the *Email* field
+- Export and redeploy it to **eTask**
+- Observe how the system handles **multiple process versions** automatically
 </details>
 
 <details open>
-<summary>🧩 Versioning behavior</summary>
+<summary>🪜 Step-by-Step Flow</summary>
 
-- Existing cases remain on the **old** version
-- New cases use the **latest** model automatically
-- Validation rules apply at runtime
+| Step | Action | Purpose |
+|------|---------|----------|
+| 1️⃣ | **Open Request** in Builder | Load the existing process from Part 2 |
+| 2️⃣ | **Add regex** validation to *Email* | Introduce real-time data quality check |
+| 3️⃣ | **Export updated XML** (`request_v2.xml`) | Generate a new deployable version |
+| 4️⃣ | **Upload to eTask → Process Models** | Creates a new version alongside the old one |
+| 5️⃣ | **Test via public link** | Verify the new rule while old cases stay intact |
+
+> ⚡ **Tip:** Even small rule updates (like regex) require redeployment.  
+> It’s a safe, versioned workflow evolution — no downtime, no lost data.
+</details>
+
+<details>
+<summary>🔄 Versioning Behavior</summary>
+
+- **Existing cases** continue running on their original XML definition
+- **New instances** automatically use the updated model (`request_v2.xml`)
+- **Validation logic** executes at runtime — enforcing clean inputs immediately
+
+> 🧩 This showcases how PetriFlow supports *continuous improvement* — update, redeploy, test, repeat.
 </details>
 
 ---
@@ -45,7 +65,7 @@ Watch “Rapid Change & Second Deployment” (21:33–24:16).
 
 <div class="card">
 <h4>1️⃣ Email Validation in Builder</h4>
-<p>Configured **regex** for the Email field.</p>
+<p>Configured <b>regex</b> for the Email field.</p>
 <img src="tutorials/petriflow101/part3/regex.png" alt="Email field validation in Builder" />
 </div>
 

@@ -59,6 +59,13 @@ Understand how Petri Nets represent real business flows.</p>
 <img src="tutorials/petriflow101/part5/roles.png" alt="Roles and permissions" />
 </div>
 
+<div class="card">
+<h4>6️⃣ <a href="#/tutorials/petriflow101/part6/part6.md">Task Forms & Form Reuse</a></h4>
+<p>Create task-specific forms and reuse your main Request Form  
+via <code>taskRef</code> attributes to build modular, consistent UIs.</p>
+<img src="tutorials/petriflow101/part6/subform.png" alt="Subform and reference example" />
+</div>
+
 </div>
 
 ---

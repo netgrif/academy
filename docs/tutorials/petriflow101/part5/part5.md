@@ -8,14 +8,54 @@
 
 <!-- tabs:start -->
 
-#### ** 🧠 Overview **
+#### **🧠 Overview**
 
 <details open>
-<summary>📘 Goal & Steps</summary>
+<summary>📘 Goal & Context</summary>
 
-1. **Create roles** for each participant (Registration, Legal, PR, System)
-2. **Assign permissions** so only the right role can perform each task
-3. Use **process metadata** — *Default role* and *Anonymous role* — to make selected tasks public or open to all logged-in users
+Configure **roles** and **permissions** so each task in the *Request* workflow is performed by the **right actor**, and set **Default/Anonymous** access for public steps.  
+You’ll define participants, map tasks → roles with `<perform>`, and finalize metadata for public vs authenticated access.
+</details>
+
+<details open>
+<summary>🪜 Step-by-Step Flow</summary>
+
+| Step | Action | Purpose |
+|------|--------|---------|
+| 1️⃣ | **Create roles** (Registration, Legal, PR, System) | Define who can act in the process |
+| 2️⃣ | **Map tasks → roles** with `<perform>` | Ensure the right people (or system) execute each task |
+| 3️⃣ | **Set process metadata** (Default, Anonymous) | Control public vs logged-in visibility |
+| 4️⃣ | **Verify in eTask** | Confirm permissions behave as expected |
+</details>
+
+<details>
+<summary>🔐 Task → Role Permissions</summary>
+
+Each task should have exactly one `roleRef` with `<perform>true</perform>` (except public steps relying on Default/Anonymous).
+
+| Task (Transition) | Assigned Role | Permission | Notes |
+|-------------------|---------------|-----------|-------|
+| 📝 **Request form** | `System` | perform | Internal step, not opened directly by end users |
+| 📤 **Submit request** | `Anonymous` / `Default` | perform | Public submission form |
+| 🧾 **Register** | `Registration` | perform | Intake + decision (go to legal / skip) |
+| ⚖️ **Statement of Legal** | `Legal` | perform | Legal statement authoring |
+| 📨 **Answer** | `PR` | perform | Prepares final response |
+| 🔁 **go_to_legal** | `System` | perform | Auto-routing when `decision_legal = true` |
+| ⏩ **skip_legal** | `System` | perform | Auto-routing when `decision_legal = false` |
+| 👀 **Status** | `Default` / `Anonymous` | perform | Read-only public status |
+</details>
+
+<details>
+<summary>🌐 Process Metadata</summary>
+
+- **Default role** → any **logged-in** user
+- **Anonymous role** → any **not-logged-in** (public) user
+- Steps without an explicit role can be exposed via these roles for **open access** (e.g., *Submit request*, *Status*).
+
+> 💡 **Tips**
+> - Assign exactly **one responsible role per task** with `<perform>`.
+> - Keep automated transitions under the **System** role.
+> - Use **Anonymous/Default** for public entry points and read-only status.
 </details>
 
 #### ** 🎥 Video **
@@ -106,18 +146,9 @@ Use this for public steps like <strong>Submit request</strong> and for universal
     <id>system</id>
     <title>System</title>
   </role>
-  <data type="text">
-    <id>answer</id>
-    <title>Answer</title>
-  </data>
   <data type="file">
     <id>attachment</id>
     <title>Attachment</title>
-  </data>
-  <data type="boolean">
-    <id>decision_legal</id>
-    <title>Go to legal?</title>
-    <init>false</init>
   </data>
   <data type="text">
     <id>email</id>
@@ -147,17 +178,6 @@ Use this for public steps like <strong>Submit request</strong> and for universal
     <title>Request</title>
   </data>
   <data type="text">
-    <id>state</id>
-    <title>State</title>
-  </data>
-  <data type="text">
-    <id>statement_of_legal</id>
-    <title>Statement of legal department</title>
-    <component>
-      <name>textarea</name>
-    </component>
-  </data>
-  <data type="text">
     <id>surname</id>
     <title>Surname</title>
   </data>
@@ -173,103 +193,6 @@ Use this for public steps like <strong>Submit request</strong> and for universal
         <perform>true</perform>
       </logic>
     </roleRef>
-    <dataGroup>
-      <id>t1_0</id>
-      <cols>4</cols>
-      <layout>grid</layout>
-      <dataRef>
-        <id>name</id>
-        <logic>
-          <behavior>editable</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>0</y>
-          <rows>1</rows>
-          <cols>2</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>surname</id>
-        <logic>
-          <behavior>editable</behavior>
-        </logic>
-        <layout>
-          <x>2</x>
-          <y>0</y>
-          <rows>1</rows>
-          <cols>2</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>email</id>
-        <logic>
-          <behavior>editable</behavior>
-          <behavior>required</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>1</y>
-          <rows>1</rows>
-          <cols>2</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>phone</id>
-        <logic>
-          <behavior>editable</behavior>
-        </logic>
-        <layout>
-          <x>2</x>
-          <y>1</y>
-          <rows>1</rows>
-          <cols>2</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>request_text</id>
-        <logic>
-          <behavior>editable</behavior>
-          <behavior>required</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>2</y>
-          <rows>2</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-        <component>
-          <name>textarea</name>
-        </component>
-      </dataRef>
-      <dataRef>
-        <id>attachment</id>
-        <logic>
-          <behavior>editable</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>4</y>
-          <rows>1</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-        <component>
-          <name>preview</name>
-        </component>
-      </dataRef>
-    </dataGroup>
   </transition>
   <transition>
     <id>t2</id>
@@ -277,25 +200,6 @@ Use this for public steps like <strong>Submit request</strong> and for universal
     <y>272</y>
     <label>Submit request</label>
     <assignPolicy>auto</assignPolicy>
-    <dataGroup>
-      <id>t2_0</id>
-      <cols>4</cols>
-      <layout>grid</layout>
-      <dataRef>
-        <id>reference_to_request_form</id>
-        <logic>
-          <behavior>editable</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>0</y>
-          <rows>1</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-    </dataGroup>
   </transition>
   <transition>
     <id>t3</id>
@@ -308,39 +212,6 @@ Use this for public steps like <strong>Submit request</strong> and for universal
         <perform>true</perform>
       </logic>
     </roleRef>
-    <dataGroup>
-      <id>t3_0</id>
-      <cols>4</cols>
-      <layout>grid</layout>
-      <dataRef>
-        <id>decision_legal</id>
-        <logic>
-          <behavior>editable</behavior>
-        </logic>
-        <layout>
-          <x>1</x>
-          <y>0</y>
-          <rows>1</rows>
-          <cols>2</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>reference_to_request_form</id>
-        <logic>
-          <behavior>visible</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>1</y>
-          <rows>1</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-    </dataGroup>
   </transition>
   <transition>
     <id>t4</id>
@@ -365,43 +236,6 @@ Use this for public steps like <strong>Submit request</strong> and for universal
         <perform>true</perform>
       </logic>
     </roleRef>
-    <dataGroup>
-      <id>t5_0</id>
-      <cols>4</cols>
-      <layout>grid</layout>
-      <dataRef>
-        <id>statement_of_legal</id>
-        <logic>
-          <behavior>editable</behavior>
-          <behavior>required</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>0</y>
-          <rows>2</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-        <component>
-          <name>textarea</name>
-        </component>
-      </dataRef>
-      <dataRef>
-        <id>reference_to_request_form</id>
-        <logic>
-          <behavior>visible</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>2</y>
-          <rows>1</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-    </dataGroup>
   </transition>
   <transition>
     <id>t6</id>
@@ -414,57 +248,6 @@ Use this for public steps like <strong>Submit request</strong> and for universal
         <perform>true</perform>
       </logic>
     </roleRef>
-    <dataGroup>
-      <id>t6_0</id>
-      <cols>4</cols>
-      <layout>grid</layout>
-      <dataRef>
-        <id>answer</id>
-        <logic>
-          <behavior>editable</behavior>
-          <behavior>required</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>0</y>
-          <rows>2</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-        <component>
-          <name>textarea</name>
-        </component>
-      </dataRef>
-      <dataRef>
-        <id>statement_of_legal</id>
-        <logic>
-          <behavior>hidden</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>2</y>
-          <rows>2</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>reference_to_request_form</id>
-        <logic>
-          <behavior>visible</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>4</y>
-          <rows>1</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-    </dataGroup>
   </transition>
   <transition>
     <id>t7</id>
@@ -483,53 +266,6 @@ Use this for public steps like <strong>Submit request</strong> and for universal
     <x>432</x>
     <y>400</y>
     <label>Status</label>
-    <dataGroup>
-      <id>t8_0</id>
-      <cols>4</cols>
-      <layout>grid</layout>
-      <dataRef>
-        <id>state</id>
-        <logic>
-          <behavior>visible</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>0</y>
-          <rows>1</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>answer</id>
-        <logic>
-          <behavior>hidden</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>1</y>
-          <rows>2</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>reference_to_request_form</id>
-        <logic>
-          <behavior>visible</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>3</y>
-          <rows>1</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-    </dataGroup>
   </transition>
   <place>
     <id>p1</id>

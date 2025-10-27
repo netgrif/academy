@@ -8,26 +8,44 @@
 
 <!-- tabs:start -->
 
-#### ** 🧠 Overview **
+#### **🧠 Overview**
 
 <details open>
-<summary>📘 Goal & Steps</summary>
+<summary>📘 Goal & Context</summary>
 
-1. **Reuse** your previous *Request Form* model as a starting point
-2. **Add workflow logic** to create a process with multiple steps
-3. Define **states (places)** and **tasks (transitions)** for each step
-4. Configure **shared forms** for client and employee interactions
-5. **Deploy and test** the full process-based application in **eTask**
+This part turns your single **Request form** into a **true workflow**: multiple **states** (places), **tasks** (transitions), and user interactions that move tokens through the process.  
+You’ll design the flow in **Builder**, then validate the runtime behavior in **eTask**.
+
+You will:
+- Reuse the Part 1 model as a base
+- Add **places** (states) and **transitions** (tasks) with arcs
+- Share/attach forms to transitions for **client** and **employee** steps
+- Deploy and test the end-to-end workflow
 </details>
 
 <details open>
+<summary>🪜 Step-by-Step Flow</summary>
+
+| Step | Action | Purpose |
+|------|--------|---------|
+| 1️⃣ | **Load Request model** in Builder | Start from the working form |
+| 2️⃣ | **Add places** (e.g., Submitted, Registered, Waiting for legal, Answered) | Define process **states** |
+| 3️⃣ | **Add transitions** (Register, go_to_legal / skip_legal, Statement of legal, Answer, Status) | Define **tasks/events** |
+| 4️⃣ | **Connect arcs** between places ↔ transitions | Set **token flow** and control logic |
+| 5️⃣ | **Attach forms** to transitions | Reuse or share forms for each step |
+| 6️⃣ | **Simulate in Builder** | Check enabled tasks & token movement |
+| 7️⃣ | **Deploy to eTask** | Run and verify the live workflow |
+</details>
+
+<details>
 <summary>🧩 Concept: From Form to Process</summary>
 
-- Transform a **simple web form** into a **multi-user workflow**
-- Use **Petriflow PetriNet** elements:
-    - *Places* → represent **states** of the process
-    - *Transitions* → represent **tasks** performed by users
-- Each transition has an associated **form** and **data logic**
+- **Places (⚪)** represent **states** the case can be in
+- **Transitions (⬛)** represent **tasks** users (or system) perform
+- **Arcs** define how **tokens** move between states and tasks
+- **Shared forms** let multiple tasks reuse the same UI and data
+
+> 💡 **Tip:** Keep transitions small and focused (one user intent per task). It simplifies permissions, testing, and future changes.
 </details>
 
 #### ** 🎥 Video **
@@ -96,18 +114,9 @@ This helps you verify that your process logic works correctly before deploying i
   <defaultRole>true</defaultRole>
   <anonymousRole>true</anonymousRole>
   <transitionRole>false</transitionRole>
-  <data type="text">
-    <id>answer</id>
-    <title>Answer</title>
-  </data>
   <data type="file">
     <id>attachment</id>
     <title>Attachment</title>
-  </data>
-  <data type="boolean">
-    <id>decision_legal</id>
-    <title>Go to legal?</title>
-    <init>false</init>
   </data>
   <data type="text">
     <id>email</id>
@@ -127,25 +136,9 @@ This helps you verify that your process logic works correctly before deploying i
     <id>phone</id>
     <title>Phone number</title>
   </data>
-  <data type="taskRef">
-    <id>reference_to_request_form</id>
-    <title/>
-    <init>t1</init>
-  </data>
   <data type="text">
     <id>request_text</id>
     <title>Request</title>
-  </data>
-  <data type="text">
-    <id>state</id>
-    <title>State</title>
-  </data>
-  <data type="text">
-    <id>statement_of_legal</id>
-    <title>Statement of legal department</title>
-    <component>
-      <name>textarea</name>
-    </component>
   </data>
   <data type="text">
     <id>surname</id>
@@ -157,103 +150,6 @@ This helps you verify that your process logic works correctly before deploying i
     <y>112</y>
     <label>Request form</label>
     <assignPolicy>auto</assignPolicy>
-    <dataGroup>
-      <id>t1_0</id>
-      <cols>4</cols>
-      <layout>grid</layout>
-      <dataRef>
-        <id>name</id>
-        <logic>
-          <behavior>editable</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>0</y>
-          <rows>1</rows>
-          <cols>2</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>surname</id>
-        <logic>
-          <behavior>editable</behavior>
-        </logic>
-        <layout>
-          <x>2</x>
-          <y>0</y>
-          <rows>1</rows>
-          <cols>2</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>email</id>
-        <logic>
-          <behavior>editable</behavior>
-          <behavior>required</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>1</y>
-          <rows>1</rows>
-          <cols>2</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>phone</id>
-        <logic>
-          <behavior>editable</behavior>
-        </logic>
-        <layout>
-          <x>2</x>
-          <y>1</y>
-          <rows>1</rows>
-          <cols>2</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>request_text</id>
-        <logic>
-          <behavior>editable</behavior>
-          <behavior>required</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>2</y>
-          <rows>2</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-        <component>
-          <name>textarea</name>
-        </component>
-      </dataRef>
-      <dataRef>
-        <id>attachment</id>
-        <logic>
-          <behavior>editable</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>4</y>
-          <rows>1</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-        <component>
-          <name>preview</name>
-        </component>
-      </dataRef>
-    </dataGroup>
   </transition>
   <transition>
     <id>t2</id>
@@ -261,64 +157,12 @@ This helps you verify that your process logic works correctly before deploying i
     <y>272</y>
     <label>Submit request</label>
     <assignPolicy>auto</assignPolicy>
-    <dataGroup>
-      <id>t2_0</id>
-      <cols>4</cols>
-      <layout>grid</layout>
-      <dataRef>
-        <id>reference_to_request_form</id>
-        <logic>
-          <behavior>editable</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>0</y>
-          <rows>1</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-    </dataGroup>
   </transition>
   <transition>
     <id>t3</id>
     <x>432</x>
     <y>272</y>
     <label>Register</label>
-    <dataGroup>
-      <id>t3_0</id>
-      <cols>4</cols>
-      <layout>grid</layout>
-      <dataRef>
-        <id>decision_legal</id>
-        <logic>
-          <behavior>editable</behavior>
-        </logic>
-        <layout>
-          <x>1</x>
-          <y>0</y>
-          <rows>1</rows>
-          <cols>2</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>reference_to_request_form</id>
-        <logic>
-          <behavior>visible</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>1</y>
-          <rows>1</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-    </dataGroup>
   </transition>
   <transition>
     <id>t4</id>
@@ -331,100 +175,12 @@ This helps you verify that your process logic works correctly before deploying i
     <x>912</x>
     <y>176</y>
     <label>Statement of legal</label>
-    <dataGroup>
-      <id>t5_0</id>
-      <cols>4</cols>
-      <layout>grid</layout>
-      <dataRef>
-        <id>statement_of_legal</id>
-        <logic>
-          <behavior>editable</behavior>
-          <behavior>required</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>0</y>
-          <rows>2</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-        <component>
-          <name>textarea</name>
-        </component>
-      </dataRef>
-      <dataRef>
-        <id>reference_to_request_form</id>
-        <logic>
-          <behavior>visible</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>2</y>
-          <rows>1</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-    </dataGroup>
   </transition>
   <transition>
     <id>t6</id>
     <x>1136</x>
     <y>272</y>
     <label>Answer</label>
-    <dataGroup>
-      <id>t6_0</id>
-      <cols>4</cols>
-      <layout>grid</layout>
-      <dataRef>
-        <id>answer</id>
-        <logic>
-          <behavior>editable</behavior>
-          <behavior>required</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>0</y>
-          <rows>2</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-        <component>
-          <name>textarea</name>
-        </component>
-      </dataRef>
-      <dataRef>
-        <id>statement_of_legal</id>
-        <logic>
-          <behavior>hidden</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>2</y>
-          <rows>2</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>reference_to_request_form</id>
-        <logic>
-          <behavior>visible</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>4</y>
-          <rows>1</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-    </dataGroup>
   </transition>
   <transition>
     <id>t7</id>
@@ -437,53 +193,6 @@ This helps you verify that your process logic works correctly before deploying i
     <x>432</x>
     <y>400</y>
     <label>Status</label>
-    <dataGroup>
-      <id>t8_0</id>
-      <cols>4</cols>
-      <layout>grid</layout>
-      <dataRef>
-        <id>state</id>
-        <logic>
-          <behavior>visible</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>0</y>
-          <rows>1</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>answer</id>
-        <logic>
-          <behavior>hidden</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>1</y>
-          <rows>2</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-      <dataRef>
-        <id>reference_to_request_form</id>
-        <logic>
-          <behavior>visible</behavior>
-        </logic>
-        <layout>
-          <x>0</x>
-          <y>3</y>
-          <rows>1</rows>
-          <cols>4</cols>
-          <template>material</template>
-          <appearance>outline</appearance>
-        </layout>
-      </dataRef>
-    </dataGroup>
   </transition>
   <place>
     <id>p1</id>

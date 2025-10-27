@@ -11,21 +11,41 @@
 #### ** 🧠 Overview **
 
 <details open>
-<summary>📘 Flow</summary>
+<summary>📘 Goal & Context</summary>
 
-1. **Export** `request.xml` from Builder
-2. **Register & Login** to <a target="_blank" href="https://etask.netgrif.cloud/">eTask</a>
-3. **Upload** model in **Process Models**
-4. **Open Public Link** → submit anonymously
-5. **Verify in Cases/Tasks** as logged‑in user
+This part shows how to **move your process from Builder to eTask** and test it as a real running workflow.  
+You’ll see how **deployment**, **public access**, and **user verification** fit together.
+
+You will:
+- Export the `request.xml` model you built in Part 1
+- Upload it to **eTask → Process Models**
+- Access the **public submission link**
+- Observe the submitted case as both an **anonymous** and **logged-in** user
+
 </details>
 
 <details open>
-<summary>🧩 Why it matters</summary>
+<summary>🧩 Step-by-Step Flow</summary>
 
-- Confirms **Builder ↔ eTask** pipeline
-- Tests **anonymous** vs **authenticated** experience
-- Establishes a baseline before future updates
+| Step | Action | Purpose |
+|------|---------|----------|
+| 1️⃣ | **Export model** (`request.xml`) from Builder | Generate deployable process definition |
+| 2️⃣ | **Register / Login** to [eTask](https://etask.netgrif.cloud) | Access the process management dashboard |
+| 3️⃣ | **Upload** model to *Process Models* | Deploys the PetriFlow XML into eTask runtime |
+| 4️⃣ | **Open Public Link** | Submit the form anonymously |
+| 5️⃣ | **Verify in Cases / Tasks** | Check visibility and status as a logged-in user |
+
+> 💡 **Tip:** Public submissions create *anonymous* cases; logged-in users can later monitor them in the **Cases** and **Tasks** views.
+</details>
+
+<details>
+<summary>🎯 Why It Matters</summary>
+
+- Validates the **Builder → eTask** integration pipeline
+- Demonstrates how **public (anonymous)** access works vs **authenticated** interaction
+- Establishes your *baseline deployment* before you start adding rules, roles, and versioning in later parts
+
+> 🧩 After this part, you’ll have your first live workflow — visible, testable, and ready for iteration.
 </details>
 
 ---
@@ -51,19 +71,19 @@ Watch the “First Deployment (Upload) in eTask” segment (12:40–21:33).
 
 <div class="card">
 <h4>2️⃣ Uploaded Model</h4>
-<p>Process appears in **Process Models** after upload.</p>
+<p>Process appears in <b>Process Models</b> after upload.</p>
 <img src="tutorials/petriflow101/part2/uploadedProcess.png" alt="Uploaded process model" />
 </div>
 
 <div class="card">
 <h4>3️⃣ Public Form</h4>
-<p>Open via **Public link** and submit anonymously.</p>
+<p>Open via <b>Public link</b> and submit anonymously.</p>
 <img src="tutorials/petriflow101/part2/annonymous.png" alt="Anonymous view" />
 </div>
 
 <div class="card">
 <h4>4️⃣ Logged‑in Verification</h4>
-<p>See the submitted case in **Cases** or **Tasks**.</p>
+<p>See the submitted case in <b>Cases</b> or <b>Tasks</b>.</p>
 <img src="tutorials/petriflow101/part2/loggedUser.png" alt="Logged user view" />
 </div>
 
