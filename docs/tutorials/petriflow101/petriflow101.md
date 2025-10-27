@@ -1,9 +1,5 @@
 # Petriflow 101 — Tutorials Overview
 
-<div align="center">
-  <img src="tutorials/petriflow101/cover.png" alt="Petriflow 101 cover" width="85%" />
-</div>
-
 Welcome to **Petriflow 101** — your first guided journey into building low-code, object-centric workflows using **Petriflow** and **eTask**.
 
 ---
@@ -84,7 +80,3 @@ When you’re done mastering the basics, continue with **Petriflow 102**,
 covering advanced patterns, role management, and data dependencies.
 
 Stay tuned — more tutorials are coming!
-
-<div align="center">
-  <img src="tutorials/petriflow101/endBanner.png" alt="Petriflow 101 end banner" width="70%" />
-</div>
