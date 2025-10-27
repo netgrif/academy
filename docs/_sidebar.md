@@ -6,6 +6,8 @@
       * [Part 1](tutorials/petriflow101/part1/part1.md)
       * [Part 2](tutorials/petriflow101/part2/part2.md)
       * [Part 3](tutorials/petriflow101/part3/part3.md)
+      * [Part 4](tutorials/petriflow101/part4/part4.md)
+      * [Part 5](tutorials/petriflow101/part5/part5.md)
 * [Examples](examples/examples.md)
     * [Generic Request](examples/request/request.md)
     * [Generic Request with Web Services](examples/request-ws/request-ws.md)

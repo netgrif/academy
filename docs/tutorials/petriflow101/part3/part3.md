@@ -1,71 +1,77 @@
-# Petriflow 101 — Part 3
-### Rapid Change: Adding Email Validation & Redeploying to eTask
+# Petriflow 101 - Part 3
+### Rapid Change: Email Validation & Redeploy - Hybrid Layout
 
-This tutorial demonstrates how easily you can **modify and redeploy** your PetriFlow application.  
-With just a small update — adding an **email validation rule** — you’ll learn how **rapid iteration** works between **Netgrif Application Builder** and **eTask**.
-
----
-
-## 🎯 Objective
-
-You will:
-- Apply a quick change (email validation) to your existing *Request* form
-- Re-export the updated PetriFlow XML
-- Upload the new version to **eTask**
-- See how rapid updates automatically reflect in the running environment
-
----
-
-## Steps
-
-1. **Open your Request process**
-   - In **[Netgrif Application Builder](https://builder.netgrif.cloud)**, open the `Request` process from the previous tutorial.
-
-2. **Add a quick improvement – email validation**
-   - Open the `email` field and add a **regex** rule that checks for a valid address format.
-   - Provide an error message such as: *“Please enter a valid email address.”*
-
-3. **Export the updated model**
-   - Export the modified process as a new XML (e.g. `request_v2.xml`).
-   - You can treat this as a **rapid iteration** — no need to recreate the form.
-
-4. **Redeploy to eTask**
-   - Log in to **[eTask](https://etask.netgrif.cloud)**.
-   - Go to **Processes → Upload** and select your updated XML.
-   - Deploy it — the system now contains **two versions** of the same process.
-
-5. **Validate the changes**
-   - Open the public link of your Request form.
-   - Try entering invalid and valid email formats.
-   - Observe the validation feedback instantly in the running application.
-
-6. **Check version behavior**
-   - Previously created requests remain under the **old version**.
-   - New submissions automatically use the **latest version** with validation enabled.
+> ⚡ **What you’ll practice**  
+> Make a **quick change** (email regex), export a new XML, and **redeploy** to eTask to see versioning in action.
 
 ---
 
 <!-- tabs:start -->
 
-#### **🎥 Video**
+#### ** 🧠 Overview **
 
-Watch “Rapid Change & Second Deployment” (21:33–24:16):
+<details open>
+<summary>📘 Rapid iteration</summary>
 
+1. **Open Request** in Builder
+2. **Add regex** to the **Email** field + message
+3. **Export** updated XML (e.g., `request_v2.xml`)
+4. **Upload** to eTask → now two versions exist
+5. **Test** validation via the public link
+</details>
+
+<details open>
+<summary>🧩 Versioning behavior</summary>
+
+- Existing cases remain on the **old** version
+- New cases use the **latest** model automatically
+- Validation rules apply at runtime
+</details>
+
+---
+
+#### ** 🎥 Video **
+
+Watch “Rapid Change & Second Deployment” (21:33–24:16).
 <div class="container">
-  <iframe class="responsive-iframe" src="https://www.youtube.com/embed/sAVgSaBOkUE?start=1293&end=1456" 
-  title="YouTube video player"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen></iframe>
+  <iframe class="responsive-iframe" src="https://www.youtube.com/embed/sAVgSaBOkUE?start=1293&end=1456" title="Rapid Change & Redeploy" allowfullscreen></iframe>
 </div>
 
-#### **📄 Source Code (XML)**
+---
 
-[Open in Builder](https://builder.netgrif.cloud/modeler?modelUrl=https://academy.netgrif.com/tutorials/petriflow101/part3/request-form.xml)
+#### ** 🧱 Pictures of steps **
 
-> 💡 **Tip:** Even a small change (like adding regex validation) requires redeployment to update the active version in eTask.
+<div class="cards">
+
+<div class="card">
+<h4>1️⃣ Email Validation in Builder</h4>
+<p>Configured **regex** for the Email field.</p>
+<img src="tutorials/petriflow101/part3/regex.png" alt="Email field validation in Builder" />
+</div>
+
+<div class="card">
+<h4>2️⃣ Two Versions in eTask</h4>
+<p>Original and updated versions visible.</p>
+<img src="tutorials/petriflow101/part3/processV2.png" alt="Process version overview" />
+</div>
+
+<div class="card">
+<h4>3️⃣ Validation in Action</h4>
+<p>Running app rejects invalid emails.</p>
+<img src="tutorials/petriflow101/part3/regexApp.png" alt="Regex validation in running app" />
+</div>
+
+</div>
+
+---
+
+#### ** 🧾 Source & Notes **
+
+- Builder model for Part 3:  
+  <a target="_blank" href="https://builder.netgrif.cloud/modeler?modelUrl=https://academy.netgrif.com/tutorials/petriflow101/part3/request-form.xml">request-form.xml</a>
 
 <details>
-<summary>📄 Example XML Snippet</summary>
+<summary>📄 Source code (XML file)</summary>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -178,34 +184,7 @@ Watch “Rapid Change & Second Deployment” (21:33–24:16):
 ```
 </details>
 
-#### **🧱 Preview**
-
-1. **Email field validation in Builder**  
-   The Builder interface showing the configured **regex validation** for the Email field.  
-   ![Email field validation in Builder](regex.png)
-
-2. **Process version overview in eTask**  
-   The eTask **Process Models** view displaying both the original and updated versions of the Request process.  
-   ![Process version overview](processV2.png)
-
-3. **Validation in action**  
-   The running application demonstrating how the regex validation works when entering an invalid email address.  
-   ![Regex validation in running app](regexApp.png)
-
-#### **🧾 Description**
-
-This example demonstrates how **rapid changes** can be applied and redeployed with minimal effort using Netgrif tools.
-
-| Action | Platform | Result |
-|--------|-----------|--------|
-| Add regex validation | Builder | XML regenerated |
-| Export XML | Builder | Creates `request_v2.xml` |
-| Upload | eTask | New version registered |
-| Start new instance | eTask public URL | Uses updated form |
-
-- Old instances stay on **previous XML**
-- New instances automatically use **latest deployed version**
-- Validation rules are enforced dynamically
+> 💡 Small change, big impact: **regex** makes inputs reliable; redeploy keeps delivery fast.
 
 <!-- tabs:end -->
 
@@ -213,11 +192,4 @@ This example demonstrates how **rapid changes** can be applied and redeployed wi
 
 ## ✅ Summary
 
-You’ve just made your **first rapid change** — adding validation to your Request form.  
-This shows how easily you can iterate and redeploy your PetriFlow applications using **Netgrif Builder** and **eTask**:
-
-- Small updates take just a few minutes
-- Redeployment instantly activates a new version
-- Users experience the improvement immediately
-
----
+You executed a **rapid change** and verified **versioning** in eTask: old cases on old XML, new cases on the latest model.
