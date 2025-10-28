@@ -26,7 +26,7 @@ Throughout the process, the **user can track the status** and **see the final an
 <div class="cards-small">
 
 <div class="card">
-<h4>1️⃣ <a href="#/#/tutorials/petriflow101/part1/part1.md">Creating the First Form</a></h4>
+<h4>1️⃣ <a href="#/tutorials/petriflow101/part1/part1.md">Creating the First Form</a></h4>
 <p>Design the initial <strong>Request Form</strong> in Netgrif Builder.  
 Define fields, build a 4-column layout, and prepare your first PetriFlow XML.</p>
 <img src="tutorials/petriflow101/part1/form.png" alt="Request form preview" />
