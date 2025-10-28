@@ -63,7 +63,21 @@ Understand how Petri Nets represent real business flows.</p>
 <h4>6️⃣ <a href="#/tutorials/petriflow101/part6/part6.md">Task Forms & Form Reuse</a></h4>
 <p>Create task-specific forms and reuse your main Request Form  
 via <code>taskRef</code> attributes to build modular, consistent UIs.</p>
-<img src="tutorials/petriflow101/part6/subform.png" alt="Subform and reference example" />
+<img src="tutorials/petriflow101/part6/status.png" alt="Subform and reference example" />
+</div>
+
+<div class="card">
+<h4>7️⃣ <a href="#/tutorials/petriflow101/part7/part7.md">Actions & Low-Code Programming</a></h4>
+<p>Add visual low-code logic: update fields, trigger behaviours,  
+and automate paths using <code>assignTask() finishTask()</code>.</p>
+<img src="tutorials/petriflow101/part7/fork.png" alt="Actions and events" />
+</div>
+
+<div class="card">
+<h4>8️⃣ <a href="#/tutorials/petriflow101/part8/part8.md">Final Deployment & Testing</a></h4>
+<p>Update metadata, set auto assignment, deploy your final process,  
+and perform end-to-end testing in eTask.</p>
+<img src="tutorials/petriflow101/part8/finalTesting.png" alt="Final testing in eTask" />
 </div>
 
 </div>
