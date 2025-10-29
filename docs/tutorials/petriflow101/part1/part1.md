@@ -5,7 +5,7 @@
 > A public **Request** form in Netgrif Application Builder, using a 4-column grid layout and role-based access.  
 > This is your first real PetriFlow process — simple, visual, and deployable.
 
----
+ 
 
 <!-- tabs:start -->
 
@@ -28,7 +28,7 @@ You’ll work entirely inside **[Netgrif Application Builder](https://builder.ne
 <summary>🧩 Fields & Layout Overview</summary>
 
 | Field ID | Label | Type | Required | Layout (Grid) | Component    |
-|-----------|--------|------|-----------|----------------|--------------|
+|   --|  --|  |   --|     -|    --|
 | `name` | Name | Text | No | Row 1 Col 1-2 | -            |
 | `surname` | Surname | Text | No | Row 1 Col 3-4 | -            |
 | `email` | Email | Text | ✅ Yes | Row 2 Col 1-2 | -            |
@@ -58,7 +58,7 @@ You’ll work entirely inside **[Netgrif Application Builder](https://builder.ne
 > 🔍 **Tip:** Keep *Email* and *Request* fields **required** to ensure every submission is valid.
 </details>
 
----
+ 
 
 #### **🎥 Video**
 
@@ -71,7 +71,7 @@ Watch the “Form Creation” segment (00:00 – 12:40):
     allowfullscreen></iframe>
 </div>
 
----
+ 
 
 #### **🧱 Visual Steps**
 
@@ -91,7 +91,7 @@ Watch the “Form Creation” segment (00:00 – 12:40):
 
 </div>
 
----
+ 
 
 #### **🗾 Source & Notes**
 
@@ -208,11 +208,11 @@ Watch the “Form Creation” segment (00:00 – 12:40):
 
 > ✅ **Required:** `defaultRole`, `anonymousRole`; **Immediate task:** `assignPolicy="auto"`
 
----
+ 
 
 <!-- tabs:end -->
 
----
+ 
 
 ## ✅ Summary
 

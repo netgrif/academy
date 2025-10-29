@@ -4,7 +4,7 @@
 > 🔐 **What you’ll configure**  
 > Define process **roles**, assign who may **perform** each task, and understand how **Default** and **Anonymous** roles affect access.
 
----
+ 
 
 <!-- tabs:start -->
 
@@ -21,7 +21,7 @@ You’ll define participants, map tasks → roles with `<perform>`, and finalize
 <summary>🪜 Step-by-Step Flow</summary>
 
 | Step | Action | Purpose |
-|------|--------|---------|
+|  |  --|   |
 | 1️⃣ | **Create roles** (Registration, Legal, PR, System) | Define who can act in the process |
 | 2️⃣ | **Map tasks → roles** with `<perform>` | Ensure the right people (or system) execute each task |
 | 3️⃣ | **Set process metadata** (Default, Anonymous) | Control public vs logged-in visibility |
@@ -34,7 +34,7 @@ You’ll define participants, map tasks → roles with `<perform>`, and finalize
 Each task should have exactly one `roleRef` with `<perform>true</perform>` (except public steps relying on Default/Anonymous).
 
 | Task (Transition) | Assigned Role | Permission | Notes |
-|-------------------|---------------|-----------|-------|
+|      -|     |   --|  -|
 | 📝 **Request form** | `System` | perform | Internal step, not opened directly by end users |
 | 📤 **Submit request** | `Anonymous` / `Default` | perform | Public submission form |
 | 🧾 **Register** | `Registration` | perform | Intake + decision (go to legal / skip) |
@@ -428,7 +428,7 @@ Use this for public steps like <strong>Submit request</strong> and for universal
 
 <!-- tabs:end -->
 
----
+ 
 
 ## ✅ Summary
 

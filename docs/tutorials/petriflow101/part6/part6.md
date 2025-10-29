@@ -4,7 +4,7 @@
 > 🧩 **What you’ll build**  
 > Define and connect **task forms** for all workflow transitions, reuse the existing **Request Form**, and learn how to assemble composite task views.
 
----
+ 
 
 <!-- tabs:start -->
 
@@ -21,7 +21,7 @@ The goal is to understand how **forms, references, and subforms** interact to di
 <summary>🪜 Step-by-Step Flow</summary>
 
 | Step | Action | Purpose |
-|------|--------|----------|
+|  |  --|   -|
 | 1️⃣ | **Create task forms** for all workflow transitions | Each task gets its own user interface |
 | 2️⃣ | **Add reference field** (`taskRef`) to Request Form | Enables reuse across transitions |
 | 3️⃣ | **Embed Request Form** into other tasks | Provides consistent context (object-centric) |
@@ -39,7 +39,7 @@ The goal is to understand how **forms, references, and subforms** interact to di
 > 💡 **Tip:** A `taskRef` can act as a **subform**, displaying data from a related task. This is essential in **object‑centric workflows**, where one case can encapsulate data from others.
 </details>
 
----
+ 
 
 #### **🎥 Video**
 
@@ -48,7 +48,7 @@ Watch the “Workflow Task Form Creation” segment (48:05–57:41).
   <iframe class="responsive-iframe" src="https://www.youtube.com/embed/sAVgSaBOkUE?start=2885&end=3461" title="Workflow Task Form Creation" allowfullscreen></iframe>
 </div>
 
----
+ 
 
 #### **🧱 Pictures of steps**
 
@@ -654,7 +654,7 @@ Add a <strong>data attribute</strong> of type <code>taskRef</code> to create a l
 
 <!-- tabs:end -->
 
----
+ 
 
 ## ✅ Summary
 

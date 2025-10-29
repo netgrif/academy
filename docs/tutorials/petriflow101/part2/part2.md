@@ -4,7 +4,7 @@
 > 💡 **What you’ll do**  
 > Export your **Request** model from Builder, upload to **eTask**, submit via **public link**, and verify as a **logged‑in** user.
 
----
+ 
 
 <!-- tabs:start -->
 
@@ -28,7 +28,7 @@ You will:
 <summary>🧩 Step-by-Step Flow</summary>
 
 | Step | Action | Purpose |
-|------|---------|----------|
+|  |   |   -|
 | 1️⃣ | **Export model** (`request.xml`) from Builder | Generate deployable process definition |
 | 2️⃣ | **Register / Login** to [eTask](https://etask.netgrif.cloud) | Access the process management dashboard |
 | 3️⃣ | **Upload** model to *Process Models* | Deploys the PetriFlow XML into eTask runtime |
@@ -48,7 +48,7 @@ You will:
 > 🧩 After this part, you’ll have your first live workflow — visible, testable, and ready for iteration.
 </details>
 
----
+ 
 
 #### ** 🎥 Video **
 
@@ -57,7 +57,7 @@ Watch the “First Deployment (Upload) in eTask” segment (12:40–21:33).
   <iframe class="responsive-iframe" src="https://www.youtube.com/embed/sAVgSaBOkUE?start=760&end=1293" title="First Deployment" allowfullscreen></iframe>
 </div>
 
----
+ 
 
 #### ** 🧱 Pictures of steps **
 
@@ -89,7 +89,7 @@ Watch the “First Deployment (Upload) in eTask” segment (12:40–21:33).
 
 </div>
 
----
+ 
 
 #### ** 🧾 Source & Notes **
 
@@ -208,7 +208,7 @@ Watch the “First Deployment (Upload) in eTask” segment (12:40–21:33).
 
 <!-- tabs:end -->
 
----
+ 
 
 ## ✅ Summary
 

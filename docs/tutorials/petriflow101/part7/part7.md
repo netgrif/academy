@@ -5,7 +5,7 @@
 > Use **Actions** to define event-based logic for your workflow.  
 > Modify data dynamically, trigger system behaviours, and automate branching — all within Petriflow’s **low-code visual editor**.
 
----
+ 
 
 <!-- tabs:start -->
 
@@ -28,7 +28,7 @@ directly in the **backend of the running portal**, ensuring flexible runtime beh
 <summary>🪜 Step-by-Step Flow</summary>
 
 | Step | Action | Purpose |
-|------|---------|----------|
+|  |   |   -|
 | 1️⃣ | **Understand the Action lifecycle** | Each action runs in a <strong>pre</strong> or <strong>post</strong> execution phase |
 | 2️⃣ | **Attach actions to workflow elements** | Define actions for <em>tasks</em>, <em>data</em>, <em>dataRefs</em>, or <em>roles</em> |
 | 3️⃣ | **Respond to process events** | React to <em>assign</em>, <em>finish</em>, <em>cancel</em>, <em>delegate</em>, <em>case create/delete</em>, or <em>process upload</em> |
@@ -44,7 +44,7 @@ Every Petriflow element — such as a **task**, **data field**, or **role** — 
 Each event has two distinct **execution phases**, which define *when* your logic runs relative to the event.
 
 | Phase | Description |
-|--------|--------------|
+|  --|    --|
 | **Pre** | Runs *before* the event completes — ideal for validations, data preparation, or adjusting visibility. |
 | **Post** | Runs *after* the event completes — used for updating data, triggering new transitions, or system notifications. |
 
@@ -61,7 +61,7 @@ Each event has two distinct **execution phases**, which define *when* your logic
 > to illustrate how logic is applied in real-time when a user completes a task.
 </details>
 
----
+ 
 
 #### **🎥 Video**
 
@@ -70,7 +70,7 @@ Watch the “Actions and Low-Code Programming” segment (57:41–1:12:47).
   <iframe class="responsive-iframe" src="https://www.youtube.com/embed/sAVgSaBOkUE?start=3461&end=4367" title="Actions and Low-Code Programming" allowfullscreen></iframe>
 </div>
 
----
+ 
 
 #### **🧱 Pictures of Steps**
 
@@ -110,7 +110,7 @@ It updates the <code>state</code> field through the Netgrif Action API immediate
 <img src="tutorials/petriflow101/part7/submit.png" alt="Editing actions in Builder with Action API backend execution" />
 </div>
 
----
+ 
 
 <div class="card">
 <h4>2️⃣ Modify Data and Behaviour</h4>
@@ -137,7 +137,7 @@ via backend-interpreted Groovy logic — no redeployment required.
 <img src="tutorials/petriflow101/part7/behaviour.png" alt="Changing values dynamically with Actions and Groovy" />
 </div>
 
----
+ 
 
 <div class="card">
 <h4>3️⃣ Automate Workflow Branches</h4>

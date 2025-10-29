@@ -4,7 +4,7 @@
 > ⚙️ **What you’ll build**  
 > Extend the **Request Form** into a real **process-based application** using **workflow** elements - *places* and *transitions* - in the **Petriflow language**.
 
----
+ 
 
 <!-- tabs:start -->
 
@@ -27,7 +27,7 @@ You will:
 <summary>🪜 Step-by-Step Flow</summary>
 
 | Step | Action | Purpose |
-|------|--------|---------|
+|  |  --|   |
 | 1️⃣ | **Load Request model** in Builder | Start from the working form |
 | 2️⃣ | **Add places** (e.g., Submitted, Registered, Waiting for legal, Answered) | Define process **states** |
 | 3️⃣ | **Add transitions** (Register, go_to_legal / skip_legal, Statement of legal, Answer, Status) | Define **tasks/events** |
@@ -355,7 +355,7 @@ This helps you verify that your process logic works correctly before deploying i
 
 <!-- tabs:end -->
 
----
+ 
 
 ## ✅ Summary
 

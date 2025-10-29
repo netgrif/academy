@@ -4,7 +4,7 @@
 > 🚀 **What you’ll complete**  
 > Finalize your **Request** workflow, export the **Petriflow XML**, configure **assignment**, deploy to **eTask**, and run an end-to-end **verification**.
 
----
+ 
 
 <!-- tabs:start -->
 
@@ -21,7 +21,7 @@ polish **metadata**, export the **source XML**, configure **auto-assignment**, u
 <summary>🪜 Step-by-Step Flow</summary>
 
 | Step | Action | Purpose |
-|------|--------|---------|
+|  |  --|   |
 | 1️⃣ | **Update metadata** (title, initials, roles) | Clean final naming & access settings |
 | 2️⃣ | **Export Petriflow XML** | Produce versioned, portable source |
 | 3️⃣ | **Set assign policy** (auto/manual) | Smooth task handoff & UX |
@@ -38,7 +38,7 @@ polish **metadata**, export the **source XML**, configure **auto-assignment**, u
 - **Auto-assignment** gives tasks to eligible users instantly; use **manual** for controlled handovers.
 </details>
 
----
+ 
 
 #### **🎥 Video**
 
@@ -47,7 +47,7 @@ Watch the “Final Deployment & Testing” segment (1:12:47–end).
   <iframe class="responsive-iframe" src="https://www.youtube.com/embed/sAVgSaBOkUE?start=4367" title="Final Deployment and Testing" allowfullscreen></iframe>
 </div>
 
----
+ 
 
 #### **🧱 Pictures of Steps**
 
@@ -110,7 +110,7 @@ Run a full pass:
 
 </div>
 
----
+ 
 
 #### **🧾 Source & Notes**
 
@@ -799,7 +799,7 @@ Run a full pass:
 
 <!-- tabs:end -->
 
----
+ 
 
 ## ✅ Summary
 

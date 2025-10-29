@@ -4,7 +4,7 @@
 > ⚡ **What you’ll practice**  
 > Make a **quick change** (email regex), export a new XML, and **redeploy** to eTask to see versioning in action.
 
----
+ 
 
 <!-- tabs:start -->
 
@@ -27,7 +27,7 @@ You will:
 <summary>🪜 Step-by-Step Flow</summary>
 
 | Step | Action | Purpose |
-|------|---------|----------|
+|  |   |   -|
 | 1️⃣ | **Open Request** in Builder | Load the existing process from Part 2 |
 | 2️⃣ | **Add regex** validation to *Email* | Introduce real-time data quality check |
 | 3️⃣ | **Export updated XML** (`request_v2.xml`) | Generate a new deployable version |
@@ -48,7 +48,7 @@ You will:
 > 🧩 This showcases how PetriFlow supports *continuous improvement* — update, redeploy, test, repeat.
 </details>
 
----
+ 
 
 #### ** 🎥 Video **
 
@@ -57,7 +57,7 @@ Watch “Rapid Change & Second Deployment” (21:33–24:16).
   <iframe class="responsive-iframe" src="https://www.youtube.com/embed/sAVgSaBOkUE?start=1293&end=1456" title="Rapid Change & Redeploy" allowfullscreen></iframe>
 </div>
 
----
+ 
 
 #### ** 🧱 Pictures of steps **
 
@@ -83,7 +83,7 @@ Watch “Rapid Change & Second Deployment” (21:33–24:16).
 
 </div>
 
----
+ 
 
 #### ** 🧾 Source & Notes **
 
@@ -208,7 +208,7 @@ Watch “Rapid Change & Second Deployment” (21:33–24:16).
 
 <!-- tabs:end -->
 
----
+ 
 
 ## ✅ Summary
 
