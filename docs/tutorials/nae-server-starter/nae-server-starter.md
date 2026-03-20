@@ -17,7 +17,7 @@ Below is the tutorial video referenced in this guide:
 <div class="container">
   <iframe class="responsive-iframe"
     src="https://www.youtube.com/embed/uqm1NFPNUG4"
-    title="Form Creation in Builder"
+    title="Netgrif Server Setup"
     allowfullscreen></iframe>
 </div>
 
