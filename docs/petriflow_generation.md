@@ -179,25 +179,25 @@ The entry point is accessible without login. Typically the submitter fills a pub
 ```xml
 <!-- Public submission task -->
 <transition>
-  <id>submit_request</id>
-  <roleRef><id>anonymous</id><logic><perform>true</perform></logic></roleRef>
-  <roleRef><id>default</id><logic><perform>true</perform></logic></roleRef>
-  ...
+   <id>submit_request</id>
+   <roleRef><id>anonymous</id><logic><perform>true</perform></logic></roleRef>
+   <roleRef><id>default</id><logic><perform>true</perform></logic></roleRef>
+   ...
 </transition>
 
-<!-- Status view — accessible to submitter after submission -->
+        <!-- Status view — accessible to submitter after submission -->
 <transition>
-  <id>status_view</id>
-  <roleRef><id>anonymous</id><logic><perform>true</perform></logic></roleRef>
-  <roleRef><id>default</id><logic><perform>true</perform></logic></roleRef>
-  ...
+<id>status_view</id>
+<roleRef><id>anonymous</id><logic><perform>true</perform></logic></roleRef>
+<roleRef><id>default</id><logic><perform>true</perform></logic></roleRef>
+...
 </transition>
 
-<!-- Back-office task — authenticated roles only -->
+        <!-- Back-office task — authenticated roles only -->
 <transition>
-  <id>registration_triage</id>
-  <roleRef><id>registration_employee</id><logic><perform>true</perform></logic></roleRef>
-  ...
+<id>registration_triage</id>
+<roleRef><id>registration_employee</id><logic><perform>true</perform></logic></roleRef>
+...
 </transition>
 ```
 
@@ -223,17 +223,17 @@ All transitions are assigned to the `system` role and fired programmatically. No
 ```xml
 <role><id>system</id><title>System</title></role>
 
-<!-- Every transition is a system task -->
+        <!-- Every transition is a system task -->
 <transition>
-  <id>fetch_customer_data</id>
-  <x>304</x><y>208</y>
-  <label>Fetch Customer Data</label>
-  <priority>1</priority>
-  <roleRef><id>system</id><logic><perform>true</perform></logic></roleRef>
-  <!-- no dataGroup -->
-  <event type="finish">
-    <id>on_fetch_finish</id>
-    <actions phase="post">
+<id>fetch_customer_data</id>
+<x>304</x><y>208</y>
+<label>Fetch Customer Data</label>
+<priority>1</priority>
+<roleRef><id>system</id><logic><perform>true</perform></logic></roleRef>
+<!-- no dataGroup -->
+<event type="finish">
+   <id>on_fetch_finish</id>
+   <actions phase="post">
       <action id="1"><![CDATA[
         // call external API, store result, fire next system task
         async.run {
@@ -241,23 +241,23 @@ All transitions are assigned to the `system` role and fired programmatically. No
           finishTask("validate_data")
         }
       ]]></action>
-    </actions>
-  </event>
+   </actions>
+</event>
 </transition>
 
-<!-- Bootstrapped from case create -->
+        <!-- Bootstrapped from case create -->
 <caseEvents>
-  <event type="create">
-    <id>on_create</id>
-    <actions phase="post">
+<event type="create">
+   <id>on_create</id>
+   <actions phase="post">
       <action id="2"><![CDATA[
         async.run {
           assignTask("fetch_customer_data")
           finishTask("fetch_customer_data")
         }
       ]]></action>
-    </actions>
-  </event>
+   </actions>
+</event>
 </caseEvents>
 ```
 
@@ -441,15 +441,15 @@ Every Petriflow app follows this top-level structure. Element order is **strict*
 <document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="https://petriflow.com/petriflow.schema.xsd">
 
-  <!-- 1. METADATA -->
-  <id>process_id</id>
-  <version>1.0.0</version>
-  <initials>ABC</initials>
-  <title>Process Title</title>
-  <icon>icon_name</icon>
-  <defaultRole>true</defaultRole>
-  <anonymousRole>false</anonymousRole>
-  <transitionRole>false</transitionRole>
+   <!-- 1. METADATA -->
+   <id>process_id</id>
+   <version>1.0.0</version>
+   <initials>ABC</initials>
+   <title>Process Title</title>
+   <icon>icon_name</icon>
+   <defaultRole>true</defaultRole>
+   <anonymousRole>false</anonymousRole>
+   <transitionRole>false</transitionRole>
 ```
 
 #### Metadata field reference
@@ -473,12 +473,12 @@ Every Petriflow app follows this top-level structure. Element order is **strict*
 <anonymousRole>true</anonymousRole>
 <transitionRole>false</transitionRole>
 
-<!-- Internal process — all authenticated users can see everything -->
+        <!-- Internal process — all authenticated users can see everything -->
 <defaultRole>true</defaultRole>
 <anonymousRole>false</anonymousRole>
 <transitionRole>false</transitionRole>
 
-<!-- Strict role-only process — no implicit access -->
+        <!-- Strict role-only process — no implicit access -->
 <defaultRole>false</defaultRole>
 <anonymousRole>false</anonymousRole>
 <transitionRole>false</transitionRole>
@@ -577,8 +577,8 @@ All roles use the `<role>` tag. `<processRole>` does not exist.
 
 ```xml
 <role>
-  <id>manager</id>
-  <title>Manager</title>
+   <id>manager</id>
+   <title>Manager</title>
 </role>
 ```
 
@@ -628,18 +628,18 @@ Use lowercase with underscores for IDs. Be descriptive: `registration_desk_emplo
 
 ```xml
 <data type="enumeration_map">
-  <id>priority_icon</id>
-  <title>Priority</title>
-  <options>
-    <option key="low">arrow_downward</option>
-    <option key="medium">remove</option>
-    <option key="high">arrow_upward</option>
-    <option key="urgent">priority_high</option>
-  </options>
-  <init>medium</init>
-  <component>
-    <n>icon</n>
-  </component>
+   <id>priority_icon</id>
+   <title>Priority</title>
+   <options>
+      <option key="low">arrow_downward</option>
+      <option key="medium">remove</option>
+      <option key="high">arrow_upward</option>
+      <option key="urgent">priority_high</option>
+   </options>
+   <init>medium</init>
+   <component>
+      <n>icon</n>
+   </component>
 </data>
 ```
 
@@ -707,85 +707,85 @@ All data field tags and their purpose:
 ```xml
 <!-- text with placeholder and default value -->
 <data type="text">
-  <id>request_status</id>
-  <title>Status</title>
-  <placeholder>Current status of the request</placeholder>
-  <desc>Updated automatically as the request moves through the process.</desc>
-  <value>New</value>
+   <id>request_status</id>
+   <title>Status</title>
+   <placeholder>Current status of the request</placeholder>
+   <desc>Updated automatically as the request moves through the process.</desc>
+   <value>New</value>
 </data>
 
-<!-- number with default value -->
+        <!-- number with default value -->
 <data type="number">
-  <id>priority_level</id>
-  <title>Priority Level</title>
-  <value>1</value>
+<id>priority_level</id>
+<title>Priority Level</title>
+<value>1</value>
 </data>
 
-<!-- boolean with default value true -->
+        <!-- boolean with default value true -->
 <data type="boolean">
-  <id>notify_submitter</id>
-  <title>Notify Submitter</title>
-  <value>true</value>
+<id>notify_submitter</id>
+<title>Notify Submitter</title>
+<value>true</value>
 </data>
 
-<!-- Multiline text — component child element is <name> -->
+        <!-- Multiline text — component child element is <name> -->
 <data type="text">
-  <id>request_description</id>
-  <title>Request Description</title>
-  <placeholder>Describe your request...</placeholder>
-  <component>
-    <name>textarea</name>
-  </component>
+<id>request_description</id>
+<title>Request Description</title>
+<placeholder>Describe your request...</placeholder>
+<component>
+   <name>textarea</name>
+</component>
 </data>
 
-<!-- enumeration: key and display value are the same -->
+        <!-- enumeration: key and display value are the same -->
 <data type="enumeration">
-  <id>cancellation_category</id>
-  <title>Cancellation Category</title>
-  <options>
-    <option key="STR03">STR03</option>
-    <option key="STR08_1">STR08_1</option>
-  </options>
-  <init>STR03</init>
+<id>cancellation_category</id>
+<title>Cancellation Category</title>
+<options>
+   <option key="STR03">STR03</option>
+   <option key="STR08_1">STR08_1</option>
+</options>
+<init>STR03</init>
 </data>
 
-<!-- enumeration_map: key differs from display label -->
+        <!-- enumeration_map: key differs from display label -->
 <data type="enumeration_map">
-  <id>refund_method</id>
-  <title>Refund Method</title>
-  <options>
-    <option key="iban">IBAN Bank Transfer</option>
-    <option key="other">Other</option>
-  </options>
-  <init>iban</init>
+<id>refund_method</id>
+<title>Refund Method</title>
+<options>
+   <option key="iban">IBAN Bank Transfer</option>
+   <option key="other">Other</option>
+</options>
+<init>iban</init>
 </data>
 
-<!-- multichoice with defaults — note: <inits> wraps multiple <init> -->
+        <!-- multichoice with defaults — note: <inits> wraps multiple <init> -->
 <data type="multichoice">
-  <id>preferred_days</id>
-  <title>Preferred Days</title>
-  <options>
-    <option key="mon">Monday</option>
-    <option key="tue">Tuesday</option>
-    <option key="wed">Wednesday</option>
-  </options>
-  <inits>
-    <init>mon</init>
-    <init>tue</init>
-  </inits>
+<id>preferred_days</id>
+<title>Preferred Days</title>
+<options>
+   <option key="mon">Monday</option>
+   <option key="tue">Tuesday</option>
+   <option key="wed">Wednesday</option>
+</options>
+<inits>
+   <init>mon</init>
+   <init>tue</init>
+</inits>
 </data>
 
-<!-- enumeration with list component — renders as vertical radio buttons instead of a dropdown -->
+        <!-- enumeration with list component — renders as vertical radio buttons instead of a dropdown -->
 <data type="enumeration">
-  <id>origin</id>
-  <title>Origin of the request</title>
-  <options>
-    <option key="Online">Online</option>
-    <option key="Call">Call</option>
-  </options>
-  <component>
-    <name>list</name>
-  </component>
+<id>origin</id>
+<title>Origin of the request</title>
+<options>
+   <option key="Online">Online</option>
+   <option key="Call">Call</option>
+</options>
+<component>
+   <name>list</name>
+</component>
 </data>
 ```
 
@@ -803,26 +803,26 @@ Wrap `<validation>` inside `<validations>`. Both `<expression>` and `<message>` 
 ```xml
 <!-- Text regex validation -->
 <data type="text">
-  <id>email</id>
-  <title>Email</title>
-  <validations>
-    <validation>
-      <expression>regex ^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$</expression>
-      <message>Please enter a valid email address</message>
-    </validation>
-  </validations>
+   <id>email</id>
+   <title>Email</title>
+   <validations>
+      <validation>
+         <expression>regex ^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$</expression>
+         <message>Please enter a valid email address</message>
+      </validation>
+   </validations>
 </data>
 
-<!-- Numeric range validation -->
+        <!-- Numeric range validation -->
 <data type="number">
-  <id>customer_id</id>
-  <title>Customer ID</title>
-  <validations>
-    <validation>
+<id>customer_id</id>
+<title>Customer ID</title>
+<validations>
+   <validation>
       <expression>inrange 1000,2999</expression>
       <message>Customer ID must be between 1000 and 2999</message>
-    </validation>
-  </validations>
+   </validation>
+</validations>
 </data>
 ```
 
@@ -845,11 +845,11 @@ Set inside `<dataRef><logic>` to control how a field appears in a specific trans
 
 ```xml
 <dataRef>
-  <id>field_id</id>
-  <logic>
-    <behavior>editable</behavior>
-    <behavior>required</behavior>
-  </logic>
+   <id>field_id</id>
+   <logic>
+      <behavior>editable</behavior>
+      <behavior>required</behavior>
+   </logic>
 </dataRef>
 ```
 
@@ -874,26 +874,26 @@ Typically only `perform` is needed. Use `cancel` for supervisors who should be a
 ```xml
 <!-- Standard: role performs the task -->
 <roleRef>
-  <id>employee</id>
-  <logic><perform>true</perform></logic>
+   <id>employee</id>
+   <logic><perform>true</perform></logic>
 </roleRef>
 
-<!-- Supervisor can cancel tasks assigned to others -->
+        <!-- Supervisor can cancel tasks assigned to others -->
 <roleRef>
-  <id>supervisor</id>
-  <logic>
-    <perform>true</perform>
-    <cancel>true</cancel>
-  </logic>
+<id>supervisor</id>
+<logic>
+   <perform>true</perform>
+   <cancel>true</cancel>
+</logic>
 </roleRef>
 
-<!-- Manager can delegate but not perform -->
+        <!-- Manager can delegate but not perform -->
 <roleRef>
-  <id>manager</id>
-  <logic>
-    <perform>true</perform>
-    <delegate>true</delegate>
-  </logic>
+<id>manager</id>
+<logic>
+   <perform>true</perform>
+   <delegate>true</delegate>
+</logic>
 </roleRef>
 ```
 
@@ -905,10 +905,10 @@ Valid transition event types: `assign`, `finish`, `cancel`, `delegate`.
 
 ```xml
 <transition>
-  <id>approve_request</id>
-  <event type="assign">...</event>
-  <event type="finish">...</event>
-  <event type="cancel">...</event>
+   <id>approve_request</id>
+   <event type="assign">...</event>
+   <event type="finish">...</event>
+   <event type="cancel">...</event>
 </transition>
 ```
 
@@ -932,62 +932,62 @@ A field's `x + cols` must never exceed the group's `<cols>`.
 **Single-column:**
 ```xml
 <dataGroup>
-  <id>form_group</id>
-  <cols>1</cols>
-  <layout>grid</layout>
-  <title>Request Details</title>
-  <dataRef>
-    <id>employee_name</id>
-    <logic><behavior>editable</behavior><behavior>required</behavior></logic>
-    <layout><x>0</x><y>0</y><rows>1</rows><cols>1</cols><template>material</template><appearance>outline</appearance></layout>
-  </dataRef>
-  <dataRef>
-    <id>description</id>
-    <logic><behavior>editable</behavior></logic>
-    <layout><x>0</x><y>1</y><rows>1</rows><cols>1</cols><template>material</template><appearance>outline</appearance></layout>
-  </dataRef>
+   <id>form_group</id>
+   <cols>1</cols>
+   <layout>grid</layout>
+   <title>Request Details</title>
+   <dataRef>
+      <id>employee_name</id>
+      <logic><behavior>editable</behavior><behavior>required</behavior></logic>
+      <layout><x>0</x><y>0</y><rows>1</rows><cols>1</cols><template>material</template><appearance>outline</appearance></layout>
+   </dataRef>
+   <dataRef>
+      <id>description</id>
+      <logic><behavior>editable</behavior></logic>
+      <layout><x>0</x><y>1</y><rows>1</rows><cols>1</cols><template>material</template><appearance>outline</appearance></layout>
+   </dataRef>
 </dataGroup>
 ```
 
 **Four-column layout with mixed widths:**
 ```xml
 <dataGroup>
-  <id>form_group</id>
-  <cols>4</cols>
-  <layout>grid</layout>
-  <!-- row 0: first name (col 0-1), last name (col 2-3) -->
-  <dataRef>
-    <id>first_name</id>
-    <logic><behavior>editable</behavior><behavior>required</behavior></logic>
-    <layout><x>0</x><y>0</y><rows>1</rows><cols>2</cols><template>material</template><appearance>outline</appearance></layout>
-  </dataRef>
-  <dataRef>
-    <id>last_name</id>
-    <logic><behavior>editable</behavior><behavior>required</behavior></logic>
-    <layout><x>2</x><y>0</y><rows>1</rows><cols>2</cols><template>material</template><appearance>outline</appearance></layout>
-  </dataRef>
-  <!-- row 1: date (1 col), priority (1 col), amount (2 cols) -->
-  <dataRef>
-    <id>request_date</id>
-    <logic><behavior>editable</behavior></logic>
-    <layout><x>0</x><y>1</y><rows>1</rows><cols>1</cols><template>material</template><appearance>outline</appearance></layout>
-  </dataRef>
-  <dataRef>
-    <id>priority</id>
-    <logic><behavior>editable</behavior></logic>
-    <layout><x>1</x><y>1</y><rows>1</rows><cols>1</cols><template>material</template><appearance>outline</appearance></layout>
-  </dataRef>
-  <dataRef>
-    <id>amount</id>
-    <logic><behavior>editable</behavior></logic>
-    <layout><x>2</x><y>1</y><rows>1</rows><cols>2</cols><template>material</template><appearance>outline</appearance></layout>
-  </dataRef>
-  <!-- row 2: description spans all 4 columns -->
-  <dataRef>
-    <id>description</id>
-    <logic><behavior>editable</behavior></logic>
-    <layout><x>0</x><y>2</y><rows>1</rows><cols>4</cols><template>material</template><appearance>outline</appearance></layout>
-  </dataRef>
+   <id>form_group</id>
+   <cols>4</cols>
+   <layout>grid</layout>
+   <!-- row 0: first name (col 0-1), last name (col 2-3) -->
+   <dataRef>
+      <id>first_name</id>
+      <logic><behavior>editable</behavior><behavior>required</behavior></logic>
+      <layout><x>0</x><y>0</y><rows>1</rows><cols>2</cols><template>material</template><appearance>outline</appearance></layout>
+   </dataRef>
+   <dataRef>
+      <id>last_name</id>
+      <logic><behavior>editable</behavior><behavior>required</behavior></logic>
+      <layout><x>2</x><y>0</y><rows>1</rows><cols>2</cols><template>material</template><appearance>outline</appearance></layout>
+   </dataRef>
+   <!-- row 1: date (1 col), priority (1 col), amount (2 cols) -->
+   <dataRef>
+      <id>request_date</id>
+      <logic><behavior>editable</behavior></logic>
+      <layout><x>0</x><y>1</y><rows>1</rows><cols>1</cols><template>material</template><appearance>outline</appearance></layout>
+   </dataRef>
+   <dataRef>
+      <id>priority</id>
+      <logic><behavior>editable</behavior></logic>
+      <layout><x>1</x><y>1</y><rows>1</rows><cols>1</cols><template>material</template><appearance>outline</appearance></layout>
+   </dataRef>
+   <dataRef>
+      <id>amount</id>
+      <logic><behavior>editable</behavior></logic>
+      <layout><x>2</x><y>1</y><rows>1</rows><cols>2</cols><template>material</template><appearance>outline</appearance></layout>
+   </dataRef>
+   <!-- row 2: description spans all 4 columns -->
+   <dataRef>
+      <id>description</id>
+      <logic><behavior>editable</behavior></logic>
+      <layout><x>0</x><y>2</y><rows>1</rows><cols>4</cols><template>material</template><appearance>outline</appearance></layout>
+   </dataRef>
 </dataGroup>
 ```
 
@@ -1003,9 +1003,9 @@ To create visual separation between logical sections inside that single group, u
 
 ```xml
 <data type="i18n">
-  <id>divider_routing</id>
-  <title>Routing Decision</title>
-  <init>Routing Decision</init>
+   <id>divider_routing</id>
+   <title>Routing Decision</title>
+   <init>Routing Decision</init>
 </data>
 ```
 
@@ -1013,41 +1013,41 @@ To create visual separation between logical sections inside that single group, u
 
 ```xml
 <transition>
-  <id>registration_triage</id>
-  ...
-  <dataGroup>
-    <id>triage_group</id>
-    <cols>2</cols>
-    <layout>grid</layout>
-    <title>Registration Triage</title>
+   <id>registration_triage</id>
+   ...
+   <dataGroup>
+      <id>triage_group</id>
+      <cols>2</cols>
+      <layout>grid</layout>
+      <title>Registration Triage</title>
 
-    <!-- Section 1: read-only context from the submitter -->
-    <dataRef>
-      <id>name</id>
-      <logic><behavior>visible</behavior></logic>
-      <layout><x>0</x><y>0</y><rows>1</rows><cols>1</cols><template>material</template><appearance>outline</appearance></layout>
-    </dataRef>
-    <dataRef>
-      <id>request_description</id>
-      <logic><behavior>visible</behavior></logic>
-      <layout><x>0</x><y>1</y><rows>3</rows><cols>2</cols><template>material</template><appearance>outline</appearance></layout>
-    </dataRef>
+      <!-- Section 1: read-only context from the submitter -->
+      <dataRef>
+         <id>name</id>
+         <logic><behavior>visible</behavior></logic>
+         <layout><x>0</x><y>0</y><rows>1</rows><cols>1</cols><template>material</template><appearance>outline</appearance></layout>
+      </dataRef>
+      <dataRef>
+         <id>request_description</id>
+         <logic><behavior>visible</behavior></logic>
+         <layout><x>0</x><y>1</y><rows>3</rows><cols>2</cols><template>material</template><appearance>outline</appearance></layout>
+      </dataRef>
 
-    <!-- Divider: i18n field rendered as a labelled horizontal rule -->
-    <dataRef>
-      <id>divider_routing</id>
-      <logic><behavior>editable</behavior></logic>
-      <layout><x>0</x><y>4</y><rows>1</rows><cols>2</cols><template>material</template><appearance>outline</appearance></layout>
-      <component><n>divider</n></component>
-    </dataRef>
+      <!-- Divider: i18n field rendered as a labelled horizontal rule -->
+      <dataRef>
+         <id>divider_routing</id>
+         <logic><behavior>editable</behavior></logic>
+         <layout><x>0</x><y>4</y><rows>1</rows><cols>2</cols><template>material</template><appearance>outline</appearance></layout>
+         <component><n>divider</n></component>
+      </dataRef>
 
-    <!-- Section 2: editable decision fields (continue incrementing y after divider) -->
-    <dataRef>
-      <id>legal_required</id>
-      <logic><behavior>editable</behavior><behavior>required</behavior></logic>
-      <layout><x>0</x><y>5</y><rows>1</rows><cols>2</cols><template>material</template><appearance>outline</appearance></layout>
-    </dataRef>
-  </dataGroup>
+      <!-- Section 2: editable decision fields (continue incrementing y after divider) -->
+      <dataRef>
+         <id>legal_required</id>
+         <logic><behavior>editable</behavior><behavior>required</behavior></logic>
+         <layout><x>0</x><y>5</y><rows>1</rows><cols>2</cols><template>material</template><appearance>outline</appearance></layout>
+      </dataRef>
+   </dataGroup>
 </transition>
 ```
 
@@ -1074,9 +1074,9 @@ In practice: set the component on `<data>` for fields that always use a non-defa
 ```xml
 <!-- This breaks in the builder — only the first group is shown -->
 <transition>
-  <id>registration_triage</id>
-  <dataGroup><id>group_1</id>...</dataGroup>   <!-- shown -->
-  <dataGroup><id>group_2</id>...</dataGroup>   <!-- silently ignored -->
+   <id>registration_triage</id>
+   <dataGroup><id>group_1</id>...</dataGroup>   <!-- shown -->
+   <dataGroup><id>group_2</id>...</dataGroup>   <!-- silently ignored -->
 </transition>
 ```
 
@@ -1088,19 +1088,19 @@ Every place needs `id`, `x`, `y`, `tokens`, and `static`. `<label>` is technical
 
 ```xml
 <place>
-  <id>start</id>
-  <x>112</x><y>112</y>
-  <label>Start</label>
-  <tokens>1</tokens>   <!-- ONLY the start place gets tokens=1 -->
-  <static>false</static>
+   <id>start</id>
+   <x>112</x><y>112</y>
+   <label>Start</label>
+   <tokens>1</tokens>   <!-- ONLY the start place gets tokens=1 -->
+   <static>false</static>
 </place>
 
 <place>
-  <id>pending_review</id>
-  <x>304</x><y>112</y>
-  <label>Pending Review</label>
-  <tokens>0</tokens>
-  <static>false</static>
+<id>pending_review</id>
+<x>304</x><y>112</y>
+<label>Pending Review</label>
+<tokens>0</tokens>
+<static>false</static>
 </place>
 ```
 
@@ -1119,20 +1119,20 @@ Arcs must strictly alternate: **Place → Transition → Place**. Never connect 
 ```xml
 <!-- Regular arc — the default -->
 <arc>
-  <id>arc_start_to_submit</id>
-  <type>regular</type>
-  <sourceId>start</sourceId>
-  <destinationId>submit_request</destinationId>
-  <multiplicity>1</multiplicity>
+   <id>arc_start_to_submit</id>
+   <type>regular</type>
+   <sourceId>start</sourceId>
+   <destinationId>submit_request</destinationId>
+   <multiplicity>1</multiplicity>
 </arc>
 
-<!-- Read arc — non-consuming; place keeps its token -->
+        <!-- Read arc — non-consuming; place keeps its token -->
 <arc>
-  <id>arc_status_read</id>
-  <type>read</type>
-  <sourceId>status_view_place</sourceId>
-  <destinationId>status_view</destinationId>
-  <multiplicity>1</multiplicity>
+<id>arc_status_read</id>
+<type>read</type>
+<sourceId>status_view_place</sourceId>
+<destinationId>status_view</destinationId>
+<multiplicity>1</multiplicity>
 </arc>
 
 ```
@@ -1158,14 +1158,14 @@ When a transition must route to **one of several possible next steps** based on 
 
 ```xml
 <data type="number">
-  <id>toLegal</id>
-  <title>To Legal</title>
-  <init>0</init>
+   <id>toLegal</id>
+   <title>To Legal</title>
+   <init>0</init>
 </data>
 <data type="number">
-  <id>toPR</id>
-  <title>To PR</title>
-  <init>0</init>
+<id>toPR</id>
+<title>To PR</title>
+<init>0</init>
 </data>
 ```
 
@@ -1173,9 +1173,9 @@ When a transition must route to **one of several possible next steps** based on 
 
 ```xml
 <event type="finish">
-  <id>on_triage_finish</id>
-  <actions phase="pre">
-    <action id="3"><![CDATA[
+   <id>on_triage_finish</id>
+   <actions phase="pre">
+      <action id="3"><![CDATA[
       toLegal: f.toLegal,
       toPR: f.toPR,
       legal_required: f.legal_required;
@@ -1187,7 +1187,7 @@ When a transition must route to **one of several possible next steps** based on 
         change toPR    value { 1 }
       }
     ]]></action>
-  </actions>
+   </actions>
 </event>
 ```
 
@@ -1198,28 +1198,45 @@ When a transition must route to **one of several possible next steps** based on 
 ```xml
 <!-- Fires only when toLegal == 1 -->
 <arc>
-  <id>arc_triage_to_legal_place</id>
-  <type>regular</type>
-  <sourceId>registration_triage</sourceId>
-  <destinationId>after_legal</destinationId>
-  <multiplicity>0</multiplicity>
-  <reference>toLegal</reference>
+   <id>arc_triage_to_legal_place</id>
+   <type>regular</type>
+   <sourceId>registration_triage</sourceId>   <!-- ✅ source is the TRANSITION -->
+   <destinationId>after_legal</destinationId>  <!-- ✅ destination is a PLACE -->
+   <multiplicity>0</multiplicity>
+   <reference>toLegal</reference>
 </arc>
 
-<!-- Fires only when toPR == 1 -->
+        <!-- Fires only when toPR == 1 -->
 <arc>
-  <id>arc_triage_to_pr_place</id>
-  <type>regular</type>
-  <sourceId>registration_triage</sourceId>
-  <destinationId>after_pr</destinationId>
-  <multiplicity>0</multiplicity>
-  <reference>toPR</reference>
+<id>arc_triage_to_pr_place</id>
+<type>regular</type>
+<sourceId>registration_triage</sourceId>   <!-- ✅ source is the TRANSITION -->
+<destinationId>after_pr</destinationId>    <!-- ✅ destination is a PLACE -->
+<multiplicity>0</multiplicity>
+<reference>toPR</reference>
 </arc>
 ```
 
 When the transition fires, the engine substitutes the field value for each arc's multiplicity. Only the arc whose field equals `1` produces a token; arcs whose field equals `0` produce nothing. This is a clean, safe XOR-split with no stuck states.
 
 > **Never model a conditional fork with two regular arcs (without `<reference>`) from the same place.** That puts both downstream transitions in an enabled state at once — either role can grab it, and one path will be permanently stuck.
+
+> ⚠️ **Critical — variable arc source must always be a Transition, never a Place.**
+> Variable arcs (arcs with a `<reference>`) go **from the routing transition to the next destination place** — they are outgoing arcs of a Transition. The Petri net rule that arcs must strictly alternate Place → Transition → Place still applies. If you put a variable arc from a Place to another Place (P→P) you will get an import error like:
+> `Error: Could not find nodes <place_id>-><place_id> of arc <arc_id>`
+> The typical mistake: placing the routing transition's output in an intermediate place first, then trying to attach variable arcs from that intermediate place to the next transitions. The correct structure is:
+> - Routing transition → `p_after_routing` (one regular arc, multiplicity 1)
+> - `p_after_routing` → next_transition_A (regular arc, multiplicity 1) **AND**
+> - `p_after_routing` → next_transition_B (regular arc, multiplicity 1)
+>
+> **…is wrong for XOR forks.** The variable arcs must instead go directly from the routing transition:
+> - Routing transition → `p_destination_A` (variable arc, reference `toA`)
+> - Routing transition → `p_destination_B` (variable arc, reference `toB`)
+>
+> This means after the routing transition you have **no intermediate place** — the variable arcs jump straight to the destination places, and those places then feed the next transitions via plain regular arcs.
+
+> ⚠️ **Side-effect: variable arc fields show their `init` value in the builder modeller.**
+> Because variable arc reference fields start with `<init>0</init>`, the builder's visual modeller will display `(0)` on those arcs when you first import the process — this is normal and expected. The value is overwritten at runtime by the routing action's `phase="pre"` code before the token moves. The `0` label in the modeller does **not** mean the arc is broken; it reflects the field's initial value only.
 
 #### Always-on tasks — persistent access via `read` arc
 
@@ -1228,29 +1245,29 @@ To keep a transition always accessible regardless of where the token currently i
 ```xml
 <!-- Place fed once by the submit transition -->
 <place>
-  <id>p_detail</id>
-  <x>496</x><y>16</y>
-  <label>Detail Always Accessible</label>
-  <tokens>0</tokens>
-  <static>false</static>
+   <id>p_detail</id>
+   <x>496</x><y>16</y>
+   <label>Detail Always Accessible</label>
+   <tokens>0</tokens>
+   <static>false</static>
 </place>
 
-<!-- Regular arc: submit produces the detail token (outgoing from submit transition) -->
+        <!-- Regular arc: submit produces the detail token (outgoing from submit transition) -->
 <arc>
-  <id>arc_submit_to_detail</id>
-  <type>regular</type>
-  <sourceId>submit_request</sourceId>
-  <destinationId>p_detail</destinationId>
-  <multiplicity>1</multiplicity>
+<id>arc_submit_to_detail</id>
+<type>regular</type>
+<sourceId>submit_request</sourceId>
+<destinationId>p_detail</destinationId>
+<multiplicity>1</multiplicity>
 </arc>
 
-<!-- Read arc: detail view reads the token but never removes it -->
+        <!-- Read arc: detail view reads the token but never removes it -->
 <arc>
-  <id>arc_detail_read</id>
-  <type>read</type>
-  <sourceId>p_detail</sourceId>
-  <destinationId>detail_view_task</destinationId>
-  <multiplicity>1</multiplicity>
+<id>arc_detail_read</id>
+<type>read</type>
+<sourceId>p_detail</sourceId>
+<destinationId>detail_view_task</destinationId>
+<multiplicity>1</multiplicity>
 </arc>
 ```
 
@@ -1309,22 +1326,22 @@ XML coordinates for this layout:
 <place><id>p5</id>       <x>1264</x> <y>208</y> <tokens>0</tokens></place>
 <place><id>p6</id>       <x>1648</x> <y>208</y> <tokens>0</tokens></place>
 
-<!-- Legal branch places (y=400) -->
+        <!-- Legal branch places (y=400) -->
 <place><id>p4</id>       <x>1168</x> <y>400</y> <tokens>0</tokens></place>
 
-<!-- Detail lane place (y=16) -->
+        <!-- Detail lane place (y=16) -->
 <place><id>p_detail</id> <x>496</x>  <y>16</y>  <tokens>0</tokens></place>
 
-<!-- Main lane transitions -->
+        <!-- Main lane transitions -->
 <transition><id>t1</id>  <x>304</x>  <y>208</y> <label>Submit</label>...</transition>
 <transition><id>t2</id>  <x>688</x>  <y>208</y> <label>Registration</label>...</transition>
 <transition><id>t5</id>  <x>1456</x> <y>208</y> <label>PR Response</label>...</transition>
 
-<!-- Legal branch transitions (y=400) -->
+        <!-- Legal branch transitions (y=400) -->
 <transition><id>t3</id>  <x>1072</x> <y>400</y> <label>To Legal</label>...</transition>
 <transition><id>t4</id>  <x>1264</x> <y>400</y> <label>Legal Review</label>...</transition>
 
-<!-- Detail task (y=16) -->
+        <!-- Detail task (y=16) -->
 <transition><id>t8</id>  <x>688</x>  <y>16</y>  <label>Detail</label>...</transition>
 ```
 
@@ -1341,12 +1358,12 @@ Icons can be set on both the **process** (in metadata, as `<icon>`) and on indiv
 ```xml
 <!-- On a transition -->
 <transition>
-  <id>submit_request</id>
-  <x>304</x><y>208</y>
-  <label>Submit Request</label>
-  <icon>send</icon>
-  <priority>1</priority>
-  ...
+   <id>submit_request</id>
+   <x>304</x><y>208</y>
+   <label>Submit Request</label>
+   <icon>send</icon>
+   <priority>1</priority>
+   ...
 </transition>
 ```
 
@@ -1409,57 +1426,57 @@ There are three scopes where events can be defined. Each scope supports differen
 ```xml
 <!-- Case event — placed in <caseEvents> -->
 <caseEvents>
-  <event type="create">
-    <id>on_create</id>
-    <actions phase="post">
-      <action id="1"><![CDATA[
+   <event type="create">
+      <id>on_create</id>
+      <actions phase="post">
+         <action id="1"><![CDATA[
         status: f.status;
         change status value { "New" }
       ]]></action>
-    </actions>
-  </event>
+      </actions>
+   </event>
 </caseEvents>
 
-<!-- Transition event — directly inside <transition>, no wrapper -->
+        <!-- Transition event — directly inside <transition>, no wrapper -->
 <transition>
-  <id>approve_request</id>
-  <event type="finish">
-    <id>on_approve_finish</id>
-    <actions phase="post">
+<id>approve_request</id>
+<event type="finish">
+   <id>on_approve_finish</id>
+   <actions phase="post">
       <action id="2"><![CDATA[
         approved_by: f.approved_by,
         approved_at: f.approved_at;
         change approved_by value { userService.loggedOrSystem.email }
         change approved_at value { new java.util.Date() }
       ]]></action>
-    </actions>
-  </event>
-  <event type="assign">
-    <id>on_approve_assign</id>
-    <actions phase="post">
+   </actions>
+</event>
+<event type="assign">
+   <id>on_approve_assign</id>
+   <actions phase="post">
       <action id="3"><![CDATA[
         assigned_at: f.assigned_at;
         change assigned_at value { new java.util.Date() }
       ]]></action>
-    </actions>
-  </event>
+   </actions>
+</event>
 </transition>
 
-<!-- Data field event — inside <data> -->
+        <!-- Data field event — inside <data> -->
 <data type="enumeration">
-  <id>category</id>
-  <title>Category</title>
-  <options>...</options>
-  <event type="set">
-    <id>on_category_set</id>
-    <actions phase="post">
+<id>category</id>
+<title>Category</title>
+<options>...</options>
+<event type="set">
+   <id>on_category_set</id>
+   <actions phase="post">
       <action id="4"><![CDATA[
         category: f.category,
         sub_category: f.sub_category;
         change sub_category value { null }
       ]]></action>
-    </actions>
-  </event>
+   </actions>
+</event>
 </data>
 ```
 
@@ -1469,15 +1486,15 @@ There are three scopes where events can be defined. Each scope supports differen
 
 ```xml
 <event type="finish">
-  <id>event_id</id>
-  <actions phase="post">
-    <action id="1"><![CDATA[
+   <id>event_id</id>
+   <actions phase="post">
+      <action id="1"><![CDATA[
       status: f.status,
       created_by: f.created_by;
       change status value { "Approved" }
       change created_by value { userService.loggedOrSystem.email }
     ]]></action>
-  </actions>
+   </actions>
 </event>
 ```
 
@@ -1518,9 +1535,9 @@ request_status: f.request_status,
 current_department: f.current_department;
 change request_status value { "Submitted" }
 sendEmail(
-  [email.value],          // ← runtime error: email is not defined
-  "Request received",
-  "Your request was received."
+        [email.value],          // ← runtime error: email is not defined
+        "Request received",
+        "Your request was received."
 )
 
 // ✅ Correct — every identifier used in the body is imported
@@ -1529,9 +1546,9 @@ request_status: f.request_status,
 current_department: f.current_department;
 change request_status value { "Submitted" }
 sendEmail(
-  [email.value],
-  "Request received",
-  "Your request was received."
+        [email.value],
+        "Request received",
+        "Your request was received."
 )
 ```
 
@@ -1541,9 +1558,9 @@ email: f.email,
 request_status: f.request_status;
 change request_status value { "Completed" }
 sendEmail(
-  [email.value],
-  "Done",
-  "Response: ${final_response.value}"   // ← runtime error
+        [email.value],
+        "Done",
+        "Response: ${final_response.value}"   // ← runtime error
 )
 
 // ✅ Correct
@@ -1552,9 +1569,9 @@ final_response: f.final_response,
 request_status: f.request_status;
 change request_status value { "Completed" }
 sendEmail(
-  [email.value],
-  "Done",
-  "Response: ${final_response.value ?: ''}"
+        [email.value],
+        "Done",
+        "Response: ${final_response.value ?: ''}"
 )
 ```
 
@@ -1562,8 +1579,8 @@ sendEmail(
 // ❌ Wrong — routing flag fields set in conditional but not imported
 legal_required: f.legal_required;
 if (legal_required.value == "yes") {
-  change go_to_legal value { 1 }   // ← go_to_legal not imported
-  change go_to_pr    value { 0 }   // ← go_to_pr not imported
+   change go_to_legal value { 1 }   // ← go_to_legal not imported
+   change go_to_pr    value { 0 }   // ← go_to_pr not imported
 }
 
 // ✅ Correct — note: go_to_legal and go_to_pr must be type="number" fields (not boolean)
@@ -1572,11 +1589,11 @@ legal_required: f.legal_required,
 go_to_legal: f.go_to_legal,
 go_to_pr: f.go_to_pr;
 if (legal_required.value == "yes") {
-  change go_to_legal value { 1 }
-  change go_to_pr    value { 0 }
+   change go_to_legal value { 1 }
+   change go_to_pr    value { 0 }
 } else {
-  change go_to_legal value { 0 }
-  change go_to_pr    value { 1 }
+   change go_to_legal value { 0 }
+   change go_to_pr    value { 1 }
 }
 ```
 
@@ -1618,19 +1635,19 @@ change status value { "Approved" }
 
 // setData — writing from async context (always find the task first)
 async.run {
-  def t = findTask { qTask ->
-    qTask.transitionId.eq("result_task").and(qTask.caseId.eq(useCase.stringId))
-  }
-  if (t) setData(t, [result_field: [value: "Done", type: "text"]])
+   def t = findTask { qTask ->
+      qTask.transitionId.eq("result_task").and(qTask.caseId.eq(useCase.stringId))
+   }
+   if (t) setData(t, [result_field: [value: "Done", type: "text"]])
 }
 
 // setData — writing to a different case
 def otherCase = findCase { qCase -> qCase.stringId.eq(other_id.value) }
 if (otherCase) {
-  def t = findTask { qTask ->
-    qTask.transitionId.eq("review_task").and(qTask.caseId.eq(otherCase.stringId))
-  }
-  if (t) setData(t, [status: [value: "updated", type: "text"]])
+   def t = findTask { qTask ->
+      qTask.transitionId.eq("review_task").and(qTask.caseId.eq(otherCase.stringId))
+   }
+   if (t) setData(t, [status: [value: "updated", type: "text"]])
 }
 ```
 
@@ -1657,15 +1674,15 @@ The `type` string in each `[field_id: [value: ..., type: "..."]]` map entry must
 ```groovy
 // Example — setData with multiple field types
 def reviewTask = findTask { qTask ->
-  qTask.transitionId.eq("review_task").and(qTask.caseId.eq(useCase.stringId))
+   qTask.transitionId.eq("review_task").and(qTask.caseId.eq(useCase.stringId))
 }
 if (reviewTask) setData(reviewTask, [
-  status:      [value: "In Review",                              type: "text"],
-  assigned_at: [value: new java.util.Date(),                     type: "dateTime"],
-  is_urgent:   [value: true,                                     type: "boolean"],
-  priority:    [value: "high",                                   type: "enumeration"],
-  score:       [value: 42.0,                                     type: "number"],
-  tags:        [value: ["legal", "finance"] as Set,              type: "multichoice"]
+        status:      [value: "In Review",                              type: "text"],
+        assigned_at: [value: new java.util.Date(),                     type: "dateTime"],
+        is_urgent:   [value: true,                                     type: "boolean"],
+        priority:    [value: "high",                                   type: "enumeration"],
+        score:       [value: 42.0,                                     type: "number"],
+        tags:        [value: ["legal", "finance"] as Set,              type: "multichoice"]
 ])
 ```
 
@@ -1737,8 +1754,8 @@ make comment, required on t_submit when { return priority.value == "high" }
 
 // Multi-line condition — return is required
 make comment, hidden on t_submit when {
-  def v = priority.value
-  return v != "high" && v != "urgent"
+   def v = priority.value
+   return v != "high" && v != "urgent"
 }
 ```
 
@@ -1955,11 +1972,11 @@ findOptionsBasedOnSelectedNode(uriNode)
 ```groovy
 // Async — use setData inside, not change
 async.run {
-  def result = someExpensiveComputation()
-  def t = findTask { qTask ->
-    qTask.transitionId.eq("transition_id").and(qTask.caseId.eq(useCase.stringId))
-  }
-  if (t) setData(t, [result_field: [value: result, type: "text"]])
+   def result = someExpensiveComputation()
+   def t = findTask { qTask ->
+      qTask.transitionId.eq("transition_id").and(qTask.caseId.eq(useCase.stringId))
+   }
+   if (t) setData(t, [result_field: [value: result, type: "text"]])
 }
 
 cache("key", "value")
@@ -2084,9 +2101,9 @@ def cal = java.util.Calendar.getInstance()
 cal.setTime(request_date.value as java.util.Date)
 def added = 0
 while (added < daysToAdd) {
-  cal.add(java.util.Calendar.DAY_OF_MONTH, 1)
-  def dow = cal.get(java.util.Calendar.DAY_OF_WEEK)
-  if (dow != java.util.Calendar.SATURDAY && dow != java.util.Calendar.SUNDAY) added++
+   cal.add(java.util.Calendar.DAY_OF_MONTH, 1)
+   def dow = cal.get(java.util.Calendar.DAY_OF_WEEK)
+   if (dow != java.util.Calendar.SATURDAY && dow != java.util.Calendar.SUNDAY) added++
 }
 change deadline value { cal.getTime() }
 ```
@@ -2120,9 +2137,9 @@ category: f.category,
 sub_category: f.sub_category;
 
 def optionMap = [
-  "hardware": ["laptop", "monitor", "keyboard", "mouse"],
-  "software": ["license", "subscription", "upgrade", "new_install"],
-  "service":  ["repair", "consultation", "training"]
+        "hardware": ["laptop", "monitor", "keyboard", "mouse"],
+        "software": ["license", "subscription", "upgrade", "new_install"],
+        "service":  ["repair", "consultation", "training"]
 ]
 def choices = optionMap[category.value] ?: []
 change sub_category value { choices as Set }
@@ -2161,9 +2178,9 @@ department: f.department,
 action_type: f.action_type;
 
 def allowedByDept = [
-  "finance":  ["approve", "reject", "request_info"] as Set,
-  "hr":       ["approve", "reject"] as Set,
-  "legal":    ["approve", "reject", "escalate"] as Set
+        "finance":  ["approve", "reject", "request_info"] as Set,
+        "hr":       ["approve", "reject"] as Set,
+        "legal":    ["approve", "reject", "escalate"] as Set
 ]
 def allowed = allowedByDept[department.value] ?: ["approve", "reject"] as Set
 change action_type choices { allowed }
@@ -2203,7 +2220,7 @@ city: f.city;
 
 // Fetch cities for selected country from an external API
 def conn = (java.net.HttpURLConnection) new java.net.URL(
-  "https://api.example.com/cities?country=${country.value}"
+        "https://api.example.com/cities?country=${country.value}"
 ).openConnection()
 conn.setRequestMethod("GET")
 conn.setConnectTimeout(5000)
@@ -2239,11 +2256,11 @@ changeCaseProperty("title").about { "${reference_number.value} — ${applicant_n
 ```groovy
 amount: f.amount;
 def nextTask = findTask { qTask ->
-  qTask.transitionId.eq("approve_request").and(qTask.caseId.eq(useCase.stringId))
+   qTask.transitionId.eq("approve_request").and(qTask.caseId.eq(useCase.stringId))
 }
 if (nextTask) {
-  def email = (amount.value as java.lang.Double) < 1000 ? "manager@example.com" : "director@example.com"
-  assignTask(nextTask, findUserByEmail(email))
+   def email = (amount.value as java.lang.Double) < 1000 ? "manager@example.com" : "director@example.com"
+   assignTask(nextTask, findUserByEmail(email))
 }
 ```
 
@@ -2268,14 +2285,14 @@ generatePdf("approve_request", "pdf_output")
 
 def pdfFile = new java.io.File(pdf_output.value?.path ?: "")
 if (pdfFile.exists()) {
-  sendEmail(
-    [applicant_email.value],
-    "Your request has been approved — ${useCase.title}",
-    "Dear ${applicant_name.value},\n\nPlease find your approval document attached.",
-    ["approval_${useCase.stringId}.pdf": pdfFile]
-  )
+   sendEmail(
+           [applicant_email.value],
+           "Your request has been approved — ${useCase.title}",
+           "Dear ${applicant_name.value},\n\nPlease find your approval document attached.",
+           ["approval_${useCase.stringId}.pdf": pdfFile]
+   )
 } else {
-  throw new java.lang.IllegalStateException("PDF not found for case ${useCase.stringId}")
+   throw new java.lang.IllegalStateException("PDF not found for case ${useCase.stringId}")
 }
 ```
 
@@ -2296,15 +2313,15 @@ def limitHours = priority.value == "urgent" ? 4 : 24
 def elapsed = (new java.util.Date().time - (assigned_at.value as java.util.Date).time) / (1000 * 60 * 60)
 
 if (elapsed > limitHours) {
-  def escalationUser = findUserByEmail("manager@example.com")
-  def currentTask = findTask { qTask ->
-    qTask.transitionId.eq("review_request").and(qTask.caseId.eq(useCase.stringId))
-  }
-  if (currentTask && escalationUser) {
-    assignTask(currentTask, escalationUser)
-    sendEmail(["manager@example.com"], "Escalation: ${useCase.title}",
-      "Task exceeded SLA of ${limitHours}h and was reassigned.")
-  }
+   def escalationUser = findUserByEmail("manager@example.com")
+   def currentTask = findTask { qTask ->
+      qTask.transitionId.eq("review_request").and(qTask.caseId.eq(useCase.stringId))
+   }
+   if (currentTask && escalationUser) {
+      assignTask(currentTask, escalationUser)
+      sendEmail(["manager@example.com"], "Escalation: ${useCase.title}",
+              "Task exceeded SLA of ${limitHours}h and was reassigned.")
+   }
 }
 ```
 
@@ -2319,11 +2336,11 @@ def allCases = findCases { qCase -> qCase.processIdentifier.eq("expense_request"
 def total = 0.0; def approved = 0; def rejected = 0
 
 allCases.each { c ->
-  def amt    = c.dataSet["amount"]?.value
-  def status = c.dataSet["status"]?.value
-  if (amt)                  total    += (amt as java.lang.Double)
-  if (status == "approved") approved++
-  if (status == "rejected") rejected++
+   def amt    = c.dataSet["amount"]?.value
+   def status = c.dataSet["status"]?.value
+   if (amt)                  total    += (amt as java.lang.Double)
+   if (status == "approved") approved++
+   if (status == "rejected") rejected++
 }
 change total_amount   value { total }
 change approved_count value { approved as java.lang.Double }
@@ -2338,15 +2355,15 @@ Place in `caseEvents` `on_create` **pre** phase. Throwing an exception aborts cr
 reference_number: f.reference_number;
 
 if (reference_number.value) {
-  def existing = findCases { qCase ->
-    qCase.dataSet["reference_number"].value.eq(reference_number.value)
-      .and(qCase.stringId.ne(useCase.stringId))
-  }
-  if (existing) {
-    throw new java.lang.IllegalStateException(
-      "A case with reference '${reference_number.value}' already exists."
-    )
-  }
+   def existing = findCases { qCase ->
+      qCase.dataSet["reference_number"].value.eq(reference_number.value)
+              .and(qCase.stringId.ne(useCase.stringId))
+   }
+   if (existing) {
+      throw new java.lang.IllegalStateException(
+              "A case with reference '${reference_number.value}' already exists."
+      )
+   }
 }
 ```
 
@@ -2355,7 +2372,7 @@ if (reference_number.value) {
 ```groovy
 amount: f.amount;
 if ((amount.value as java.lang.Double) <= 0) {
-  throw new IllegalArgumentException("Amount must be positive")
+   throw new IllegalArgumentException("Amount must be positive")
 }
 ```
 
@@ -2381,27 +2398,27 @@ Contrast with `phase="post"`: post runs after the token has already moved to the
 ```groovy
 reference_number: f.reference_number;
 async.run {
-  def conn = (java.net.HttpURLConnection) new java.net.URL(
-    "https://api.example.com/validate?ref=${reference_number.value}"
-  ).openConnection()
-  conn.setRequestMethod("GET")
-  conn.setConnectTimeout(10_000)
-  conn.setReadTimeout(30_000)
-  conn.setRequestProperty("Accept", "application/json")
-  def body = ""
-  try {
-    body = conn.getInputStream().getText("UTF-8")
-  } catch (java.lang.Exception e) {
-    body = conn.getErrorStream()?.getText("UTF-8") ?: '{"status":"error","message":"unreachable"}'
-  }
-  def result = new groovy.json.JsonSlurper().parseText(body)
-  def t = findTask { qTask ->
-    qTask.transitionId.eq("submit_request").and(qTask.caseId.eq(useCase.stringId))
-  }
-  if (t) setData(t, [
-    validation_status:  [value: result.status,  type: "text"],
-    validation_message: [value: result.message, type: "text"]
-  ])
+   def conn = (java.net.HttpURLConnection) new java.net.URL(
+           "https://api.example.com/validate?ref=${reference_number.value}"
+   ).openConnection()
+   conn.setRequestMethod("GET")
+   conn.setConnectTimeout(10_000)
+   conn.setReadTimeout(30_000)
+   conn.setRequestProperty("Accept", "application/json")
+   def body = ""
+   try {
+      body = conn.getInputStream().getText("UTF-8")
+   } catch (java.lang.Exception e) {
+      body = conn.getErrorStream()?.getText("UTF-8") ?: '{"status":"error","message":"unreachable"}'
+   }
+   def result = new groovy.json.JsonSlurper().parseText(body)
+   def t = findTask { qTask ->
+      qTask.transitionId.eq("submit_request").and(qTask.caseId.eq(useCase.stringId))
+   }
+   if (t) setData(t, [
+           validation_status:  [value: result.status,  type: "text"],
+           validation_message: [value: result.message, type: "text"]
+   ])
 }
 ```
 
@@ -2416,10 +2433,10 @@ Declare a `text` data field to hold the key. Mark it clearly with a comment and 
 ```xml
 <!-- Declare alongside other data fields -->
 <data type="text">
-  <id>openai_api_key</id>
-  <title>OpenAI API Key</title>
-  <!-- ⚠️ REPLACE the value below with your actual OpenAI API key before importing -->
-  <value>sk-YOUR-API-KEY-HERE</value>
+   <id>openai_api_key</id>
+   <title>OpenAI API Key</title>
+   <!-- ⚠️ REPLACE the value below with your actual OpenAI API key before importing -->
+   <value>sk-YOUR-API-KEY-HERE</value>
 </data>
 ```
 
@@ -2431,36 +2448,36 @@ email_body: f.email_body,
 llm_result: f.llm_result;
 
 async.run {
-  def conn = (java.net.HttpURLConnection) new java.net.URL(
-    "https://api.openai.com/v1/chat/completions"
-  ).openConnection()
-  conn.setRequestMethod("POST")
-  conn.setRequestProperty("Content-Type", "application/json")
-  conn.setRequestProperty("Authorization", "Bearer ${openai_api_key.value}")
-  conn.setDoOutput(true)
-  conn.setConnectTimeout(15_000)
-  conn.setReadTimeout(60_000)
+   def conn = (java.net.HttpURLConnection) new java.net.URL(
+           "https://api.openai.com/v1/chat/completions"
+   ).openConnection()
+   conn.setRequestMethod("POST")
+   conn.setRequestProperty("Content-Type", "application/json")
+   conn.setRequestProperty("Authorization", "Bearer ${openai_api_key.value}")
+   conn.setDoOutput(true)
+   conn.setConnectTimeout(15_000)
+   conn.setReadTimeout(60_000)
 
-  def payload = groovy.json.JsonOutput.toJson([
-    model: "gpt-4o-mini",
-    messages: [[role: "user", content: email_body.value ?: ""]]
-  ])
-  conn.outputStream.write(payload.getBytes("UTF-8"))
+   def payload = groovy.json.JsonOutput.toJson([
+           model: "gpt-4o-mini",
+           messages: [[role: "user", content: email_body.value ?: ""]]
+   ])
+   conn.outputStream.write(payload.getBytes("UTF-8"))
 
-  def responseBody = ""
-  try {
-    responseBody = conn.inputStream.getText("UTF-8")
-  } catch (java.lang.Exception e) {
-    responseBody = conn.errorStream?.getText("UTF-8") ?: '{"error":"unreachable"}'
-  }
+   def responseBody = ""
+   try {
+      responseBody = conn.inputStream.getText("UTF-8")
+   } catch (java.lang.Exception e) {
+      responseBody = conn.errorStream?.getText("UTF-8") ?: '{"error":"unreachable"}'
+   }
 
-  def parsed = new groovy.json.JsonSlurper().parseText(responseBody)
-  def answer = parsed?.choices?.getAt(0)?.message?.content ?: "LLM error"
+   def parsed = new groovy.json.JsonSlurper().parseText(responseBody)
+   def answer = parsed?.choices?.getAt(0)?.message?.content ?: "LLM error"
 
-  def t = findTask { qTask ->
-    qTask.transitionId.eq("result_task").and(qTask.caseId.eq(useCase.stringId))
-  }
-  if (t) setData(t, [llm_result: [value: answer, type: "text"]])
+   def t = findTask { qTask ->
+      qTask.transitionId.eq("result_task").and(qTask.caseId.eq(useCase.stringId))
+   }
+   if (t) setData(t, [llm_result: [value: answer, type: "text"]])
 }
 ```
 
@@ -2477,9 +2494,9 @@ def content = parsed?.choices?.getAt(0)?.message?.content ?: "{}"
 
 // Safe fence stripping — use single-quoted strings to avoid Groovy interpolation of $ and \
 def normalized = content
-  .replaceAll('(?m)^```(?:json)?\\s*', '')   // strip opening fence line (with or without "json")
-  .replaceAll('(?m)^```\\s*$', '')           // strip closing fence line
-  .trim()
+        .replaceAll('(?m)^```(?:json)?\\s*', '')   // strip opening fence line (with or without "json")
+        .replaceAll('(?m)^```\\s*$', '')           // strip closing fence line
+        .trim()
 
 def result = new groovy.json.JsonSlurper().parseText(normalized ?: "{}")
 ```
@@ -2506,18 +2523,18 @@ The `taskRef` field embeds a specific transition's form — but that transition 
 
 ```xml
 <caseEvents>
-  <event type="create">
-    <id>on_case_create</id>
-    <actions phase="post">
-      <action id="1"><![CDATA[
+   <event type="create">
+      <id>on_case_create</id>
+      <actions phase="post">
+         <action id="1"><![CDATA[
         // Fire the Form system task so the taskRef panel is immediately available
         async.run {
           assignTask("form_task")
           finishTask("form_task")
         }
       ]]></action>
-    </actions>
-  </event>
+      </actions>
+   </event>
 </caseEvents>
 ```
 
@@ -2533,13 +2550,13 @@ Use `assignRole` in a finish post action to grant a specific process role to the
 // Registration finish post — assign role based on routing choice
 department: f.department;
 def roleMap = [
-  "legal":   "lawyer",
-  "finance": "finance_employee",
-  "pr":      "pr_employee"
+        "legal":   "lawyer",
+        "finance": "finance_employee",
+        "pr":      "pr_employee"
 ]
 def roleId = roleMap[department.value]
 if (roleId) {
-  assignRole(roleId, petriNet)
+   assignRole(roleId, petriNet)
 }
 ```
 
@@ -2720,14 +2737,14 @@ change branch_count value { sel.size() as Double }
 <arc><id>arc_b_done_to_join</id><type>regular</type><sourceId>b_done</sourceId><destinationId>or_join</destinationId><multiplicity>1</multiplicity></arc>
 <arc><id>arc_c_done_to_join</id><type>regular</type><sourceId>c_done</sourceId><destinationId>or_join</destinationId><multiplicity>1</multiplicity></arc>
 
-<!-- finalize fires only when or_join holds branch_count tokens -->
+        <!-- finalize fires only when or_join holds branch_count tokens -->
 <arc>
-  <id>arc_join_to_finalize</id>
-  <type>regular</type>
-  <sourceId>or_join</sourceId>
-  <destinationId>finalize</destinationId>
-  <multiplicity>0</multiplicity>
-  <reference>branch_count</reference>
+<id>arc_join_to_finalize</id>
+<type>regular</type>
+<sourceId>or_join</sourceId>
+<destinationId>finalize</destinationId>
+<multiplicity>0</multiplicity>
+<reference>branch_count</reference>
 </arc>
 ```
 
@@ -2774,7 +2791,7 @@ Multiple parallel branches run, but the process continues as soon as the **first
 ```groovy
 // On review_a finish post — cancel the other branch
 def otherTask = findTask { qTask ->
-  qTask.transitionId.eq("review_b").and(qTask.caseId.eq(useCase.stringId))
+   qTask.transitionId.eq("review_b").and(qTask.caseId.eq(useCase.stringId))
 }
 if (otherTask) cancelTask(otherTask)
 ```
@@ -2800,10 +2817,10 @@ def current = (vote_count.value as Integer) ?: 0
 change vote_count value { (current + 1) as Double }
 
 if (current + 1 >= 2) {
-  findTasks { qTask ->
-    qTask.caseId.eq(useCase.stringId)
-      .and(qTask.transitionId.in(["review_a", "review_b", "review_c"]))
-  }.each { t -> cancelTask(t) }
+   findTasks { qTask ->
+      qTask.caseId.eq(useCase.stringId)
+              .and(qTask.transitionId.in(["review_a", "review_b", "review_c"]))
+   }.each { t -> cancelTask(t) }
 }
 ```
 
@@ -2828,7 +2845,7 @@ change first_approver value { userService.loggedOrSystem.email }
 first_approver: f.first_approver;
 def currentUser = userService.loggedOrSystem.email
 if (currentUser == first_approver.value) {
-  throw new java.lang.IllegalStateException("The second approver must be a different person.")
+   throw new java.lang.IllegalStateException("The second approver must be a different person.")
 }
 ```
 
@@ -2850,7 +2867,7 @@ amount: f.amount;
 def isHighValue = (amount.value as java.lang.Double) > 10000
 def transitionId = isHighValue ? "high_value_review" : "standard_review"
 def nextTask = findTask { qTask ->
-  qTask.transitionId.eq(transitionId).and(qTask.caseId.eq(useCase.stringId))
+   qTask.transitionId.eq(transitionId).and(qTask.caseId.eq(useCase.stringId))
 }
 if (nextTask) assignTask(nextTask, findUserByEmail(isHighValue ? "director@example.com" : "manager@example.com"))
 ```
@@ -2881,13 +2898,13 @@ Net structure — arcs leave FROM the transition directly to destination places:
 <data type="number"><id>toLegal</id><title>To Legal</title><init>0</init></data>
 <data type="number"><id>toPR</id><title>To PR</title><init>0</init></data>
 
-<!-- Triage transition sets exactly one field to 1 in finish PRE phase -->
+        <!-- Triage transition sets exactly one field to 1 in finish PRE phase -->
 <transition>
-  <id>registration_triage</id>
-  ...
-  <event type="finish">
-    <id>on_triage_finish</id>
-    <actions phase="pre">
+<id>registration_triage</id>
+...
+<event type="finish">
+   <id>on_triage_finish</id>
+   <actions phase="pre">
       <action id="5"><![CDATA[
         toLegal: f.toLegal,
         toPR: f.toPR,
@@ -2900,28 +2917,28 @@ Net structure — arcs leave FROM the transition directly to destination places:
           change toPR    value { 1 }
         }
       ]]></action>
-    </actions>
-  </event>
+   </actions>
+</event>
 </transition>
 
-<!-- Variable arcs: type="regular", multiplicity=0 (placeholder), reference=number field -->
-<!-- Arc source is the TRANSITION, not a place -->
+        <!-- Variable arcs: type="regular", multiplicity=0 (placeholder), reference=number field -->
+        <!-- Arc source is the TRANSITION, not a place -->
 <arc>
-  <id>arc_triage_to_legal</id>
-  <type>regular</type>
-  <sourceId>registration_triage</sourceId>
-  <destinationId>after_legal</destinationId>
-  <multiplicity>0</multiplicity>
-  <reference>toLegal</reference>
+<id>arc_triage_to_legal</id>
+<type>regular</type>
+<sourceId>registration_triage</sourceId>
+<destinationId>after_legal</destinationId>
+<multiplicity>0</multiplicity>
+<reference>toLegal</reference>
 </arc>
 
 <arc>
-  <id>arc_triage_to_pr</id>
-  <type>regular</type>
-  <sourceId>registration_triage</sourceId>
-  <destinationId>after_pr</destinationId>
-  <multiplicity>0</multiplicity>
-  <reference>toPR</reference>
+<id>arc_triage_to_pr</id>
+<type>regular</type>
+<sourceId>registration_triage</sourceId>
+<destinationId>after_pr</destinationId>
+<multiplicity>0</multiplicity>
+<reference>toPR</reference>
 </arc>
 ```
 
@@ -2968,33 +2985,33 @@ This is the **second major approach to conditional routing**, complementing vari
 ```xml
 <!-- System role definition -->
 <role>
-  <id>system</id>
-  <title>System</title>
+   <id>system</id>
+   <title>System</title>
 </role>
 
-<!-- Systematic task — no dataGroup, no label needed for users -->
+        <!-- Systematic task — no dataGroup, no label needed for users -->
 <transition>
-  <id>route_to_legal</id>
-  <x>1072</x>
-  <y>208</y>
-  <label>To Legal</label>
-  <roleRef>
-    <id>system</id>
-    <logic><perform>true</perform></logic>
-  </roleRef>
-  <!-- no dataGroup -->
+<id>route_to_legal</id>
+<x>1072</x>
+<y>208</y>
+<label>To Legal</label>
+<roleRef>
+   <id>system</id>
+   <logic><perform>true</perform></logic>
+</roleRef>
+<!-- no dataGroup -->
 </transition>
 
 <transition>
-  <id>route_to_pr</id>
-  <x>1072</x>
-  <y>400</y>
-  <label>To PR</label>
-  <roleRef>
-    <id>system</id>
-    <logic><perform>true</perform></logic>
-  </roleRef>
-  <!-- no dataGroup -->
+<id>route_to_pr</id>
+<x>1072</x>
+<y>400</y>
+<label>To PR</label>
+<roleRef>
+   <id>system</id>
+   <logic><perform>true</perform></logic>
+</roleRef>
+<!-- no dataGroup -->
 </transition>
 ```
 
@@ -3004,15 +3021,15 @@ The routing decision happens in the preceding human task's finish post action:
 // t2 (Registration) finish post — fires the correct system task
 number_0: f.number_0;
 if ((number_0.value as Double) < 2000) {
-  async.run {
-    assignTask("route_to_legal")
-    finishTask("route_to_legal")
-  }
+   async.run {
+      assignTask("route_to_legal")
+      finishTask("route_to_legal")
+   }
 } else {
-  async.run {
-    assignTask("route_to_pr")
-    finishTask("route_to_pr")
-  }
+   async.run {
+      assignTask("route_to_pr")
+      finishTask("route_to_pr")
+   }
 }
 ```
 
@@ -3044,9 +3061,9 @@ Each system task's finish post action fires the next:
 ```xml
 <!-- t_system_1 finish post fires t_system_2 -->
 <event type="finish">
-  <id>on_system_1_finish</id>
-  <actions phase="post">
-    <action id="N"><![CDATA[
+   <id>on_system_1_finish</id>
+   <actions phase="post">
+      <action id="N"><![CDATA[
       async.run {
         def t = findTask { qTask ->
           qTask.transitionId.eq("t_system_2").and(qTask.caseId.eq(useCase.stringId))
@@ -3057,14 +3074,14 @@ Each system task's finish post action fires the next:
         }
       }
     ]]></action>
-  </actions>
+   </actions>
 </event>
 
-<!-- t_system_2 finish post fires t_system_3 — same pattern -->
+        <!-- t_system_2 finish post fires t_system_3 — same pattern -->
 <event type="finish">
-  <id>on_system_2_finish</id>
-  <actions phase="post">
-    <action id="N+1"><![CDATA[
+<id>on_system_2_finish</id>
+<actions phase="post">
+   <action id="N+1"><![CDATA[
       async.run {
         def t = findTask { qTask ->
           qTask.transitionId.eq("t_system_3").and(qTask.caseId.eq(useCase.stringId))
@@ -3075,7 +3092,7 @@ Each system task's finish post action fires the next:
         }
       }
     ]]></action>
-  </actions>
+</actions>
 </event>
 ```
 
@@ -3100,9 +3117,9 @@ The simplest form: `<init>` contains a transition ID from the **same process**. 
 
 ```xml
 <data type="taskRef">
-  <id>taskRef_0</id>
-  <title/>          <!-- usually empty — the embedded panel has its own title -->
-  <init>t9</init>   <!-- transition ID of the task to embed; must exist in this process -->
+   <id>taskRef_0</id>
+   <title/>          <!-- usually empty — the embedded panel has its own title -->
+   <init>t9</init>   <!-- transition ID of the task to embed; must exist in this process -->
 </data>
 ```
 
@@ -3133,11 +3150,11 @@ The simplest form: `<init>` contains a transition ID from the **same process**. 
 
 ```xml
 <dataRef>
-  <id>taskRef_0</id>
-  <logic><behavior>visible</behavior></logic>
-  <layout><x>0</x><y>4</y><rows>1</rows><cols>4</cols>
-    <template>material</template><appearance>outline</appearance>
-  </layout>
+   <id>taskRef_0</id>
+   <logic><behavior>visible</behavior></logic>
+   <layout><x>0</x><y>4</y><rows>1</rows><cols>4</cols>
+      <template>material</template><appearance>outline</appearance>
+   </layout>
 </dataRef>
 ```
 
@@ -3168,8 +3185,8 @@ invoice_approvals: f.invoice_approvals,
 children_invoice_cases: f.children_invoice_cases;
 
 change invoice_approvals value {
-    findTasks { it.caseId.in(children_invoice_cases.value).and(it.transitionId.eq("t2")) }
-        ?.collect { it.stringId }
+   findTasks { it.caseId.in(children_invoice_cases.value).and(it.transitionId.eq("t2")) }
+           ?.collect { it.stringId }
 }
 ```
 
@@ -3186,8 +3203,8 @@ A `caseRef` field holds a **`List<String>` of case string IDs** and renders each
 
 ```xml
 <data type="caseRef">
-  <id>children_invoice_cases</id>
-  <title>Invoice cases</title>
+   <id>children_invoice_cases</id>
+   <title>Invoice cases</title>
 </data>
 ```
 
@@ -3214,7 +3231,7 @@ new_child_id: f.new_child_id,
 children_invoice_cases: f.children_invoice_cases;
 
 if (new_child_id.value !in children_invoice_cases.value) {
-    change children_invoice_cases value { children_invoice_cases.value + new_child_id.value }
+   change children_invoice_cases value { children_invoice_cases.value + new_child_id.value }
 }
 ```
 
@@ -3234,28 +3251,28 @@ After a submission, the submitter (or any observer) needs a persistent view of t
 ```xml
 <!-- Place fed once by submission -->
 <place>
-  <id>p_detail</id>
-  <x>624</x><y>304</y>
-  <tokens>0</tokens>
-  <static>false</static>
+   <id>p_detail</id>
+   <x>624</x><y>304</y>
+   <tokens>0</tokens>
+   <static>false</static>
 </place>
 
-<!-- Regular arc: submit produces the detail token -->
+        <!-- Regular arc: submit produces the detail token -->
 <arc>
-  <id>arc_submit_to_detail</id>
-  <type>regular</type>
-  <sourceId>t_submit</sourceId>
-  <destinationId>p_detail</destinationId>
-  <multiplicity>1</multiplicity>
+<id>arc_submit_to_detail</id>
+<type>regular</type>
+<sourceId>t_submit</sourceId>
+<destinationId>p_detail</destinationId>
+<multiplicity>1</multiplicity>
 </arc>
 
-<!-- Read arc: detail view consumes nothing — always stays enabled -->
+        <!-- Read arc: detail view consumes nothing — always stays enabled -->
 <arc>
-  <id>arc_detail_read</id>
-  <type>read</type>
-  <sourceId>p_detail</sourceId>
-  <destinationId>t_detail</destinationId>
-  <multiplicity>1</multiplicity>
+<id>arc_detail_read</id>
+<type>read</type>
+<sourceId>p_detail</sourceId>
+<destinationId>t_detail</destinationId>
+<multiplicity>1</multiplicity>
 </arc>
 ```
 
@@ -3322,9 +3339,9 @@ All three arcs are evaluated — those whose referenced `number` field equals `1
 // Route based on numeric range — not possible with a simple boolean
 number_0: f.number_0;
 if ((number_0.value as Double) < 2000) {
-  async.run { assignTask("to_first"); finishTask("to_first") }
+   async.run { assignTask("to_first"); finishTask("to_first") }
 } else {
-  async.run { assignTask("to_second"); finishTask("to_second") }
+   async.run { assignTask("to_second"); finishTask("to_second") }
 }
 ```
 
@@ -3401,11 +3418,11 @@ change child_case_id value { child.stringId }
 
 // Pre-fill fields in the child — resolve the task first
 def childTask = findTask { qTask ->
-  qTask.transitionId.eq("child_first_task").and(qTask.caseId.eq(child.stringId))
+   qTask.transitionId.eq("child_first_task").and(qTask.caseId.eq(child.stringId))
 }
 if (childTask) setData(childTask, [
-  parent_reference: [value: useCase.stringId,                type: "text"],
-  submitted_by:     [value: userService.loggedOrSystem.email, type: "text"]
+        parent_reference: [value: useCase.stringId,                type: "text"],
+        submitted_by:     [value: userService.loggedOrSystem.email, type: "text"]
 ])
 ```
 
@@ -3420,14 +3437,14 @@ child_case_id: f.child_case_id;
 
 def child = findCase { qCase -> qCase.stringId.eq(child_case_id.value) }
 if (child) {
-  def childTask = findTask { qTask ->
-    qTask.transitionId.eq("review_task").and(qTask.caseId.eq(child.stringId))
-  }
-  if (childTask) setData(childTask, [
-    contract_value: [value: 15000.0,          type: "number"],
-    request_type:   [value: "procurement",     type: "text"],
-    parent_case_id: [value: useCase.stringId,  type: "text"]
-  ])
+   def childTask = findTask { qTask ->
+      qTask.transitionId.eq("review_task").and(qTask.caseId.eq(child.stringId))
+   }
+   if (childTask) setData(childTask, [
+           contract_value: [value: 15000.0,          type: "number"],
+           request_type:   [value: "procurement",     type: "text"],
+           parent_case_id: [value: useCase.stringId,  type: "text"]
+   ])
 }
 ```
 
@@ -3442,8 +3459,8 @@ customer_email: f.customer_email;
 
 def source = findCase { qCase -> qCase.stringId.eq(source_case_id.value) }
 if (source) {
-  change customer_name  value { source.dataSet["customer_name"]?.value  ?: "" }
-  change customer_email value { source.dataSet["customer_email"]?.value ?: "" }
+   change customer_name  value { source.dataSet["customer_name"]?.value  ?: "" }
+   change customer_email value { source.dataSet["customer_email"]?.value ?: "" }
 }
 ```
 
@@ -3456,13 +3473,13 @@ child_case_id: f.child_case_id;
 
 def child = findCase { qCase -> qCase.stringId.eq(child_case_id.value) }
 if (child) {
-  def childTask = findTask { qTask ->
-    qTask.transitionId.eq("start_processing").and(qTask.caseId.eq(child.stringId))
-  }
-  if (childTask) {
-    assignTask(childTask, userService.loggedOrSystem)
-    finishTask(childTask)
-  }
+   def childTask = findTask { qTask ->
+      qTask.transitionId.eq("start_processing").and(qTask.caseId.eq(child.stringId))
+   }
+   if (childTask) {
+      assignTask(childTask, userService.loggedOrSystem)
+      finishTask(childTask)
+   }
 }
 ```
 
@@ -3478,7 +3495,7 @@ child_status: f.child_status;
 
 def child = findCase { qCase -> qCase.stringId.eq(child_case_id.value) }
 if (child) {
-  change child_status value { child.dataSet["status"]?.value ?: "unknown" }
+   change child_status value { child.dataSet["status"]?.value ?: "unknown" }
 }
 ```
 
@@ -3491,22 +3508,22 @@ parent_case_id: f.parent_case_id;
 
 def parent = findCase { qCase -> qCase.stringId.eq(parent_case_id.value) }
 if (parent) {
-  def resultTask = findTask { qTask ->
-    qTask.transitionId.eq("check_child_result").and(qTask.caseId.eq(parent.stringId))
-  }
-  if (resultTask) setData(resultTask, [
-    child_completed: [value: true,       type: "boolean"],
-    child_result:    [value: "approved", type: "text"]
-  ])
+   def resultTask = findTask { qTask ->
+      qTask.transitionId.eq("check_child_result").and(qTask.caseId.eq(parent.stringId))
+   }
+   if (resultTask) setData(resultTask, [
+           child_completed: [value: true,       type: "boolean"],
+           child_result:    [value: "approved", type: "text"]
+   ])
 
-  // Optionally advance the parent by finishing its waiting task
-  def waitingTask = findTask { qTask ->
-    qTask.transitionId.eq("wait_for_child").and(qTask.caseId.eq(parent.stringId))
-  }
-  if (waitingTask) {
-    assignTask(waitingTask, userService.loggedOrSystem)
-    finishTask(waitingTask)
-  }
+   // Optionally advance the parent by finishing its waiting task
+   def waitingTask = findTask { qTask ->
+      qTask.transitionId.eq("wait_for_child").and(qTask.caseId.eq(parent.stringId))
+   }
+   if (waitingTask) {
+      assignTask(waitingTask, userService.loggedOrSystem)
+      finishTask(waitingTask)
+   }
 }
 ```
 
@@ -3519,17 +3536,17 @@ if (parent) {
 status: f.status;
 
 def children = findCases { qCase ->
-  qCase.dataSet["parent_case_id"].value.eq(useCase.stringId)
+   qCase.dataSet["parent_case_id"].value.eq(useCase.stringId)
 }
 children.each { child ->
-  def childTask = findTask { qTask ->
-    qTask.transitionId.eq("review_task").and(qTask.caseId.eq(child.stringId))
-  }
-  if (childTask) setData(childTask, [
-    parent_status:    [value: status.value,         type: "text"],
-    parent_closed:    [value: true,                 type: "boolean"],
-    parent_closed_at: [value: new java.util.Date(), type: "dateTime"]
-  ])
+   def childTask = findTask { qTask ->
+      qTask.transitionId.eq("review_task").and(qTask.caseId.eq(child.stringId))
+   }
+   if (childTask) setData(childTask, [
+           parent_status:    [value: status.value,         type: "text"],
+           parent_closed:    [value: true,                 type: "boolean"],
+           parent_closed_at: [value: new java.util.Date(), type: "dateTime"]
+   ])
 }
 ```
 
@@ -3546,11 +3563,11 @@ def all = findCases { qCase -> qCase.processIdentifier.eq("expense_request") }
 def total = 0.0; def approved = 0; def pending = 0
 
 all.each { c ->
-  def amt    = c.dataSet["amount"]?.value
-  def status = c.dataSet["status"]?.value
-  if (amt)                 total    += (amt as java.lang.Double)
-  if (status == "approved") approved++
-  if (status == "pending")  pending++
+   def amt    = c.dataSet["amount"]?.value
+   def status = c.dataSet["status"]?.value
+   if (amt)                 total    += (amt as java.lang.Double)
+   if (status == "approved") approved++
+   if (status == "pending")  pending++
 }
 change total_amount   value { total }
 change approved_count value { approved as java.lang.Double }
@@ -3597,13 +3614,13 @@ new_invoice_id: f.new_invoice_id;
 
 // Add to tracked list only if not already present
 if (new_invoice_id.value !in (children_invoice_cases.value ?: [])) {
-    change children_invoice_cases value { (children_invoice_cases.value ?: []) + new_invoice_id.value }
+   change children_invoice_cases value { (children_invoice_cases.value ?: []) + new_invoice_id.value }
 }
 
 // Refresh the taskRef to show all child invoice approval tasks
 change invoice_approvals value {
-    findTasks { it.caseId.in(children_invoice_cases.value).and(it.transitionId.eq("t2")) }
-        ?.collect { it.stringId }
+   findTasks { it.caseId.in(children_invoice_cases.value).and(it.transitionId.eq("t2")) }
+           ?.collect { it.stringId }
 }
 ```
 
@@ -3615,7 +3632,7 @@ When the child process opens its registration task, it can query the parent proc
 parent_order_id: f.parent_order_id;
 
 def orders = findCases { it.processIdentifier.eq("order") }
-    .collectEntries { [(it.stringId): "Order: " + it.stringId] }
+        .collectEntries { [(it.stringId): "Order: " + it.stringId] }
 
 change parent_order_id options { orders }
 ```
@@ -3636,6 +3653,57 @@ change parent_order_id options { orders }
 ## 7. Rules & Gotchas
 
 This section is the single source of truth for everything that causes generation failures.
+
+---
+
+### Variable arc `init 0` + place `tokens 0` — task prematurely enabled at process start
+
+When a variable arc has `<reference>fieldId</reference>` and that field has `<init>0</init>`, the arc's effective multiplicity at process start is `0`. A Petri net arc with weight `0` is treated as **not consuming or producing any tokens**, which means the downstream transition sees its incoming place as **not requiring a token to fire** — it becomes enabled immediately, even before any token has arrived there.
+
+**Consequence:** any transition connected to a variable-arc place with `init 0` will appear as an available task the moment the process is created — before any preceding step has been completed. In the builder modeller this shows as `(0)` on the arc label.
+
+**This is not a builder display bug — it is a real runtime problem.** The task is genuinely executable from process start.
+
+**The fix:** ensure that every place feeding a variable-arc transition starts with `<tokens>0</tokens>` **and** that the only way a token reaches it is by the preceding routing transition firing. Because the variable arcs originate from the routing transition (not from the intermediate place), the downstream task only becomes live after the routing transition fires and deposits a token in the target place. This is correct by design — **do not attach variable arcs from the intermediate place**; attach them directly from the routing transition. See §3.6 for the correct recipe.
+
+If a transition should only be reachable after a prior step, verify:
+1. The transition has no variable-arc source with `init > 0` pointing to a place that already holds tokens.
+2. The place feeding the transition starts with `<tokens>0</tokens>`.
+3. The only arc feeding that place is a variable arc **from the routing transition** (not from another place).
+
+---
+
+### Rejection branches must route to a place, not end silently — and the place needs no active task
+
+When a manager (or any actor) can **reject** a request and that rejection should terminate the process, the routing action sets the rejection flag (`to_rejection = 1`) and the variable arc deposits a token in a `p_rejected` terminal place. This is correct. However, two common mistakes occur:
+
+1. **No variable arc for rejection is declared at all.** If the decision field has a "reject" option but there is no `to_rejection` field, no variable arc referencing it, and no destination place for rejection, the token simply disappears — the process silently stalls. Every decision outcome that is modelled in a `manager_decision` enumeration **must have** a corresponding routing number field, a variable arc, and a destination place.
+
+2. **The rejection place has no human task and no `read` arc task — which is correct for a terminal end state.** A terminal place (e.g. `p_rejected`, `p_approved`) does not need a transition. It simply holds the token as a record that the process ended in that state. Do not add a dummy "Rejected" transition unless there is a real user action needed there (e.g. an employee acknowledgement task). If only a status update is needed, do it in the routing action's `phase="pre"` before the token moves.
+
+**Checklist:** for every `enumeration` or `enumeration_map` decision field with N options, verify there are exactly N routing `number` fields, N variable arcs from the routing transition, and N destination places.
+
+---
+
+### Arithmetic operators in Groovy CDATA must be plain text — never HTML entities or Markdown
+
+When an LLM generates XML and the action code contains arithmetic, the `*` character can be silently transformed into HTML italic markup (`<em>...</em>`) or other Markdown/HTML representations before the XML is written. Inside a `<![CDATA[ ... ]]>` block the engine expects raw Groovy source — any HTML tags cause a compile error in eTask.
+
+**Symptom:** eTask reports a compilation or parse error on an action that looks correct in the guide. When you inspect the raw XML the multiplication line reads:
+
+```
+(1000 <em> 60 </em> 60 * 24)
+```
+
+instead of:
+
+```
+(1000 * 60 * 60 * 24)
+```
+
+**Rule:** always write arithmetic operators as plain ASCII characters inside CDATA. Never use HTML entities (`&times;`, `&amp;`, `&#42;`) or let any Markdown renderer transform them. The characters `*`, `/`, `%`, `+`, `-`, `<`, `>` must appear literally. The only escaping allowed in CDATA is the `]]>` sequence terminator — everything else is raw text.
+
+**Pre-generation check:** scan every `<![CDATA[ ... ]]>` block for `<em>`, `&times;`, `&#`, or any HTML/XML tag characters that are not part of a string literal or comment. Replace with the plain operator.
 
 ---
 
@@ -4131,7 +4199,8 @@ if (useCase.dataSet.containsKey("field_id")) {
 **Routing & branching**
 - [ ] Conditional (XOR) forks use **variable arcs** OR **systematic tasks** — never two plain regular arcs (without `<reference>`) from the same place
 - [ ] Variable arc forks: one `number` field (init `0`) per path; routing action (`phase="pre"`) sets exactly one to `1`, all others to `0`; arcs use `type="regular"`, `<multiplicity>0</multiplicity>`, `<reference>field_id</reference>`, source is the **transition** (not a place). **`boolean` fields are invalid as arc references — always use `number`.**
-- [ ] Multichoice OR-forks: number flags set via `sel.contains(key) ? 1 : 0` — multiple can be `1`; use AND-join downstream
+- [ ] **Variable arc source is always a Transition, never a Place.** A Place→Place arc with a `<reference>` violates the P→T→P rule and causes the builder import error: `Error: Could not find nodes <place_id>-><place_id> of arc <arc_id>`. Variable arcs jump from the routing transition **directly** to the destination places — there is no intermediate place between the routing transition and those destination places. The `(0)` label the modeller shows on variable arcs at import time is normal — it reflects `<init>0</init>` and is overwritten at runtime by the `phase="pre"` action.
+- [ ] **Every decision field option has a routing field, a variable arc, and a destination place.** For each `enumeration`/`enumeration_map` field used for routing, count the options: there must be exactly that many `number` routing fields (`init 0`), that many variable arcs from the routing transition, and that many destination places. A missing rejection path causes a silent stall.
 - [ ] Systematic tasks: `system` role, no `<dataGroup>`, fired via `async.run { assignTask(...); finishTask(...) }`
 - [ ] `async.run` used for every `assignTask`/`finishTask` called from inside another task's event action
 - [ ] **Systematic task chains:** every system task that has a successor system task has a `finish post` action firing the next one via `async.run { findTask → assignTask → finishTask }` — no system task in a chain is left without this action
@@ -4165,6 +4234,7 @@ if (useCase.dataSet.containsKey("field_id")) {
 **Actions**
 - [ ] All action `id` values are globally unique and sequential across the whole document (never restart at 1, never use placeholder values like `"N"`)
 - [ ] All action code wrapped in `<![CDATA[ … ]]>`
+- [ ] **No HTML tags or entities inside CDATA blocks** — arithmetic operators (`*`, `/`, `%`, `<`, `>`) must be plain ASCII characters. LLM output can silently transform `*` into `<em>...</em>` or `&times;`. Scan every CDATA block for `<em>`, `&times;`, `&#`, or any tag-like content that is not part of a string literal; replace with the bare operator character.
 - [ ] **Every field used anywhere in the body** (`change X`, `X.value`, `[X.value]`, `"${X.value}"`, conditions) → imported as `X: f.X`
 - [ ] **`f.field_id` never appears inside the action body** — only in the import header. Inside the body, always use the bare local variable name (`field_id.value`, not `f.field_id.value`)
 - [ ] **Every transition used in `make` calls** → imported as `tVar: t.transition_id`
@@ -4224,3 +4294,6 @@ if (useCase.dataSet.containsKey("field_id")) {
 | "Field not found" | `<dataRef>` references non-existent field | Check field ID spelling |
 | "Role not found" | `<roleRef>` references non-existent role | Check role ID spelling |
 | "Error: Not a number. Cannot change the value of arc weight" | A `<reference>` in a variable arc points to a `boolean` field instead of a `number` field | Change the referenced field's `type` from `boolean` to `number`; use values `1` and `0` in actions instead of `true` and `false` |
+| `Error happened during the importing arcs [arc_id]: Error: Could not find nodes <place_id>-><place_id> of arc <arc_id>` | A variable arc (arc with `<reference>`) has a **Place as its source** instead of a Transition — violating the P→T→P rule. Common mistake: attaching variable arcs from the intermediate place that follows the routing transition, rather than from the routing transition itself. | Move the variable arcs so their `<sourceId>` is the **routing transition** ID, not a place ID. The destination (`<destinationId>`) should be the target place, not the next transition. |
+| Variable arc shows `(0)` weight label in the modeller after import | Not an error — expected behaviour. Variable arc reference fields are declared with `<init>0</init>` so they start blocked. The builder modeller displays the current field value as the arc label. The value is overwritten at runtime by the `phase="pre"` routing action before tokens move. | No action needed. Verify the routing action correctly sets the field to `1` for the intended path and `0` for all others. |
+| eTask compilation/parse error on an action with arithmetic | Arithmetic operators (`*`) were transformed into HTML italic tags (`<em>...</em>`) or entities (`&times;`) by the LLM or a Markdown renderer before the XML was written. The engine sees HTML tags inside CDATA and fails to compile the Groovy. | Open the raw XML and search every `<![CDATA[` block for `<em>`, `&times;`, `&#42;`, or any HTML-like content. Replace with the plain operator character (e.g. `*`). |
