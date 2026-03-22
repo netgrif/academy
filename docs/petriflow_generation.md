@@ -2542,6 +2542,8 @@ The `taskRef` field embeds a specific transition's form — but that transition 
 
 The net must have a place with a token that enables `form_task` at case creation time (e.g. place `p_form` with `tokens=1` feeding into `form_task`).
 
+> ⚠️ **Do not add a `caseEvents create` bootstrap if the task is already permanently alive via a `read` arc.** If the `taskRef`-source form task is connected to its place via a `read` arc (Pattern 16), it is always enabled and the `taskRef` panel will render without any `assignTask`/`finishTask` bootstrap. Adding a `caseEvents create post` action to fire that task is redundant — it executes `assignTask` + `finishTask` on a task whose state the engine already manages correctly, producing no benefit. Only use the `caseEvents create post` bootstrap for tasks that need to fire once and complete (e.g. to pre-fill fields), **not** for always-alive `read`-arc tasks. Adding it anyway is not just wasteful — the `// comment` pattern commonly inserted in the first line of that CDATA block will cause a compile error (see the `//` comment rule above).
+
 #### Dynamic role assignment based on routing decision
 
 Use `assignRole` in a finish post action to grant a specific process role to the currently logged-in user — for example, when a registration employee routes a request to a department, automatically assign the correct departmental role so that employee can now also access that department's tasks.
@@ -3979,6 +3981,69 @@ change status value { "Approved" }
 
 ---
 
+### Groovy: never split the import header across multiple semicolon-terminated lines
+
+A semicolon **terminates the entire import block**. If you end one line with a semicolon and then write another `variable: f.variable` declaration on the next line, the engine treats the second line as the start of the action body — those variables are undefined identifiers, causing a runtime error.
+
+This is the most subtle variant of the import rule: it looks like a formatting choice but is actually a parse error.
+
+```groovy
+// ❌ Wrong — two separate semicolon-terminated lines; second group of variables is undefined
+dept: f.routing_dept, status: f.current_status;
+gi: f.go_infra, gw: f.go_waste, ga: f.go_admin;
+
+change gi value { dept.value == "infra" ? 1 : 0 }   // ← gi, gw, ga are undefined here
+
+// ✅ Correct — all imports in one block, comma-separated, ONE semicolon at the end
+dept: f.routing_dept, status: f.current_status, gi: f.go_infra, gw: f.go_waste, ga: f.go_admin;
+
+change status value { "Review by " + dept.options[dept.value] }
+change gi value { dept.value == "infra" ? 1 : 0 }
+change gw value { dept.value == "waste" ? 1 : 0 }
+change ga value { dept.value == "admin" ? 1 : 0 }
+```
+
+**Rule:** the import block is everything from the first declaration to the **first** `;`. There is exactly one `;` in the import section — no matter how many variables you need.
+
+---
+
+### Groovy: never place a `//` comment on the first or last line inside a CDATA block
+
+The Netgrif engine's action parser treats a `//` comment appearing on the **very first line** or **very last line** of the CDATA content as a compile directive. This causes the action to fail silently or throw a parse error on import — even though the comment looks harmless.
+
+```groovy
+// ❌ Wrong — comment on first line of CDATA causes compile error
+<action id="4"><![CDATA[
+    // Bootstrap the form so it is available via taskRef
+    async.run {
+        assignTask("t_form")
+        finishTask("t_form")
+    }
+]]></action>
+
+// ❌ Wrong — comment on last line of CDATA also causes compile error
+<action id="4"><![CDATA[
+    async.run {
+        assignTask("t_form")
+        finishTask("t_form")
+    }
+    // end of bootstrap
+]]></action>
+
+// ✅ Correct — comments are safe in the middle, not on the boundary lines
+<action id="4"><![CDATA[
+    async.run {
+        // Bootstrap the form so it is available via taskRef
+        assignTask("t_form")
+        finishTask("t_form")
+    }
+]]></action>
+```
+
+**Rule:** the first and last lines inside every `<![CDATA[ ... ]]>` block must be either blank or contain actual code. Move any `//` comment to an interior line or remove it entirely.
+
+---
+
 ### Groovy: `replaceAll()` anchors `^` and `$` do not work as expected without flags
 
 Java/Groovy's `String.replaceAll()` runs in single-line mode by default. The `^` anchor matches only the very start of the entire string and `$` only the very end. This means patterns like `replaceAll("^```json", "")` silently do nothing when the fence is not literally the first character of the string (e.g. there is leading whitespace, or the model wrapped the response).
@@ -4234,6 +4299,8 @@ if (useCase.dataSet.containsKey("field_id")) {
 **Actions**
 - [ ] All action `id` values are globally unique and sequential across the whole document (never restart at 1, never use placeholder values like `"N"`)
 - [ ] All action code wrapped in `<![CDATA[ … ]]>`
+- [ ] **First and last lines of every CDATA block must not be `//` comments** — the engine treats a `//` comment on the very first or very last line of a CDATA block as a compile directive and will fail the import. Move comments to interior lines or remove them.
+- [ ] **Import header has exactly one semicolon** — at the very end of the last import line. Never terminate an intermediate import line with a semicolon; variables declared after a mid-header semicolon are undefined in the body and cause runtime errors.
 - [ ] **No HTML tags or entities inside CDATA blocks** — arithmetic operators (`*`, `/`, `%`, `<`, `>`) must be plain ASCII characters. LLM output can silently transform `*` into `<em>...</em>` or `&times;`. Scan every CDATA block for `<em>`, `&times;`, `&#`, or any tag-like content that is not part of a string literal; replace with the bare operator character.
 - [ ] **Every field used anywhere in the body** (`change X`, `X.value`, `[X.value]`, `"${X.value}"`, conditions) → imported as `X: f.X`
 - [ ] **`f.field_id` never appears inside the action body** — only in the import header. Inside the body, always use the bare local variable name (`field_id.value`, not `f.field_id.value`)
