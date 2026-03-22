@@ -1651,6 +1651,8 @@ if (otherCase) {
 }
 ```
 
+**Never use `setData` to copy a field's value onto itself within the same case.** Case data fields are shared across all tasks in the same instance — `setData(task, [field: [value: field.value, ...]])` where `task` belongs to the same case is a no-op. This pattern appears when a `taskRef` source task is incorrectly used as a data synchronisation target; since all tasks already share the same field values, no copying is needed.
+
 **`setData` type strings — complete reference**
 
 The `type` string in each `[field_id: [value: ..., type: "..."]]` map entry must exactly match the field's declared type. Wrong type string causes a silent no-op or runtime error.
@@ -2393,6 +2395,8 @@ Contrast with `phase="post"`: post runs after the token has already moved to the
 - `phase="pre"` — status updates, field changes visible to the submitter, validation/blocking logic
 - `phase="post"` — emails, async routing (`assignTask`/`finishTask`), external API calls, child case creation
 
+**`async.run` with `assignTask`/`finishTask` in `finish post` is safe.** By the time `post` executes, the token has already arrived at the output place — so the target transition is enabled and `assignTask`/`finishTask` will not throw. There is no race condition here. If `assignTask` fails in a `finish post`, the cause is something else: the target transition ID is wrong, the arc structure does not deliver a token to that place, or an earlier `async.run` block in the same action threw an exception and prevented subsequent blocks from running (see §7 async.run isolation warning).
+
 #### External API call with result stored back
 
 ```groovy
@@ -2541,8 +2545,6 @@ The `taskRef` field embeds a specific transition's form — but that transition 
 > ⚠️ Always use `async.run` for `assignTask`/`finishTask` inside case events — calling them synchronously during case creation causes concurrency conflicts.
 
 The net must have a place with a token that enables `form_task` at case creation time (e.g. place `p_form` with `tokens=1` feeding into `form_task`).
-
-> ⚠️ **Do not add a `caseEvents create` bootstrap if the task is already permanently alive via a `read` arc.** If the `taskRef`-source form task is connected to its place via a `read` arc (Pattern 16), it is always enabled and the `taskRef` panel will render without any `assignTask`/`finishTask` bootstrap. Adding a `caseEvents create post` action to fire that task is redundant — it executes `assignTask` + `finishTask` on a task whose state the engine already manages correctly, producing no benefit. Only use the `caseEvents create post` bootstrap for tasks that need to fire once and complete (e.g. to pre-fill fields), **not** for always-alive `read`-arc tasks. Adding it anyway is not just wasteful — the `// comment` pattern commonly inserted in the first line of that CDATA block will cause a compile error (see the `//` comment rule above).
 
 #### Dynamic role assignment based on routing decision
 
@@ -2765,6 +2767,23 @@ A rejected submission returns to the submitter. An arc goes backward from the re
 ```
 
 `reject_for_revision` takes the token from `reviewed` and puts it back before `submit`. Add a `revision_count` number field and increment it on each rejection.
+
+#### Loop reconvergence — correct pattern
+
+When the loop must pass through the same system task as the main flow (e.g. recalculating values after revision), route the revision arc back into the **same input place** that the main flow uses — do not create a new merge place.
+
+```
+[start:1] → [t_submit] → [p_after_submit:0] → [t_calc_sys] → [p_after_calc:0] → ...
+                                  ↑
+                         [t_revision] ──────────┘
+                         (arc from t_revision back to p_after_submit)
+```
+
+A transition with multiple incoming regular arcs fires when **any one** of them delivers a token — OR semantics, not AND. The engine does not require tokens in all input places simultaneously. The loop arc and the main flow arc can both point to the same place without creating a deadlock.
+
+> ⚠️ **Do NOT create a new merge place for reconvergence.** Adding a dedicated `p_merge` with two incoming arcs (one from main flow, one from loop) and one outgoing arc to the calc task is unnecessary — the existing `p_after_submit` already serves as the merge point.
+
+> ⚠️ **Do NOT give the shared system task two separate input places** (one from main flow, one from loop). That creates an AND-join — the transition requires tokens in *both* places simultaneously, which never happens, and the process stalls permanently after the first pass.
 
 ---
 
@@ -3133,8 +3152,12 @@ The simplest form: `<init>` contains a transition ID from the **same process**. 
 >
 > A `taskRef` renders an embedded panel only when the referenced task is currently active (its input place holds a token). If you point a `taskRef` at a task that has already fired and consumed its token — for example, referencing `manual_review` from the `case_detail` status view after `manual_review` has finished — the panel renders as blank or throws an error. The same applies to referencing the current task from within itself.
 >
+> **Mode A (`<init>transition_id</init>`):** the engine resolves the live task automatically at runtime — no manual bootstrapping via `caseEvents` is needed. The "permanently alive" requirement still applies: the referenced transition must be on a `read` arc so it remains enabled throughout the case lifetime.
+>
+> **Mode B (value set dynamically via action):** the task must already be active at the moment the `taskRef` value is written. Ensure the referenced transition has a token before the action fires.
+>
 > **Valid `taskRef` targets:**
-> - A dedicated system-role **Form task** on its own place, fed once at case creation via `caseEvents create post`, connected to that place via a `read` arc so it is always enabled.
+> - A dedicated system-role **Form task** on its own place, connected via a `read` arc so it is always enabled.
 > - Any task connected to its place via a `read` arc (permanently alive).
 >
 > **Invalid `taskRef` targets:**
@@ -3981,69 +4004,6 @@ change status value { "Approved" }
 
 ---
 
-### Groovy: never split the import header across multiple semicolon-terminated lines
-
-A semicolon **terminates the entire import block**. If you end one line with a semicolon and then write another `variable: f.variable` declaration on the next line, the engine treats the second line as the start of the action body — those variables are undefined identifiers, causing a runtime error.
-
-This is the most subtle variant of the import rule: it looks like a formatting choice but is actually a parse error.
-
-```groovy
-// ❌ Wrong — two separate semicolon-terminated lines; second group of variables is undefined
-dept: f.routing_dept, status: f.current_status;
-gi: f.go_infra, gw: f.go_waste, ga: f.go_admin;
-
-change gi value { dept.value == "infra" ? 1 : 0 }   // ← gi, gw, ga are undefined here
-
-// ✅ Correct — all imports in one block, comma-separated, ONE semicolon at the end
-dept: f.routing_dept, status: f.current_status, gi: f.go_infra, gw: f.go_waste, ga: f.go_admin;
-
-change status value { "Review by " + dept.options[dept.value] }
-change gi value { dept.value == "infra" ? 1 : 0 }
-change gw value { dept.value == "waste" ? 1 : 0 }
-change ga value { dept.value == "admin" ? 1 : 0 }
-```
-
-**Rule:** the import block is everything from the first declaration to the **first** `;`. There is exactly one `;` in the import section — no matter how many variables you need.
-
----
-
-### Groovy: never place a `//` comment on the first or last line inside a CDATA block
-
-The Netgrif engine's action parser treats a `//` comment appearing on the **very first line** or **very last line** of the CDATA content as a compile directive. This causes the action to fail silently or throw a parse error on import — even though the comment looks harmless.
-
-```groovy
-// ❌ Wrong — comment on first line of CDATA causes compile error
-<action id="4"><![CDATA[
-    // Bootstrap the form so it is available via taskRef
-    async.run {
-        assignTask("t_form")
-        finishTask("t_form")
-    }
-]]></action>
-
-// ❌ Wrong — comment on last line of CDATA also causes compile error
-<action id="4"><![CDATA[
-    async.run {
-        assignTask("t_form")
-        finishTask("t_form")
-    }
-    // end of bootstrap
-]]></action>
-
-// ✅ Correct — comments are safe in the middle, not on the boundary lines
-<action id="4"><![CDATA[
-    async.run {
-        // Bootstrap the form so it is available via taskRef
-        assignTask("t_form")
-        finishTask("t_form")
-    }
-]]></action>
-```
-
-**Rule:** the first and last lines inside every `<![CDATA[ ... ]]>` block must be either blank or contain actual code. Move any `//` comment to an interior line or remove it entirely.
-
----
-
 ### Groovy: `replaceAll()` anchors `^` and `$` do not work as expected without flags
 
 Java/Groovy's `String.replaceAll()` runs in single-line mode by default. The `^` anchor matches only the very start of the entire string and `$` only the very end. This means patterns like `replaceAll("^```json", "")` silently do nothing when the fence is not literally the first character of the string (e.g. there is leading whitespace, or the model wrapped the response).
@@ -4191,6 +4151,35 @@ async.run {
 }
 ```
 
+**`async.run` variable scope and block isolation**
+
+Variables defined with `def` inside an `async.run` closure are local to that closure — they do not leak into the outer action scope or into other `async.run` blocks. Outer action variables (field imports from the header) are accessible inside `async.run` closures via the closure's implicit binding, but `def` locals defined inside one `async.run` are not visible in another.
+
+More critically: **a runtime exception inside any `async.run` block silently terminates that block but can prevent subsequent `async.run` blocks in the same action from executing.** Common causes include calling `assignTask`/`finishTask` on a transition whose input place has no token, or calling `findTask` on a transition that does not exist. Keep each `async.run` block independent, guard with null-checks, and ensure target transitions are enabled before calling them.
+
+```groovy
+// ❌ Dangerous — if the first async.run throws, the second may never execute
+async.run {
+   assignTask("t_system_task")   // throws if place has no token → second block blocked
+   finishTask("t_system_task")
+}
+async.run {
+   // ... this may never run
+}
+
+// ✅ Safer — guard each block independently
+async.run {
+   def t = findTask { qTask -> qTask.transitionId.eq("t_system_task").and(qTask.caseId.eq(useCase.stringId)) }
+   if (t) { assignTask("t_system_task"); finishTask("t_system_task") }
+}
+```
+
+---
+
+### Use only documented API functions
+
+LLMs frequently hallucinate plausible-looking but nonexistent methods. Every function call in an action must appear in the §4.5 reference — if it is not there, it does not exist. Common hallucinated patterns include `email.send()`, `task.complete()`, `case.update()`, `process.start()`. The correct equivalents are `sendEmail([...], subject, body)`, `finishTask(...)`, `setData(...)`, `createCase(...)` — all documented in §4.5.
+
 ---
 
 ### Groovy: cast numbers before comparison or arithmetic
@@ -4299,8 +4288,6 @@ if (useCase.dataSet.containsKey("field_id")) {
 **Actions**
 - [ ] All action `id` values are globally unique and sequential across the whole document (never restart at 1, never use placeholder values like `"N"`)
 - [ ] All action code wrapped in `<![CDATA[ … ]]>`
-- [ ] **First and last lines of every CDATA block must not be `//` comments** — the engine treats a `//` comment on the very first or very last line of a CDATA block as a compile directive and will fail the import. Move comments to interior lines or remove them.
-- [ ] **Import header has exactly one semicolon** — at the very end of the last import line. Never terminate an intermediate import line with a semicolon; variables declared after a mid-header semicolon are undefined in the body and cause runtime errors.
 - [ ] **No HTML tags or entities inside CDATA blocks** — arithmetic operators (`*`, `/`, `%`, `<`, `>`) must be plain ASCII characters. LLM output can silently transform `*` into `<em>...</em>` or `&times;`. Scan every CDATA block for `<em>`, `&times;`, `&#`, or any tag-like content that is not part of a string literal; replace with the bare operator character.
 - [ ] **Every field used anywhere in the body** (`change X`, `X.value`, `[X.value]`, `"${X.value}"`, conditions) → imported as `X: f.X`
 - [ ] **`f.field_id` never appears inside the action body** — only in the import header. Inside the body, always use the bare local variable name (`field_id.value`, not `f.field_id.value`)
